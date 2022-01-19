@@ -705,7 +705,7 @@ label {
 }
 
 .step-wizard .progress-bar {
-    background-color: var(--color-blue-dark);
+    background-color: #7f7f7f;
 }
 
 .step-wizard .step-item {
@@ -724,14 +724,12 @@ label {
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    background-color: var(--color-light);
+    background-color: #e8e7e4;
     margin-top: 16px;
-    border: 1px solid var(--color-gray);
 }
 
 .step-wizard .step-item.active:after {
-    background-color: var(--color-blue-dark);
-    border: 1px solid var(--color-blue-dark);
+    background-color: #7f7f7f;
 }
 
 .step-content{
@@ -759,6 +757,12 @@ label {
     object-fit: cover;
     object-position: center;
     font-family: 'object-fit: cover; object-position: center;';
+}
+.background-grey{
+    background-color: #f7f6f3;
+}
+.form-group label{
+    font-weight: bold;
 }
 .content-member-input .form-group {
     margin-bottom: 22px;
@@ -1292,6 +1296,7 @@ label {
     height: 49px;
     background-color: var(--color-light);
     padding: 0 20px 0 20px;
+    margin-bottom: 20px;
     font-size: 20px;
     display: flex;
     align-items: center;
@@ -1305,7 +1310,7 @@ label {
     margin-right: 16px;
 }
 .content-sidebar .sidebar-search{
-    padding: 20px 68px 20px 42px;
+    padding: 0 68px 20px 42px;
 }
 .icon-search{
     width: 22px;
@@ -1328,30 +1333,51 @@ label {
     padding-right: 0;
     text-align: center;
 }
+.sidebar-list-item{
+    padding-left: 51px;
+    padding-right: 16px;
+    margin-bottom: 20px;
+}
+.sidebar-list-item:last-child{
+    margin-bottom: 0;
+}
+.sidebar-radio-list{
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 49px;
+    padding-right: 16px;
+}
+.sidebar-radio-list-item{
+    width: 50%;
+    margin-bottom: 11px;
+}
 .sidebar-job-type{
-    padding-top: 34px;
     padding-bottom: 44px;
 }
-.sidebar-job-type-label{
+.sidebar-list-label{
     display: flex;
     align-items: center;
     font-size: 15px;
     font-weight: 500;
     padding-left: 57px;
     padding-right: 16px;
-    margin-bottom: 23px;
+    padding-bottom: 10px;
     cursor: pointer;
 }
-.sidebar-job-type-label:before{
+.sidebar-list-label:before{
     content: " ";
     width: 8px;
     height: 9px;
     background-size: contain;
     background-image: url("../img/sidebar-arrow-down-close.png");
+    transform: rotate(90deg);
     margin-right: 25px;
     background-repeat: no-repeat;
 }
-.sidebar-job-type-label.open:before{
+.sidebar-list-label.collapsed:before{
+    transform: rotate(0deg);
+}
+.sidebar-list-label.open:before{
     width: 9px;
     height: 8px;
     background-image: url("../img/sidebar-arrow-down.png");
@@ -1359,7 +1385,7 @@ label {
 .sidebar-job-type-list{
     display: none;
 }
-.sidebar-job-type-label.open + .sidebar-job-type-list{
+.sidebar-list-label.open + .sidebar-job-type-list{
     display: block;
 }
 .sidebar-job-type-list.origin-list{

@@ -90,4 +90,19 @@ class UserController extends Controller
 
         return back()->with('step', 3);
     }
+
+    public function list(Request $request)
+    {
+        $search = $request->all();
+        $search['for'] = $search['for'] ?? config("constants.tab_for.agent");
+        if ($search['for'] === config("constants.user_type.company")) {
+            return redirect()->route('company.setting', ['step' => 3]);
+        } elseif ($search['for'] === config("constants.user_type.agent")) {
+            return redirect()->route('agent.setting', ['step' => 3]);
+        } elseif ($search['for'] === config("constants.user_type.engineer")) {
+            return redirect()->route('engineer.setting', ['step' => 3]);
+        }
+        $users = User::where('user_type', '=', $search['for'])->get();
+        return view('user.list', compact('search', 'users'));
+    }
 }

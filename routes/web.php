@@ -31,7 +31,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/company/register', [CompanyController::class, 'register'])->name('company.register');
 Route::get('/agent/register', [AgentController::class, 'register'])->name('agent.register');
 Route::get('/engineer/register', [EngineerController::class, 'register'])->name('engineer.register');
-Route::get('/projects', [ProjectController::class, 'search'])->name('projects.list');
+Route::get('/projects', [ProjectController::class, 'list'])->name('projects.list');
+Route::get('/users', [UserController::class, 'list'])->name('users.list');
 Route::get('/projects/{id}', [ProjectController::class, 'detail'])->name('projects.detail');
 Route::get('/addresses', [ProjectController::class, 'addressesTree'])->name('addresses');
 

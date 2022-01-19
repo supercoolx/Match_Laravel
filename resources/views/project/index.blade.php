@@ -5,7 +5,6 @@
         <div class="container">
             <div class="content-sidebar">
                 <form method="get" action="{{ route('projects.list') }}" id="filter-form">
-                    <input type="hidden" name="list" value="{{ $search['list'] }}">
                     <input type="hidden" name="for" value="{{ $search['for'] }}">
                     <div class="sidebar-wrapper shadow">
                         <div class="sidebar-item">
@@ -30,7 +29,7 @@
                                 職種
                             </div>
                             <div class="sidebar-item-content sidebar-job-type">
-                                <div class="sidebar-job-type-label">エンジニア</div>
+                                <div class="sidebar-list-label">エンジニア</div>
                                 <div class="sidebar-job-type-list more-list">
                                     @foreach($jobTypes as $jobType)
                                         @if($jobType->more == 1)
@@ -95,16 +94,16 @@
                                 </div>
                                 <div class="sidebar-condition-list" id="industry-filter-list" style="display: none"></div>
                                 <div class="sidebar-unite-price-label">単価</div>
-                                <div class="sidebar-unite-price-list">
+                                <div class="sidebar-radio-list">
                                     @foreach(range(3, 8) as $minPriceI)
-                                        <div class="sidebar-unite-price-list-item">
+                                        <div class="sidebar-radio-list-item">
                                             <label class="checkcontainer">{{ $minPriceI }}0万円～
                                                 <input type="radio" name="minPrice" {{ $search['minPrice'] == $minPriceI * 100000 ? 'checked="checked"' : '' }} value="{{ $minPriceI * 100000 }}">
                                                 <span class="radiobtn"></span>
                                             </label>
                                         </div>
                                     @endforeach
-                                    <div class="sidebar-unite-price-list-item">
+                                    <div class="sidebar-radio-list-item">
                                         <label class="checkcontainer">指定無し
                                             <input type="radio" name="minPrice" value="0">
                                             <span class="radiobtn"></span>
@@ -119,28 +118,24 @@
                     </div>
                 </form>
             </div>
-            <div class="content-list{{ $search['list'] == config("constants.list_type.profile") ? ' content-profile-list' : ($search['list'] == config("constants.list_type.project") && $search['for'] == config("constants.tab_for.company") ? ' for-engineers' : '') }}">
+            <div class="content-list {{ $search['for'] == config("constants.tab_for.company") ? ' for-engineers' : '' }}">
                 <div class="row section-header">
                     <div class="section-tab">
-                        <div class="section-tab-item {{ $search['list'] == config("constants.list_type.project") ? 'active': '' }}" onclick="setListTypeTab('{{ config("constants.list_type.project") }}')">求人・案件一覧</div>
-                        <div class="section-tab-item {{ $search['list'] == config("constants.list_type.profile") ? 'active': '' }}" onclick="setListTypeTab('{{ config("constants.list_type.profile") }}')">掲載プロフィール一覧</div>
+                        <div class="section-tab-item active" onclick="setListTypeTab('{{ route('projects.list') }}')">求人・案件一覧</div>
+                        <div class="section-tab-item" onclick="setListTypeTab('{{ route('users.list') }}')">掲載プロフィール一覧</div>
                     </div>
                     <div class="section-tab">
                         <div class="section-tab-item {{ $search['for'] == config("constants.tab_for.agent") ? 'active': '' }}" onclick="setUserTypeTab('{{ config("constants.tab_for.agent") }}')">エージェント</div>
                         <div class="section-tab-item {{ $search['for'] == config("constants.tab_for.company") ? 'active': '' }}" onclick="setUserTypeTab('{{ config("constants.tab_for.company") }}')">企業</div>
                     </div>
-                    <div class="section-items-count">該当案件数{{ count($projects) }}件中　{{ $cnt }}件表示</div>
+                    <div class="section-items-count">該当案件数{{ count($projects) }}件中 {{ $cnt }}件表示</div>
                 </div>
                 <div class="row justify-content-center">
                     @foreach($projects as $project)
-                        @if($search['list'] == config("constants.list_type.project"))
-                            @if($search['for'] == config("constants.tab_for.agent"))
-                                @include('project.template.agent')
-                            @elseif($search['for'] == config("constants.tab_for.company"))
-                                @include('project.template.company')
-                            @endif
-                        @elseif($search['list'] == config("constants.list_type.profile"))
-                            @include('project.template.profile')
+                        @if($search['for'] == config("constants.tab_for.agent"))
+                            @include('project.template.agent')
+                        @elseif($search['for'] == config("constants.tab_for.company"))
+                            @include('project.template.company')
                         @endif
                     @endforeach
                 </div>
@@ -251,11 +246,11 @@
 
 @section('script')
     <script>
-        function setListTypeTab(listType) {
-            window.location.href = '{{ route('projects.list') }}?list=' + listType
+        function setListTypeTab(url) {
+            window.location.href = url;
         }
         function setUserTypeTab(userType) {
-            window.location.href = '{{ route('projects.list') }}?list={{ $search['list'] }}&for=' + userType
+            window.location.href = '{{ route('projects.list') }}?for=' + userType
         }
         function applyAddressFilter() {
             $('#addressesModal').modal('hide');
@@ -318,7 +313,7 @@
         $(document).ready(function () {
             addCheckedAddressesToSidebar();
             addCheckedIndustriesToSidebar();
-            $('.sidebar-job-type-label').click(function (e) {
+            $('.sidebar-list-label').click(function (e) {
                 $(this).toggleClass('open');
             });
             $('#addressesModal input[name="addresses[]"]').change(function () {

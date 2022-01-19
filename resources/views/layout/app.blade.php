@@ -19,7 +19,7 @@
     <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/css/basic.min.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/css/public.css') }}">
     <link rel="stylesheet" href="{{ static_asset('assets/css/toastr.min.css') }}">
-
+    @yield('style')
     <script src="{{ static_asset('assets/js/jquery.min.js') }}"></script>
 </head>
 <body>

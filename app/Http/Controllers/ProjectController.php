@@ -189,9 +189,8 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function search(Request $request){
+    public function list(Request $request){
         $search = $request->all();
-        $search['list'] = $search['list'] ?? config("constants.list_type.project");
         $search['for'] = $search['for'] ?? config("constants.tab_for.agent");
         $search['jobType'] = $search['jobType'] ?? [];
         $search['contractType'] = $search['contractType'] ?? [];

@@ -32,7 +32,7 @@
         <div class="preview-label">
             <label>単価</label>
         </div>
-        <div class="preview-value">{{ $project->price_min }}　～　{{ $project->price_max }} / 月</div>
+        <div class="preview-value">{{ $project->price_min }} ～ {{ $project->price_max }} / 月</div>
     </div>
     <div class="input-preview">
         <div class="preview-label">
@@ -74,7 +74,7 @@
         <div class="preview-label">
             <label>勤務地</label>
         </div>
-        <div class="preview-value">{{ $project->work_location }}</div>
+        <div class="preview-value">{{ $project->address->name }}</div>
     </div>
     <div class="input-preview">
         <div class="preview-label">

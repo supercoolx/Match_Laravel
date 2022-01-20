@@ -27,6 +27,4 @@ class Address extends Model
 {
     use HasFactory;
 
-    public function user() {
-    }
 }

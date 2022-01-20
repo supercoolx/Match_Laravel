@@ -228,7 +228,7 @@ class ProjectController extends Controller
             $projects = $projects->whereIn('industry', $search['industries']);
         }
         if ($search['addresses']) {
-            //$projects = $projects->whereIn('work_location', $search['addresses']);
+            $projects = $projects->whereIn('work_location', $search['addresses']);
         }
         if ($search['minPrice']) {
             $projects = $projects->where(function($query) use ($search) {
@@ -259,7 +259,7 @@ class ProjectController extends Controller
     }
 
     public function detail(Request $request, $id) {
-        $project = Project::where('id', $id)->with('user', 'jobType', 'industries', 'weeks', 'contractType')->first();
+        $project = Project::where('id', $id)->with('user', 'jobType', 'industries', 'address', 'weeks', 'contractType')->first();
         if (!$project) {
             abort(404);
         }

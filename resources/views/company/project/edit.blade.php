@@ -25,14 +25,13 @@
                                 <div class="form-group row">
                                     <label for="caseName" class="col-sm-4 col-form-label">募集タイトル</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control{{ $errors->has('caseName') ? ' is-invalid' : '' }}" value="{{ $project->name }}" id="caseName" name="caseName" required autofocus>
+                                        <input type="text" class="form-control{{ $errors->has('caseName') ? ' is-invalid' : '' }}" value="{{ $project->name }}" id="caseName" name="caseName" placeholder="募集タイトルを入力" required autofocus>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="jobType" class="col-sm-4 col-form-label">職種</label>
                                     <div class="col-sm-7">
                                         <select class="form-control{{ $errors->has('jobType') ? ' is-invalid' : '' }}" id="jobType" name="jobType" required>
-                                            <option></option>
                                             @foreach($jobTypes as $jobType)
                                                 <option value="{{ $jobType->id }}"{{ $jobType->id == $project->job_type ? ' selected' : '' }}>{{ $jobType->name }}</option>
                                             @endforeach
@@ -43,7 +42,6 @@
                                     <label for="industry" class="col-sm-4 col-form-label">業界</label>
                                     <div class="col-sm-7">
                                         <select class="form-control{{ $errors->has('industry') ? ' is-invalid' : '' }}" id="industry" name="industry" required>
-                                            <option></option>
                                             @foreach($industries as $industry)
                                                 <option value="{{ $industry->id }}"{{ $industry->id == $project->industry ? ' selected' : '' }}>{{ $industry->name }}</option>
                                             @endforeach
@@ -86,11 +84,11 @@
                                     <label for="unitPriceMin" class="col-sm-4 col-form-label">単価</label>
                                     <div class="col-sm-6 unite-price-range">
                                         <div>
-                                            <input type="text" class="form-control{{ $errors->has('unitPriceMin') ? ' is-invalid' : '' }}" value="{{ $project->price_min }}" id="unitPriceMin" name="unitPriceMin" min="0" required data-parsley-type="number">
+                                            <input type="text" class="form-control{{ $errors->has('unitPriceMin') ? ' is-invalid' : '' }}" value="{{ $project->price_min }}" id="unitPriceMin" name="unitPriceMin" min="0" placeholder="単価を入力" required data-parsley-type="number">
                                         </div>
                                         <span>～</span>
                                         <div>
-                                            <input type="text" class="form-control{{ $errors->has('unitPriceMax') ? ' is-invalid' : '' }}" value="{{ $project->price_max }}" id="unitPriceMax" name="unitPriceMax" min="0" required data-parsley-type="number">
+                                            <input type="text" class="form-control{{ $errors->has('unitPriceMax') ? ' is-invalid' : '' }}" value="{{ $project->price_max }}" id="unitPriceMax" name="unitPriceMax" min="0" placeholder="単価を入力" required data-parsley-type="number">
                                         </div>
                                         <span class="unit">円</span>
                                     </div>
@@ -98,43 +96,47 @@
                                 <div class="form-group row">
                                     <label for="jobContent" class="col-sm-4 col-form-label">職務内容</label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control{{ $errors->has('jobContent') ? ' is-invalid' : '' }}" id="jobContent" name="jobContent" rows="8" required>{{ $project->content }}</textarea>
+                                        <textarea class="form-control{{ $errors->has('jobContent') ? ' is-invalid' : '' }}" id="jobContent" name="jobContent" rows="8" placeholder="職務内容を入力" required>{{ $project->content }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="requiredSkills" class="col-sm-4 col-form-label">必須スキル</label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control{{ $errors->has('requiredSkills') ? ' is-invalid' : '' }}" id="requiredSkills" name="requiredSkills" rows="8" required>{{ $project->required_skills }}</textarea>
+                                        <textarea class="form-control{{ $errors->has('requiredSkills') ? ' is-invalid' : '' }}" id="requiredSkills" name="requiredSkills" rows="8" placeholder="必須スキルを入力" required>{{ $project->required_skills }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="applicableSkills" class="col-sm-4 col-form-label">尚可スキル</label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control{{ $errors->has('applicableSkills') ? ' is-invalid' : '' }}" id="applicableSkills" name="applicableSkills" rows="8" required>{{ $project->applicable_skills }}</textarea>
+                                        <textarea class="form-control{{ $errors->has('applicableSkills') ? ' is-invalid' : '' }}" id="applicableSkills" name="applicableSkills" rows="8" placeholder="尚可スキルを入力" required>{{ $project->applicable_skills }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="requiredPerson" class="col-sm-4 col-form-label">求める人物像</label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control{{ $errors->has('requiredPerson') ? ' is-invalid' : '' }}" id="requiredPerson" name="requiredPerson" rows="8" required>{{ $project->required_person }}</textarea>
+                                        <textarea class="form-control{{ $errors->has('requiredPerson') ? ' is-invalid' : '' }}" id="requiredPerson" name="requiredPerson" rows="8" placeholder="求める人物像を入力" required>{{ $project->required_person }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="teamStructure" class="col-sm-4 col-form-label">チーム体制</label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control{{ $errors->has('teamStructure') ? ' is-invalid' : '' }}" id="teamStructure" name="teamStructure" rows="8" required>{{ $project->team_structure }}</textarea>
+                                        <textarea class="form-control{{ $errors->has('teamStructure') ? ' is-invalid' : '' }}" id="teamStructure" name="teamStructure" rows="8" placeholder="チーム体制を入力" required>{{ $project->team_structure }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="gainedSkills" class="col-sm-4 col-form-label">得られるスキル</label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control{{ $errors->has('gainedSkills') ? ' is-invalid' : '' }}" id="gainedSkills" name="gainedSkills" rows="8" required>{{ $project->gained_skills }}</textarea>
+                                        <textarea class="form-control{{ $errors->has('gainedSkills') ? ' is-invalid' : '' }}" id="gainedSkills" name="gainedSkills" rows="8" placeholder="得られるスキルを入力" required>{{ $project->gained_skills }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="workLocation" class="col-sm-4 col-form-label">勤務地</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control{{ $errors->has('workLocation') ? ' is-invalid' : '' }}" value="{{ $project->work_location }}" id="workLocation" name="workLocation" required>
+                                        <select class="form-control{{ $errors->has('workLocation') ? ' is-invalid' : '' }}" id="workLocation" name="workLocation" required>
+                                            @foreach($addresses as $address)
+                                                <option value="{{ $address->id }}" {{ $address->id == $project->work_location ? 'selected' : '' }}>{{ $address->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -143,7 +145,6 @@
                                         <div class="d-flex">
                                             <div>
                                                 <select class="form-control{{ $errors->has('interviews') ? ' is-invalid' : '' }}" id="interviews" name="interviews" required>
-                                                    <option></option>
                                                     @foreach(range(1,3) as $interview)
                                                         <option value="{{ $interview }}"{{ $interview == $project->interviews ? ' selected' : '' }}>{{ $interview }}</option>
                                                     @endforeach
@@ -156,7 +157,7 @@
                                 <div class="form-group row">
                                     <label for="openStartDate" class="col-sm-4 col-form-label">作業開始日</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control{{ $errors->has('startDate') ? ' is-invalid' : '' }}" value="{{ $project->start_date }}" id="openStartDate" name="startDate" required>
+                                        <input type="text" class="form-control{{ $errors->has('startDate') ? ' is-invalid' : '' }}" value="{{ $project->start_date }}" id="openStartDate" name="startDate" placeholder="作業開始日を入力" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -164,11 +165,11 @@
                                     <div class="col-sm-7 ">
                                         <div class="start-end-time">
                                             <div>
-                                                <input type="text" class="time-mask form-control{{ $errors->has('startTime') ? ' is-invalid' : '' }}" value="{{ $project->start_time }}" id="startTime" name="startTime" required>
+                                                <input type="text" class="time-mask form-control{{ $errors->has('startTime') ? ' is-invalid' : '' }}" value="{{ $project->start_time }}" id="startTime" name="startTime" placeholder="始業時間を入力" required>
                                             </div>
                                             <span>～</span>
                                             <div>
-                                                <input type="text" class="time-mask form-control{{ $errors->has('endTime') ? ' is-invalid' : '' }}" value="{{ $project->end_time }}" id="endTime" name="endTime" required>
+                                                <input type="text" class="time-mask form-control{{ $errors->has('endTime') ? ' is-invalid' : '' }}" value="{{ $project->end_time }}" id="endTime" name="endTime" placeholder="終業時間を入力" required>
                                             </div>
                                         </div>
                                         <span class="invalid-feedback" role="alert">
@@ -181,11 +182,11 @@
                                     <div class="col-sm-7">
                                         <div class="start-end-time">
                                             <div>
-                                                <input type="number" class="form-control{{ $errors->has('averageUptimeStart') ? ' is-invalid' : '' }}" value="{{ $project->uptime_min }}" id="averageUptimeStart" name="averageUptimeStart">
+                                                <input type="number" class="form-control{{ $errors->has('averageUptimeStart') ? ' is-invalid' : '' }}" value="{{ $project->uptime_min }}" id="averageUptimeStart" name="averageUptimeStart" placeholder="下限時間を入力" required>
                                             </div>
                                             <span>～</span>
                                             <div>
-                                                <input type="number" class="form-control{{ $errors->has('averageUptimeEnd') ? ' is-invalid' : '' }}" value="{{ $project->uptime_max }}" id="averageUptimeEnd" name="averageUptimeEnd">
+                                                <input type="number" class="form-control{{ $errors->has('averageUptimeEnd') ? ' is-invalid' : '' }}" value="{{ $project->uptime_max }}" id="averageUptimeEnd" name="averageUptimeEnd" placeholder="上限時間を入力" required>
                                             </div>
                                         </div>
                                         <span class="invalid-feedback" role="alert">
@@ -232,7 +233,7 @@
                                 <div class="form-group row">
                                     <label for="comment" class="col-sm-4 col-form-label">コメント</label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control{{ $errors->has('comment') ? ' is-invalid' : '' }}" id="comment" name="comment" rows="8" required>{{ $project->comment }}</textarea>
+                                        <textarea class="form-control{{ $errors->has('comment') ? ' is-invalid' : '' }}" id="comment" name="comment" rows="8" placeholder="コメントを入力" required>{{ $project->comment }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -316,7 +317,7 @@
                                 <div class="col-sm-5 preview-label">
                                     <label>勤務地</label>
                                 </div>
-                                <div class="col-sm-7 preview-value" data-for="workLocation">{{ $project->work_location }}</div>
+                                <div class="col-sm-7 preview-value" data-for="workLocation">{{ $project->address->name }}</div>
                             </div>
                             <div class="input-preview row">
                                 <div class="col-sm-5 preview-label">
@@ -396,6 +397,11 @@
             "{{ $industry->id }}": "{{ $industry->name }}",
             @endforeach
         };
+        const addresses = {
+            @foreach($addresses as $address)
+            "{{ $address->id }}": "{{ $address->name }}",
+            @endforeach
+        }
         const weeks = {
             @foreach($weeks as $week)
             "{{ $week->id }}": "{{ $week->name }}",
@@ -545,7 +551,7 @@
                 e.preventDefault();
                 const validOthers = validateOthers();
                 if (parsleyInstance.validate() && validOthers) {
-                    $('[data-for="unitePrice"]').text($('#unitPriceMin').val() + '　～　' + $('#unitPriceMax').val() + ' / 月');
+                    $('[data-for="unitePrice"]').text($('#unitPriceMin').val() + ' ～ ' + $('#unitPriceMax').val() + ' / 月');
                     $('[data-for="startEndTime"]').text($('#startTime').val() + '時  ～  ' + $('#endTime').val() + '時');
                     $('[data-for="averageUptimeStartEnd"]').text($('#averageUptimeStart').val() + 'h  ～  ' + $('#averageUptimeEnd').val() + 'h');
                     $('[data-for="openStartDate"]').text($('#openStartDate').val());
@@ -556,6 +562,7 @@
                     $('[data-for="interviews"]').text($('#interviews').val() + ' 回');
                     $('button.job-type').text(jobTypes[$('#jobType').val()]);
                     $('button.job-industry').text(industries[$('#industry').val()]);
+                    $('[data-for="workLocation"]').text(addresses[$('#workLocation').val()]);
                     setStep(2);
                     // if(checkImageFile(inputImage.attr('id'))) {
                     // } else {
@@ -576,7 +583,7 @@
             //     console.log($(this).data('step'));
             //     setStep($(this).data('step'));
             // });
-            form.on('input', 'input.form-control, select.form-control, textarea.form-control', function (e) {
+            form.on('input', 'input.form-control, textarea.form-control', function (e) {
                 $(this).parents('.form-group').find('.invalid-feedback strong').text('');
                 const domID = $(this).attr('id');
                 const inputVal = $(this).val();

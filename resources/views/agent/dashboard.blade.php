@@ -8,7 +8,7 @@
                     <div class="col-md-12 text-center">
                         <h1>管理している求人・案件一覧</h1>
                         <div class="section-header-divider"></div>
-                        <p>該当案件数{{ count($projects) }}件中　{{ count($projects) }}件を表示</p>
+                        <p>該当案件数{{ count($projects) }}件中 {{ count($projects) }}件を表示</p>
                     </div>
                 </div>
                 <div class="row justify-content-center">
@@ -20,7 +20,7 @@
                                 <span class="job-day">週 {{ $project->weeks->name }}</span>
                             </div>
                             <h2>{{ $project->name }}</h2>
-                            <h3>{{ $project->price_min }}　～　{{ $project->price_max }} / 月</h3>
+                            <h3>{{ $project->price_min }} ～ {{ $project->price_max }} / 月</h3>
                             <div class="divider"></div>
                             <p>{{ $project->content }}</p>
                             <div class="publisher">

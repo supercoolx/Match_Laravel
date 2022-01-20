@@ -41,15 +41,13 @@ body {
 
 .form-control {
     border: 1px solid var(--color-gray);
-    font-size: 12px;
+    font-size: 15px;
     padding-left: 31px;
     height: 39px;
+    border: none;
 }
 .col-form-label{
     font-size: 18px;
-}
-label {
-
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
@@ -204,10 +202,6 @@ label {
 
 .select2-container--default .select2-results__option[aria-selected=true], .select2-results__option.select2-results__option--highlighted {
     background-color: var(--color-white);
-}
-
-.select2-container--default .select2-results__option[aria-selected=true]::before {
-
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
@@ -488,7 +482,7 @@ label {
 
 /* Header */
 .site-wrapper .site-header {
-    padding: 20px 5px;
+    padding: 5px 5px;
 }
 
 .site-wrapper .site-header .navbar {
@@ -627,6 +621,7 @@ label {
 /* Content Section */
 .content-section {
     min-height: calc(100vh - 280px);
+    background-color: #f7f6f3;
 }
 
 /* Footer section */
@@ -685,8 +680,6 @@ label {
     margin-bottom: 39px;
 }
 
-.content-member-input .step-wizard {
-}
 .content-step-wizard{
     width: 100%;
     position: relative;
@@ -757,9 +750,6 @@ label {
     object-fit: cover;
     object-position: center;
     font-family: 'object-fit: cover; object-position: center;';
-}
-.background-grey{
-    background-color: #f7f6f3;
 }
 .form-group label{
     font-weight: bold;
@@ -1077,7 +1067,10 @@ label {
 .content-case-entry textarea{
     min-height: 163px;
 }
-.content-case-entry #workLocation, .content-case-entry #interviews, .content-case-entry #openStartDate{
+.content-case-entry #workLocation{
+    width: 324px;
+}
+.content-case-entry #interviews, .content-case-entry #openStartDate{
     width: 194px;
 }
 .interviews-unit{
@@ -1089,7 +1082,7 @@ label {
     align-items: center;
 }
 .start-end-time input{
-    width: 84px;
+    width: 184px;
 }
 .start-end-time div:first-child + span{
     font-size: 18px;
@@ -1193,9 +1186,6 @@ label {
 .content-case-entry.for-company .image-upload-preview span{
     margin-top: 0;
     color: var(--color-gray-dark);
-}
-.content-case-entry.for-company .img-thumbnail-preview{
-
 }
 .content-case-entry.for-company .img-thumbnail-preview img{
     width: 100%;
@@ -1560,9 +1550,6 @@ label {
     border-radius: 50%;
     background: var(--color-blue);
 }
-.sidebar-apply-filter{
-
-}
 .sidebar-apply-filter .btn{
     width: 199px;
 }
@@ -1640,10 +1627,6 @@ label {
     margin-top: 29px;
 }
 
-.content-member-input.for-companies{}
-.content-member-input.for-companies .avatar-picker{
-    /*padding-bottom: 48px;*/
-}
 .content-member-input.for-companies .member-input-btn{
     margin-top: 53px;
 }
@@ -1791,8 +1774,6 @@ label {
 }
 .chat-sidebar .my-chat, .chat-sidebar ul .chat-user{
     color: var(--color-gray);
-}
-.chat-sidebar .my-chat{
 }
 .chat-sidebar ul{
     margin-top: 5px;
@@ -2485,8 +2466,6 @@ label {
 #p-experience{
     min-width: 360px;
 }
-.applicant-profile-preview .experience-title-preview{
-}
 .applicant-profile-preview .experience-title-preview span{
     border-bottom: 1px solid var(--color-gray);
     padding-bottom: 3px;
@@ -2830,9 +2809,6 @@ h5.modal-title{
     padding-top: 8px;
     padding-bottom: 8px;
     border-bottom: 1px solid var(--color-gray-light);
-}
-#addressesModal .checkbox-addresses:not(.level-4-addresses):first-child{
-    /*border-top: 1px solid var(--color-gray-light);*/
 }
 #addresses-tab-content{
     width: 100%;

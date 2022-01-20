@@ -13,7 +13,7 @@
                     <div class="contact-copyright">
                         <div class="footer-contact">
                             <p>〒104-0061</p>
-                            <p>東京都中央区銀座一丁目22番11号　銀座大竹ビジデンス2階</p>
+                            <p>東京都中央区銀座一丁目22番11号 銀座大竹ビジデンス2階</p>
                             <p>電話番号:03-6680-8680</p>
                         </div>
                         <div class="footer-divider"></div>

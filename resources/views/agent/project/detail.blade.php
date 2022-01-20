@@ -12,7 +12,7 @@
                                 <button class="btn job-type">{{ $project->jobType->name }}</button>
                                 <button class="btn job-industry">{{ $project->industries->name }}</button>
                             </div>
-                            <h3 class="text-center">{{ $project->price_min }}　～　{{ $project->price_max }} / 月</h3>
+                            <h3 class="text-center">{{ $project->price_min }} ～ {{ $project->price_max }} / 月</h3>
                         </div>
                         <div class="input-preview">
                             <div class="preview-label">
@@ -66,7 +66,7 @@
                             <div class="preview-label">
                                 <label>勤務地</label>
                             </div>
-                            <div class="preview-value">{{ $project->work_location }}</div>
+                            <div class="preview-value">{{ $project->address->name }}</div>
                         </div>
                         <div class="input-preview">
                             <div class="preview-label">

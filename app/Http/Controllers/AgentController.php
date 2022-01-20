@@ -34,8 +34,9 @@ class AgentController extends Controller
         $weeks = Week::all();
         $contractTypes = ContractType::all();
         $agent = Auth::user();
+        $addresses = AddressController::getAddresses();
 
-        return view("agent.project.create", compact('jobTypes','industries', 'weeks', 'contractTypes', 'agent'));
+        return view("agent.project.create", compact('jobTypes','industries', 'addresses', 'weeks', 'contractTypes', 'agent'));
     }
 
     public function projectDetail(Request $request, $id) {

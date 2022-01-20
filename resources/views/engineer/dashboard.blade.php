@@ -15,7 +15,7 @@
                     <div class="col-md-12 text-center">
                         <h1>管理している求人・案件一覧</h1>
                         <div class="section-header-divider"></div>
-                        <p>該当案件数{{ count($projects) }}件中　{{ $cnt }}件表示</p>
+                        <p>該当案件数{{ count($projects) }}件中 {{ $cnt }}件表示</p>
                     </div>
                 </div>
                 <div class="content-list">

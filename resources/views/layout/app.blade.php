@@ -6,7 +6,7 @@
     <meta name="app-url" content="{{ getBaseURL() }}">
     <meta name="file-base-url" content="{{ getFileBaseURL() }}">
     <link rel="shortcut icon" href="{{ static_asset('favicon.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ static_asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ static_asset('favicon.png') }}" type="image/x-icon">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>プラットフォーム</title>
     <meta name="description" content="プラットフォーム">
@@ -18,6 +18,7 @@
     <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/css/dropzone.min.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/css/basic.min.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/css/public.css') }}">
+    <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/lib/fontawesome/css/all.css') }}">
     <link rel="stylesheet" href="{{ static_asset('assets/css/toastr.min.css') }}">
     @yield('style')
     <script src="{{ static_asset('assets/js/jquery.min.js') }}"></script>

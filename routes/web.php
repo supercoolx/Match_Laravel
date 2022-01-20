@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ChatController;
@@ -23,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/test', [AddressController::class, 'test']);
 Auth::routes();
 Route::post('/admin/login', [LoginController::class, 'admin_login'])->name('admin.login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

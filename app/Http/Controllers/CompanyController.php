@@ -34,8 +34,9 @@ class CompanyController extends Controller
         $weeks = Week::all();
         $contractTypes = ContractType::all();
         $company = Auth::user();
+        $addresses = AddressController::getAddresses();
 
-        return view("company.project.create", compact('jobTypes','industries', 'weeks', 'contractTypes', 'company'));
+        return view("company.project.create", compact('jobTypes','industries', 'weeks', 'contractTypes', 'company', 'addresses'));
     }
 
     public function projectDetail(Request $request, $id) {
@@ -57,7 +58,7 @@ class CompanyController extends Controller
         $industries = Industry::all();
         $weeks = Week::all();
         $contractTypes = ContractType::all();
-
-        return view("company.project.edit", compact('project', 'jobTypes', 'industries', 'weeks', 'contractTypes', 'company'));
+        $addresses = AddressController::getAddresses();
+        return view("company.project.edit", compact('project', 'jobTypes', 'industries', 'weeks', 'contractTypes', 'company', 'addresses'));
     }
 }

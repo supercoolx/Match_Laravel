@@ -4,7 +4,7 @@
     <div id="focus"></div>
     <section class="content-section">
         <div class="row">
-            <div class="col-md-6 background-grey">
+            <div class="col-md-6">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-2"></div>
@@ -187,9 +187,6 @@
   display:none;
   box-sizing:border-box;
 }
-.form-control{
-    border: none;
-}
 .form-control:focus{
     box-shadow: none;
 }
@@ -197,6 +194,7 @@ div.side-image{
     background-image: url("{{static_asset('assets/img/register/step1.png')}}");
     background-size: contain;
     background-repeat: no-repeat;
+    background-color: white;
 }
 </style>
 @endsection

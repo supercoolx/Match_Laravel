@@ -145,6 +145,11 @@ class Project extends Model
         return $this->belongsTo(Industry::class, 'industry', 'id');
     }
 
+    public function address()
+    {
+        return $this->belongsTo(Address::class, 'work_location', 'id');
+    }
+
     public function weeks()
     {
         return $this->belongsTo(Week::class, 'week', 'id');

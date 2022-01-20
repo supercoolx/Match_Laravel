@@ -1,0 +1,22 @@
+#focus{
+    border:3px solid #fef6fb;
+    box-shadow:0 0 10px 0 #e8e7e4;
+    position:absolute;
+    transition:
+        width .2s ease, 
+        height .2s ease, 
+        left .2s ease, 
+        top .2s ease, 
+        border-radius .2s ease;
+    z-index:5;
+    display:none;
+    box-sizing:border-box;
+}
+.form-control:focus{
+    box-shadow: none;
+}
+div.side-image{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: white;
+}

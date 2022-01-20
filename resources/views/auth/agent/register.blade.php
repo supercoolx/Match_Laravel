@@ -1,7 +1,6 @@
 @extends('layout.app')
 
 @section('content')
-    <div id="focus"></div>
     <section class="content-section">
         <div class="row">
             <div class="col-md-6">
@@ -173,31 +172,7 @@
 @endsection
 
 @section('style')
-<style>
-#focus{
-  border:3px solid #fef6fb;
-  box-shadow:0 0 10px 0 #e8e7e4;
-  position:absolute;
-  transition:
-    width .2s ease, 
-    height .2s ease, 
-    left .2s ease, 
-    top .2s ease, 
-    border-radius .2s ease;
-  z-index:5;
-  display:none;
-  box-sizing:border-box;
-}
-.form-control:focus{
-    box-shadow: none;
-}
-div.side-image{
-    background-image: url("{{static_asset('assets/img/register/step1.png')}}");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: white;
-}
-</style>
+    <link rel="stylesheet" href="{{ static_asset('assets/lib/custom-focus-input/style.css') }}">
 @endsection
 
 @section('script')
@@ -251,6 +226,7 @@ div.side-image{
             return avatarPath && avatarPath.length > 0;
         }
         $(document).ready(function () {
+            $('div.side-image').css('background-image', 'url("{{static_asset('assets/img/register/step1.png')}}")');
             var form = $('#form');
             var elPhone = document.getElementById('phone');
             var maskPhone = IMask(elPhone, {
@@ -307,45 +283,6 @@ div.side-image{
                 }
             });
         });
-
-        const FOCUS = $("#focus"); // focus element
-
-        // function for positioning the div
-        function position(e) {
-        // get position
-            var props = {
-                top: e.offset().top,
-                left: e.offset().left,
-                width: e.outerWidth(),
-                height: e.outerHeight(),
-                radius: parseInt(e.css("border-radius"))
-            };
-            
-            // set position
-            FOCUS.css({
-                top: props.top,
-                left: props.left,
-                width: props.width,
-                height: props.height,
-                "border-radius": props.radius
-            });
-            
-            FOCUS.fadeIn(200);
-        }
-
-        $('input').each(function(i) {
-            $(this).focus(function() {
-                el = $(this);
-                position(el);
-            });
-        });
-
-        $('input').on("focusout", function(e) {
-            setTimeout(function() {
-                if (!(document.activeElement instanceof HTMLInputElement)) {
-                    FOCUS.fadeOut(200);
-                }
-            }, 0);
-        });
     </script>
+    <script src="{{ static_asset('assets/lib/custom-focus-input/script.js') }}"></script>
 @endsection

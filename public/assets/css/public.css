@@ -495,10 +495,6 @@ body {
     margin: 0;
 }
 
-.site-wrapper .site-header .navbar .navbar-brand img {
-    height: 56px;
-}
-
 .site-wrapper .site-header .navbar .navbar-nav {
     display: flex;
     align-items: center;
@@ -634,7 +630,7 @@ body {
 }
 
 .site-wrapper .footer-section .footer-logo img {
-    height: 112px;
+    margin-top: 16px;
 }
 
 .site-wrapper .footer-section .contact-copyright {
@@ -864,7 +860,7 @@ body {
 
 /* Project List */
 .section-header {
-    margin-top: 71px;
+    padding-top: 71px;
 }
 
 .section-header h1 {

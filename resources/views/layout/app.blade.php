@@ -27,7 +27,9 @@
 
 <div class="site-wrapper">
     <!-- Header -->
-    @include('inc.nav')
+    @auth
+        @include('inc.nav')
+    @endauth
 
     @yield('content')
 

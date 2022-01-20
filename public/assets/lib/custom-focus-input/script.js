@@ -1,7 +1,7 @@
 var FOCUS; // focus element
 
 $(document).ready(function() {
-    $('.site-wrapper').append('<div id="focus"></div>');
+    $('.site-wrapper').prepend('<div id="focus"></div>');
     FOCUS = $("#focus");
 });
 

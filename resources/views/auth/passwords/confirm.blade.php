@@ -9,7 +9,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="password">パスワード</label>
-                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="password" placeholder="" autofocus required autocomplete="current-password">
+                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="password" placeholder=""  required autocomplete="current-password">
                             @if ($errors->has('password'))
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('password') }}</strong>

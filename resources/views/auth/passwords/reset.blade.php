@@ -11,7 +11,7 @@
                         <input type="hidden" name="email" value='{{ $email }}'>
                         <div class="form-group">
                             <label for="password">新しいパスワード</label>
-                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="password" placeholder="" autofocus required autocomplete="new-password">
+                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="password" placeholder=""  required autocomplete="new-password">
                             @if ($errors->has('password'))
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('password') }}</strong>

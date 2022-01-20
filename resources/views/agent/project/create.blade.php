@@ -22,7 +22,7 @@
                                 <div class="form-group row">
                                     <label for="caseName" class="col-sm-4 col-form-label">案件名</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control{{ $errors->has('caseName') ? ' is-invalid' : '' }}" value="{{ old('caseName') }}" id="caseName" name="caseName" placeholder="募集タイトルを入力" required autofocus>
+                                        <input type="text" class="form-control{{ $errors->has('caseName') ? ' is-invalid' : '' }}" value="{{ old('caseName') }}" id="caseName" name="caseName" placeholder="募集タイトルを入力" required >
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -259,7 +259,7 @@
                                     <button class="btn job-type">職種</button>
                                     <button class="btn job-industry">業界</button>
                                 </div>
-                                <h3 class="text-center" data-for="unitePrice">{{ old('unitPriceMin') }} ～ {{ old('unitPriceMax') }} / 月</h3>
+                                <h3 class="text-center" data-for="unitPrice">{{ old('unitPriceMin') }} ～ {{ old('unitPriceMax') }} / 月</h3>
                             </div>
                             <div class="input-preview row">
                                 <div class="col-sm-5 preview-label">
@@ -542,7 +542,7 @@
                 e.preventDefault();
                 const validOthers = validateOthers();
                 if (parsleyInstance.validate() && validOthers) {
-                    $('[data-for="unitePrice"]').text($('#unitPriceMin').val() + ' ～ ' + $('#unitPriceMax').val() + ' / 月');
+                    $('[data-for="unitPrice"]').text($('#unitPriceMin').val() + ' ～ ' + $('#unitPriceMax').val() + ' / 月');
                     $('[data-for="startEndTime"]').text($('#startTime').val() + '時  ～  ' + $('#endTime').val() + '時');
                     $('[data-for="averageUptimeStartEnd"]').text($('#averageUptimeStart').val() + 'h  ～  ' + $('#averageUptimeEnd').val() + 'h');
                     $('[data-for="openStartDate"]').text($('#openStartDate').val());

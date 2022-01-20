@@ -36,7 +36,7 @@ class CompanyController extends Controller
         $company = Auth::user();
         $addresses = AddressController::getAddresses();
 
-        return view("company.project.create", compact('jobTypes','industries', 'weeks', 'contractTypes', 'company', 'addresses'));
+        return view("project.edit", compact('jobTypes','industries', 'weeks', 'contractTypes', 'company', 'addresses'));
     }
 
     public function projectDetail(Request $request, $id) {
@@ -45,7 +45,7 @@ class CompanyController extends Controller
         if (!$project) {
             abort(404);
         }
-        return view("company.project.detail", compact('project'));
+        return view("project.detail", compact('project'));
     }
 
     public function editProject(Request $request, $id) {
@@ -59,6 +59,6 @@ class CompanyController extends Controller
         $weeks = Week::all();
         $contractTypes = ContractType::all();
         $addresses = AddressController::getAddresses();
-        return view("company.project.edit", compact('project', 'jobTypes', 'industries', 'weeks', 'contractTypes', 'company', 'addresses'));
+        return view("project.edit", compact('project', 'jobTypes', 'industries', 'weeks', 'contractTypes', 'company', 'addresses'));
     }
 }

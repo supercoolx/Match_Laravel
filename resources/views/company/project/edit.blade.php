@@ -25,7 +25,7 @@
                                 <div class="form-group row">
                                     <label for="caseName" class="col-sm-4 col-form-label">募集タイトル</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control{{ $errors->has('caseName') ? ' is-invalid' : '' }}" value="{{ $project->name }}" id="caseName" name="caseName" placeholder="募集タイトルを入力" required autofocus>
+                                        <input type="text" class="form-control{{ $errors->has('caseName') ? ' is-invalid' : '' }}" value="{{ $project->name }}" id="caseName" name="caseName" placeholder="募集タイトルを入力" required >
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -551,7 +551,7 @@
                 e.preventDefault();
                 const validOthers = validateOthers();
                 if (parsleyInstance.validate() && validOthers) {
-                    $('[data-for="unitePrice"]').text($('#unitPriceMin').val() + ' ～ ' + $('#unitPriceMax').val() + ' / 月');
+                    $('[data-for="unitPrice"]').text($('#unitPriceMin').val() + ' ～ ' + $('#unitPriceMax').val() + ' / 月');
                     $('[data-for="startEndTime"]').text($('#startTime').val() + '時  ～  ' + $('#endTime').val() + '時');
                     $('[data-for="averageUptimeStartEnd"]').text($('#averageUptimeStart').val() + 'h  ～  ' + $('#averageUptimeEnd').val() + 'h');
                     $('[data-for="openStartDate"]').text($('#openStartDate').val());

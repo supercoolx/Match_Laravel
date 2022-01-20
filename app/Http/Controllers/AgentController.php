@@ -36,7 +36,7 @@ class AgentController extends Controller
         $agent = Auth::user();
         $addresses = AddressController::getAddresses();
 
-        return view("agent.project.create", compact('jobTypes','industries', 'addresses', 'weeks', 'contractTypes', 'agent'));
+        return view("project.edit", compact('jobTypes','industries', 'addresses', 'weeks', 'contractTypes', 'agent'));
     }
 
     public function projectDetail(Request $request, $id) {
@@ -45,7 +45,7 @@ class AgentController extends Controller
         if (!$project) {
             abort(404);
         }
-        return view("agent.project.detail", compact('project'));
+        return view("project.detail", compact('project'));
     }
 
     public function editProject(Request $request, $id) {
@@ -60,6 +60,7 @@ class AgentController extends Controller
         $weeks = Week::all();
         $contractTypes = ContractType::all();
         $agent = Auth::user();
-        return view("agent.project.edit", compact('project', 'jobTypes','industries', 'weeks', 'contractTypes', 'agent'));
+        $addresses = AddressController::getAddresses();
+        return view("project.edit", compact('project', 'jobTypes','industries', 'addresses', 'weeks', 'contractTypes', 'agent'));
     }
 }

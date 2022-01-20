@@ -8,7 +8,6 @@
         left .2s ease, 
         top .2s ease, 
         border-radius .2s ease;
-    z-index:5;
     display:none;
     box-sizing:border-box;
 }

@@ -9,7 +9,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="email">メールアドレス</label>
-                            <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" name="email" id="email" placeholder="" required autofocus oninvalid="this.setCustomValidity('有効なメールアドレスを入力してください')">
+                            <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" name="email" id="email" placeholder="" required  oninvalid="this.setCustomValidity('有効なメールアドレスを入力してください')">
                             @if ($errors->has('email'))
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>

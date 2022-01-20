@@ -28,7 +28,7 @@
                                 <div class="form-group row">
                                     <label for="name" class="col-sm-5 col-form-label">会社名</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ $company->name }}" id="name" name="name" placeholder="Scope株式会社" autofocus required maxlength="255">
+                                        <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ $company->name }}" id="name" name="name" placeholder="Scope株式会社"  required maxlength="255">
                                         @if ($errors->has('name'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('name') }}</strong>

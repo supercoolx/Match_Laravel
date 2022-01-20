@@ -24,17 +24,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test', [AddressController::class, 'test']);
 Auth::routes();
-Route::post('/admin/login', [LoginController::class, 'admin_login'])->name('admin.login');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+Route::post('/admin/login', [LoginController::class, 'admin_login'])->name('admin.login');
+
 Route::get('/company/register', [CompanyController::class, 'register'])->name('company.register');
 Route::get('/agent/register', [AgentController::class, 'register'])->name('agent.register');
 Route::get('/engineer/register', [EngineerController::class, 'register'])->name('engineer.register');
-Route::get('/projects', [ProjectController::class, 'list'])->name('projects.list');
+
 Route::get('/users', [UserController::class, 'list'])->name('users.list');
+Route::get('/projects', [ProjectController::class, 'list'])->name('projects.list');
 Route::get('/projects/{id}', [ProjectController::class, 'detail'])->name('projects.detail');
 Route::get('/addresses', [ProjectController::class, 'addressesTree'])->name('addresses');
 
@@ -86,8 +87,6 @@ Route::group(['middleware' => ['chat']], function() {
     Route::get('/channels/{channelId}/read', [ChatController::class, 'read'])->name('chat.read');
 });
 
-Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
-
 Route::group(['middleware' => ['admin']], function() {
     Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/members/{tab_for}', [AdminController::class, 'members'])->name('admin.members');
@@ -99,5 +98,6 @@ Route::group(['middleware' => ['admin']], function() {
     Route::post('/admin/password/change', [AdminController::class, 'password'])->name('admin.password.change');
 });
 
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/terms-of-service', [TermsController::class, 'index'])->name('terms');
 Route::get('/about-the-handling-of-personal-information', [PolicyController::class, 'index'])->name('policy');

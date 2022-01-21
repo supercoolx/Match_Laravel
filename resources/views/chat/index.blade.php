@@ -79,8 +79,8 @@
             <div class="dz-error-message"><span data-dz-errormessage></span></div>
         </div>
     </script>
-    <script src="{{ static_asset('assets/js/dropzone.min.js') }}"></script>
-    <script src="{{ static_asset('assets/js/ckeditor.js') }}"></script>
+    <script src="{{ static_asset('assets/lib/dropzone.min.js') }}"></script>
+    <script src="{{ static_asset('assets/lib/ckeditor.js') }}"></script>
     <script>
         var chatEditor = null;
         ClassicEditor

@@ -45,7 +45,7 @@ class CompanyController extends Controller
         if (!$project) {
             abort(404);
         }
-        return view("project.detail", compact('project'));
+        return view("project.detail.company", compact('project'));
     }
 
     public function editProject(Request $request, $id) {

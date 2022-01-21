@@ -21,7 +21,7 @@
     <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/lib/fontawesome/css/all.css') }}">
     <link rel="stylesheet" href="{{ static_asset('assets/css/toastr.min.css') }}">
     @yield('style')
-    <script src="{{ static_asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ static_asset('assets/lib/jquery.min.js') }}"></script>
 </head>
 <body>
 
@@ -40,19 +40,19 @@
 
 
 @yield('modals')
-<script src="{{ static_asset('assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ static_asset('assets/js/popper.min.js') }}"></script>
-<script src="{{ static_asset('assets/js/bootstrap-toggle.min.js') }}"></script>
-<script src="{{ static_asset('assets/js/moment-with-locales.js') }}"></script>
-<script src="{{ static_asset('assets/js/daterangepicker.min.js') }}"></script>
-<script src="{{ static_asset('assets/js/toastr.min.js') }}" ></script>
-<script src="{{ static_asset('assets/js/imask.min.js') }}" ></script>
-<script src="{{ static_asset('assets/js/ofi.min.js') }}" ></script>
-<script src="{{ static_asset('assets/js/parsley.min.js') }}" ></script>
-<script src="{{ static_asset('assets/js/i18n/ja.js') }}" ></script>
-<script src="{{ static_asset('assets/js/i18n/ja.extra.js') }}" ></script>
+<script src="{{ static_asset('assets/lib/bootstrap.min.js') }}"></script>
+<script src="{{ static_asset('assets/lib/popper.min.js') }}"></script>
+<script src="{{ static_asset('assets/lib/bootstrap-toggle.min.js') }}"></script>
+<script src="{{ static_asset('assets/lib/moment-with-locales.js') }}"></script>
+<script src="{{ static_asset('assets/lib/daterangepicker.min.js') }}"></script>
+<script src="{{ static_asset('assets/lib/toastr.min.js') }}" ></script>
+<script src="{{ static_asset('assets/lib/imask.min.js') }}" ></script>
+<script src="{{ static_asset('assets/lib/ofi.min.js') }}" ></script>
+<script src="{{ static_asset('assets/lib/parsley.min.js') }}" ></script>
+<script src="{{ static_asset('assets/lib/i18n/ja.js') }}" ></script>
+<script src="{{ static_asset('assets/lib/i18n/ja.extra.js') }}" ></script>
 {{--<script src="{{ static_asset('assets/dist/js/app.js') }}"></script>--}}
-<script src="{{ static_asset('assets/js/main.js') }}"></script>
+<script src="{{ static_asset('assets/lib/main.js') }}"></script>
 
 @yield('script')
 

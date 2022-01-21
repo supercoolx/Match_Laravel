@@ -46,10 +46,6 @@ function checkImageFile(domId) {
 $(document).ready(function () {
     var form = $('#form');
     var parsleyInstance = form.parsley();
-    $('#openStartDate').daterangepicker({
-        singleDatePicker: true
-    }, function(start, end, label) {
-    });
     const timeFormat = 'HH';
     let elTimeMasks = document.getElementsByClassName('time-mask');
     let timeMasks = [];
@@ -103,6 +99,10 @@ $(document).ready(function () {
         }
         if(!$('input[name=week]:checked').val()){
             $('input[name=week]').parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
+            isValid = false;
+        }
+        if(!$('input[name=interviews]:checked').val()){
+            $('input[name=interviews]').parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
             isValid = false;
         }
         if(!$('input[name=onlineInterview]:checked').val()){

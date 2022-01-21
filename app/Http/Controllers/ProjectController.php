@@ -19,8 +19,7 @@ class ProjectController extends Controller
     {
         return Validator::make($data, [
             'caseName' => 'required|string|max:1023',
-            'unitPriceMin' => 'required',
-            'unitPriceMax' => 'required',
+            'unitPrice' => 'required',
             'jobType' => 'required',
             'industry' => 'required',
             'jobContent' => 'required',
@@ -48,8 +47,7 @@ class ProjectController extends Controller
     {
         $project = Project::create([
             'name' => $data['caseName'],
-            'price_min' => $data['unitPriceMin'],
-            'price_max' => $data['unitPriceMax'],
+            'price' => $data['unitPrice'],
             'job_type' => $data['jobType'],
             'industry' => $data['industry'],
             'content' => $data['jobContent'],
@@ -102,8 +100,7 @@ class ProjectController extends Controller
     protected function updateProject(Project $project, array $data)
     {
         $project->name = $data['caseName'];
-        $project->price_min = $data['unitPriceMin'];
-        $project->price_max = $data['unitPriceMax'];
+        $project->price = $data['unitPrice'];
         $project->job_type = $data['jobType'];
         $project->industry = $data['industry'];
         $project->content = $data['jobContent'];

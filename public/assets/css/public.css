@@ -48,6 +48,7 @@ body {
 }
 .col-form-label{
     font-size: 18px;
+    font-weight: bold;
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
@@ -142,6 +143,10 @@ body {
 .btn-outline:hover {
     border-color: var(--color-red);
     color: var(--color-red);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: url('../img/calendar.png') no-repeat;
 }
 
 .tooltip {
@@ -502,7 +507,7 @@ body {
 
 .site-wrapper .site-header .navbar .navbar-nav .nav-link {
     font-size: 16px;
-    color: var(--color-secondary);
+    color: var(--color-primary);
     margin-left: 20px;
 }
 
@@ -746,9 +751,6 @@ body {
     object-fit: cover;
     object-position: center;
     font-family: 'object-fit: cover; object-position: center;';
-}
-.form-group label{
-    font-weight: bold;
 }
 .content-member-input .form-group {
     margin-bottom: 22px;
@@ -1035,9 +1037,9 @@ body {
     margin-bottom: 19px;
 }
 .content-case-entry .step-content{
-    margin-top: 166px;
+    margin-top: 100px;
 }
-.content-case-entry input.form-control, .content-case-entry select.form-control{
+.content-case-entry select.form-control{
     max-width: 333px;
 }
 .unite-price-range{
@@ -1051,7 +1053,7 @@ body {
 }
 .unite-price-range div:first-child + span{
     margin-right: 10px;
-    font-size: 12px;
+    font-size: 18px;
     margin-top: 10px;
 }
 .unite-price-range #unitPriceMax{
@@ -1075,7 +1077,6 @@ body {
 }
 .start-end-time{
     display: flex;
-    align-items: center;
 }
 .start-end-time input{
     width: 184px;
@@ -1084,6 +1085,7 @@ body {
     font-size: 18px;
     margin-left: 4px;
     margin-right: 5px;
+    margin-top: 7px;
 }
 .content-case-entry .form-check-input{
     margin-right: 7px;
@@ -1105,8 +1107,7 @@ body {
     width: 329px;
 }
 .content-case-entry .image-upload{
-    width: 43px;
-    height: 36px;
+    max-width: 100%;
     cursor: pointer;
 }
 
@@ -1164,7 +1165,7 @@ body {
     margin-right: 20px;
 }
 .content-case-entry.for-company{
-    max-width: 858px;
+    max-width: 662px;
 }
 .content-case-entry.for-company .input-title-preview{
     margin-top: 166px;

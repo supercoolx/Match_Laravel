@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-center">
-                    <div class="content-case-entry item-detail for-company step2">
+                    <div class="content-case-entry item-detail for-company">
                         <div class="input-title-preview">
                             <h2 class="text-center">{{ $project->name }}</h2>
                             <div class="d-flex justify-content-center job-type-industry">

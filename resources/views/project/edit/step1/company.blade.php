@@ -204,6 +204,6 @@
         @endif
     </div>
     <div class="case-entry-btn text-center">
-        <button type="submit" class="btn btn-theme btn-medium btn-next">確認画面へ</button>
+        <button type="submit" class="btn btn-black btn-next">確認</button>
     </div>
 </form>

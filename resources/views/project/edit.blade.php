@@ -22,11 +22,7 @@
                             @endif
                         </div>
                         <div class="step-content{{ session('step') && session('step') === 3 ? ' active': '' }}" data-step="3">
-                            @if(isCompany())
-                                @include('project.edit.step3.company')
-                            @elseif(isAgent())
-                                @include('project.edit.step3.agent')
-                            @endif
+                            @include('project.edit.step3.default')
                         </div>
                     </div>
                 </div>

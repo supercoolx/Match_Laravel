@@ -19,13 +19,13 @@ class AgentController extends Controller
     public function dashboard(Request $request) {
         $user_id = Auth::user()->id;
         $projects = Project::where('user_id', $user_id)->with('user', 'jobType', 'industries', 'weeks', 'contractType')->paginate(5);
-        return view("agent.dashboard", compact('projects'));
+        return view("dashboard.agent", compact('projects'));
     }
 
     public function setting(Request $request) {
         $step = $request->query('step', 1);
         $agent = Auth::user();
-        return view("agent.setting", compact('agent', 'step'));
+        return view("setting.agent", compact('agent', 'step'));
     }
 
     public function postProject(Request $request) {

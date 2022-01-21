@@ -5,14 +5,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-center">
-                    <div class="content-case-entry item-detail">
+                    <div class="content-case-entry for-company item-detail">
                         <div class="input-title-preview">
                             <h2 class="text-center">{{ $project->name }}</h2>
                             <div class="d-flex justify-content-center job-type-industry">
                                 <button class="btn job-type">{{ $project->jobType->name }}</button>
                                 <button class="btn job-industry">{{ $project->industries->name }}</button>
                             </div>
-                            <h3 class="text-center">{{ $project->price_min }} ～ {{ $project->price_max }} / 月</h3>
+                            <h3 class="text-center">{{ $project->price }} / 月</h3>
                         </div>
                         <div class="input-preview">
                             <div class="preview-label">

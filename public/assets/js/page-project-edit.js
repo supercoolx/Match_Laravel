@@ -132,10 +132,11 @@ $(document).ready(function () {
             $('[data-for="startEndTime"]').text($('#startTime').val() + '時  ～  ' + $('#endTime').val() + '時');
             $('[data-for="averageUptimeStartEnd"]').text($('#averageUptimeStart').val() + 'h  ～  ' + $('#averageUptimeEnd').val() + 'h');
             $('[data-for="openStartDate"]').text($('#openStartDate').val());
-            $('[data-for="week"]').text(weeks[$('input[name=week]:checked').val()]);
+            $('[data-for="week"]').text('週' + weeks[$('input[name=week]:checked').val()]);
             $('[data-for="onlineInterview"]').text(onlineInterviews[$('input[name=onlineInterview]:checked').val()]);
             $('[data-for="remoteWork"]').text(remoteWorks[$('input[name=remoteWork]:checked').val()]);
             $('[data-for="contractType"]').text(contractTypes[$('input[name=contractType]:checked').val()]);
+            $('[data-for="unitPrice"]').text('¥ ' + $('input[name=unitPrice]:checked').val() + '/ 月');
             $('[data-for="interviews"]').text($('#interviews').val() + ' 回');
             $('button.job-type').text(jobTypes[$('#jobType').val()]);
             $('button.job-industry').text(industries[$('#industry').val()]);

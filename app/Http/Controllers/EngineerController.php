@@ -35,7 +35,7 @@ class EngineerController extends Controller
     public function setting(Request $request) {
         $step = $request->query('step', 1);
         $engineer = Auth::user();
-        return view("engineer.setting", compact('engineer', 'step'));
+        return view("setting.engineer", compact('engineer', 'step'));
     }
 
     public function dashboard(Request $request) {
@@ -46,7 +46,7 @@ class EngineerController extends Controller
         $tabs_for = $request->for ?? 'agent';
         $cnt = $projects->count();
         $projects = $projects->paginate(7);
-        return view("engineer.dashboard", compact('projects', 'tabs_for', 'cnt'));
+        return view("dashboard.engineer", compact('projects', 'tabs_for', 'cnt'));
     }
 
     public function profile_setting(Request $request) {
@@ -77,7 +77,7 @@ class EngineerController extends Controller
         $jobTypes = JobType::all();
         $weeks = Week::all();
         $contractTypes = ContractType::all();
-        return view("engineer.profile_setting", compact('engineer', 'profile', 'step', 'profile', 'educations', 'employees', 'experiences', 'jobs', 'portfolios', 'qualifications', 'writings', 'weeks', 'contractTypes', 'jobTypes'));
+        return view("profile.engineer", compact('engineer', 'profile', 'step', 'profile', 'educations', 'employees', 'experiences', 'jobs', 'portfolios', 'qualifications', 'writings', 'weeks', 'contractTypes', 'jobTypes'));
     }
 
     public function profile_update(Request $request) {

@@ -19,13 +19,13 @@ class CompanyController extends Controller
     public function dashboard(Request $request) {
         $user_id = Auth::user()->id;
         $projects = Project::where('user_id', $user_id)->with('user', 'jobType', 'industries', 'weeks', 'contractType')->paginate(5);
-        return view("company.dashboard", compact('projects'));
+        return view("dashboard.company", compact('projects'));
     }
 
     public function setting(Request $request) {
         $step = $request->query('step', 1);
         $company = Auth::user();
-        return view("company.setting", compact('company', 'step'));
+        return view("setting.company", compact('company', 'step'));
     }
 
     public function postProject(Request $request) {

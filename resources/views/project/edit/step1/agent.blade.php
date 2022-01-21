@@ -197,16 +197,16 @@
     <div class="form-group row">
         <label for="icon" class="col-sm-2 col-form-label">アイコン</label>
         <div class="col-sm-8">
-            <input type="checkbox" id="icon" {{ 1 === (old('icon')) ? 'checked' : '' }}  name="icon" value="1" data-toggle="toggle" data-on="公開" data-off="非公開" data-width="119" data-height="41" data-onstyle="theme" data-offstyle="theme" data-style="ios">
+            <input type="checkbox" id="icon" {{ 1 === (isset($project) ? $project->avatar : old('icon')) ? 'checked' : '' }}  name="icon" value="1" data-toggle="toggle" data-on="公開" data-off="非公開" data-width="119" data-height="41" data-onstyle="theme" data-offstyle="theme" data-style="ios">
         </div>
     </div>
     <div class="form-group row">
         <label for="fullName" class="col-sm-2 col-form-label">氏名</label>
         <div class="col-sm-8">
-            <input type="checkbox" id="fullName" {{ 1 === (old('fullName')) ? 'checked' : '' }} name="fullName" value="1" data-toggle="toggle" data-on="公開" data-off="非公開" data-width="119" data-height="41" data-onstyle="theme" data-offstyle="theme" data-style="ios">
+            <input type="checkbox" id="fullName" {{ 1 === (isset($project) ? $project->client : old('fullName')) ? 'checked' : '' }} name="fullName" value="1" data-toggle="toggle" data-on="公開" data-off="非公開" data-width="119" data-height="41" data-onstyle="theme" data-offstyle="theme" data-style="ios">
         </div>
     </div>
     <div class="case-entry-btn text-center">
-        <button type="submit" class="btn btn-theme btn-medium btn-next">確認画面へ</button>
+        <button type="submit" class="btn btn-black btn-next">確認画面</button>
     </div>
 </form>

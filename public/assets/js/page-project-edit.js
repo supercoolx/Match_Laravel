@@ -73,14 +73,8 @@ $(document).ready(function () {
             elTimeMask: elTimeMasks[i]
         });
     }
-    let elUnitPriceMin = document.getElementById('unitPriceMin');
-    let elUnitPriceMax = document.getElementById('unitPriceMax');
-    IMask(elUnitPriceMin, {
-        mask: Number,
-        min: 0,
-        max: 99999999999
-    });
-    IMask(elUnitPriceMax, {
+    let elUnitPrice = document.getElementById('unitPrice');
+    IMask(elUnitPrice, {
         mask: Number,
         min: 0,
         max: 99999999999

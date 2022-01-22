@@ -33,6 +33,7 @@
                                 <a class="dropdown-item" href="{{ route('company.setting', ['step' => 2]) }}">ユーザー設定</a>
                             @elseif (isAgent())
                                 <a class="dropdown-item" href="{{ route('agent.setting', ['step' => 2]) }}">ユーザー設定</a>
+                                <a class="dropdown-item" href="{{ route('agent.profile.setting', ['step' => 2]) }}">プロフィール設定</a>
                             @elseif (isEngineer())
                                 <a class="dropdown-item" href="{{ route('engineer.setting', ['step' => 2]) }}">ユーザー設定</a>
                                 <a class="dropdown-item" href="{{ route('engineer.profile.setting', ['step' => 2]) }}">プロフィール設定</a>

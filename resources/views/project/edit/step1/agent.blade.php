@@ -98,7 +98,7 @@
     </div>
     <div class="form-group">
         <label for="openStartDate" class="col-form-label">作業開始日</label>
-        <input type="text" class="form-control{{ $errors->has('startDate') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->start_date : old('startDate') }}" id="openStartDate" name="startDate" placeholder="作業開始日を入力" required>
+        <input type="date" class="form-control{{ $errors->has('startDate') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->start_date : old('startDate') }}" id="openStartDate" name="startDate" placeholder="作業開始日を入力" required>
     </div>
     <div class="form-group">
         <label for="startTime" class="col-form-label">始業/終業時間</label>

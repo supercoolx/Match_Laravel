@@ -736,6 +736,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .step-content{
     display: none;
+    margin-top: 100px;
 }
 .step-content.active{
     display: block;
@@ -1048,9 +1049,6 @@ img.img-success-background{
 }
 .content-case-entry .form-group{
     margin-bottom: 19px;
-}
-.content-case-entry .step-content{
-    margin-top: 100px;
 }
 .content-case-entry select.form-control{
     max-width: 333px;
@@ -2462,15 +2460,14 @@ img.img-success-background{
     flex-wrap: wrap;
 }
 .applicant-profile-preview .input-preview .preview-label{
-    width: 247px;
     color: var(--color-black);
 }
 .applicant-profile-preview .input-preview .preview-value{
     flex: 1;
     color: var(--color-primary);
 }
-.applicant-profile-preview .input-preview .preview-label:after{
-    width: 170px;
+div.preview-value p{
+    margin-bottom: 4px;
 }
 #p-experience{
     min-width: 360px;

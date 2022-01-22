@@ -27,9 +27,9 @@
                         {{ $projects->links() }}
                         @foreach($projects as $project)
                             @if($tabs_for == config("constants.tab_for.agent"))
-                                @include('project.template.agent')
+                                @include('project1.template.agent')
                             @elseif($tabs_for == config("constants.tab_for.company"))
-                                @include('project.template.company')
+                                @include('project1.template.company')
                             @endif
                         @endforeach
                     </div>

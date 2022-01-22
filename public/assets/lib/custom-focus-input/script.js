@@ -35,7 +35,7 @@ $('form input[type="text"], form input[type="number"], form input[type="date"], 
     });
 });
 
-$('form input').on("focusout", function(e) {
+$('form input[type="text"], form input[type="number"], form input[type="date"], form select, form textarea').on("focusout", function(e) {
     setTimeout(function() {
         if (!(document.activeElement instanceof HTMLInputElement || 
               document.activeElement instanceof HTMLTextAreaElement ||

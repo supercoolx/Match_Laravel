@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-center">
                     <div class="content-case-entry for-company step{{ session('step') }}">
-                        @include('project.edit.step')
+                        @include('inc.step')
                         <div class="step-content{{ (session('step') && session('step') === 1) || !session('step') ? ' active': '' }}" data-step="1">
                             @if(isCompany())
                                 @include('project.edit.step1.company')

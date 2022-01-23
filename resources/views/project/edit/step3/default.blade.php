@@ -1,4 +1,4 @@
-<p class="text-center">掲載しました</p>
+<p class="text-center"><b>掲載しました!</b></p>
 <div class="case-entry-btn text-center">
     @if(isCompany())
         <a href="{{ route('company.dashboard') }}" class="btn btn-black">ダッシュボード</a>

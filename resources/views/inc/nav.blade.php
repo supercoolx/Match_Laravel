@@ -7,20 +7,32 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-folder fa-lg fa-color"></i></a>
+                        <a class="nav-link" href="#">
+                            <img src="{{ static_asset('assets/img/folder.png') }}" class="icon-list" alt="list icon" />
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-address-card fa-lg"></i></a>
+                        <a class="nav-link" href="#">
+                            <img src="{{ static_asset('assets/img/contact.png') }}" class="icon-list" alt="list icon" />
+                        </a>
                     </li>
+                    @if(isAgent())
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <img src="{{ static_asset('assets/img/chart.png') }}" class="icon-list" alt="list icon" />
+                            </a>
+                        </li>
+                    @endif
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-chart-line fa-lg"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="far fa-clipboard fa-lg"></i></a>
+                        <a class="nav-link" href="#">
+                            <img src="{{ static_asset('assets/img/clipboard.png') }}" class="icon-list" alt="list icon" />
+                        </a>
                     </li>
                     @if (!isAdmin())
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('chat.index') }}"><i class="fas fa-comment-alt fa-flip-horizontal fa-lg"></i></a>
+                            <a class="nav-link" href="{{ route('chat.index') }}">
+                                <img src="{{ static_asset('assets/img/chat.png') }}" class="icon-list" alt="list icon" />
+                            </a>
                         </li>
                     @endif
                     <li class="nav-item dropdown account-menu">

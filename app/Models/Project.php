@@ -153,9 +153,4 @@ class Project extends Model
     {
         return $this->belongsTo(Week::class, 'week', 'id');
     }
-
-    public function contractType()
-    {
-        return $this->belongsTo(ContractType::class, 'contract_type', 'id');
-    }
 }

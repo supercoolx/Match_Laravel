@@ -45,6 +45,9 @@ class ProjectController extends Controller
 
     protected function createProject(array $data)
     {
+        $contract_type = '';
+        foreach($data['contractType'] as $value => $status)
+            $contract_type .= ("$value" . " ");
         $project = Project::create([
             'name' => $data['caseName'],
             'price' => $data['unitPrice'],
@@ -64,7 +67,7 @@ class ProjectController extends Controller
             'uptime_min' => $data['averageUptimeStart'],
             'uptime_max' => $data['averageUptimeEnd'],
             'week' => $data['week'],
-            'contract_type' => $data['contractType'],
+            'contract_type' => $contract_type,
             'online_interview' => $data['onlineInterview'],
             'remote_work' => $data['remoteWork'],
             'comment' => $data['comment'],
@@ -99,6 +102,9 @@ class ProjectController extends Controller
 
     protected function updateProject(Project $project, array $data)
     {
+        $contract_type = '';
+        foreach($data['contractType'] as $value => $status)
+            $contract_type .= ("$value" . " ");
         $project->name = $data['caseName'];
         $project->price = $data['unitPrice'];
         $project->job_type = $data['jobType'];
@@ -117,7 +123,7 @@ class ProjectController extends Controller
         $project->uptime_min = $data['averageUptimeStart'];
         $project->uptime_max = $data['averageUptimeEnd'];
         $project->week = $data['week'];
-        $project->contract_type = $data['contractType'];
+        $project->contract_type = $contract_type;
         $project->online_interview = $data['onlineInterview'];
         $project->remote_work = $data['remoteWork'];
         $project->comment = $data['comment'];

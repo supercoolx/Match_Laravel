@@ -16,7 +16,8 @@
     <div class="preview-label">
         <label>契約形態</label>
     </div>
-    <div class="preview-value" data-for="contractType">{{ isset($project) ? $project->contractType->name : '' }}</div>
+    <div class="preview-value" data-for="contractType">
+    </div>
 </div>
 <div class="input-preview">
     <div class="preview-label">

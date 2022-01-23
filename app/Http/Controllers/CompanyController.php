@@ -18,7 +18,7 @@ class CompanyController extends Controller
 
     public function dashboard(Request $request) {
         $user_id = Auth::user()->id;
-        $projects = Project::where('user_id', $user_id)->with('user', 'jobType', 'industries', 'weeks', 'contractType')->paginate(5);
+        $projects = Project::where('user_id', $user_id)->with('user', 'jobType', 'industries', 'weeks')->paginate(5);
         return view("dashboard.company", compact('projects'));
     }
 
@@ -41,7 +41,7 @@ class CompanyController extends Controller
 
     public function projectDetail(Request $request, $id) {
         $user_id = Auth::user()->id;
-        $project = Project::where([['user_id', $user_id], ['id', $id]])->with('user', 'jobType', 'industries', 'weeks', 'contractType')->first();
+        $project = Project::where([['user_id', $user_id], ['id', $id]])->with('user', 'jobType', 'industries', 'weeks')->first();
         if (!$project) {
             abort(404);
         }
@@ -50,7 +50,7 @@ class CompanyController extends Controller
 
     public function editProject(Request $request, $id) {
         $company = Auth::user();
-        $project = Project::where([['user_id', $company->id], ['id', $id]])->with('user', 'jobType', 'industries', 'weeks', 'contractType')->first();
+        $project = Project::where([['user_id', $company->id], ['id', $id]])->with('user', 'jobType', 'industries', 'weeks')->first();
         if (!$project) {
             abort(404);
         }

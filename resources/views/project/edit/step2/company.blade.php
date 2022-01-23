@@ -11,7 +11,7 @@
         <button class="btn job-industry">{{ isset($project) ? $project->industries->name : '業界' }}</button>
         <span class="preview-value" data-for="week">週{{ isset($project) ? $project->weeks->name : old('week') }}</span>
         <span class="website-url-preview float-right">
-            <a href="{{ $company->website }}">{{ $company->website }}</a>
+            <a href="{{ $company->website }}" target="_blank">{{ $company->website }}</a>
         </span>
     </div>
     <h2 data-for="caseName" class="pt-2">{{ isset($project) ? $project->name : old('caseName') }}</h2>
@@ -26,7 +26,8 @@
     <div class="preview-label">
         <label>契約形態</label>
     </div>
-    <div class="preview-value" data-for="contractType">{{ isset($project) ? $project->contractType->name : '' }}</div>
+    <div class="preview-value" data-for="contractType">
+    </div>
 </div>
 <div class="input-preview">
     <div class="preview-label">

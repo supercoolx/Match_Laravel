@@ -8,7 +8,7 @@
         <input type="text" class="form-control{{ $errors->has('caseName') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->name : old('caseName') }}" id="caseName" name="caseName" placeholder="募集タイトルを入力" required >
     </div>
     <div class="form-group">
-        <label for="unitPrice" class="col-form-label">単価</label>
+        <label for="unitPrice" class="col-form-label">単価/円</label>
         <div class="unite-price-range">
             <div>
                 <input type="text" class="form-control{{ $errors->has('unitPrice') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->price : old('unitPrice') }}" id="unitPrice" name="unitPrice" min="0" placeholder="単価を入力" required data-parsley-type="number">
@@ -134,7 +134,7 @@
         <label class="col-form-label">週</label>
         <div>
             @foreach($weeks as $week)
-                <div class="form-check form-check-inline">
+                <div class="form-check">
                     <input class="form-check-input" type="radio" name="week" {{ $week->id == (isset($project) ? $project->week : old('week')) ? 'checked' : '' }} value="{{ $week->id }}">
                     <label class="form-check-label">{{ $week->name }}</label>
                 </div>
@@ -148,8 +148,8 @@
         <label class="col-form-label">契約形態</label>
         <div>
             @foreach($contractTypes as $contractType)
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="contractType" {{ $contractType->id == (isset($project) ? $project->contract_type : old('contractType')) ? 'checked' : '' }} value="{{ $contractType->id }}">
+                <div class="form-check">
+                    <input class="form-check-input contractType" type="checkbox" name="contractType[{{ $contractType->id }}]" {{ (isset($project) ? in_array($contractType->id, explode(' ', $project->contract_type)) : old("contractType[$contractType->id]")) ? 'checked' : '' }}>
                     <label class="form-check-label">{{ $contractType->name }}</label>
                 </div>
             @endforeach
@@ -161,11 +161,11 @@
     <div class="form-group">
         <label class="col-form-label">オンライン面談</label>
         <div>
-            <div class="form-check form-check-inline">
+            <div class="form-check">
                 <input class="form-check-input" type="radio" {{ 1 === (isset($project) ? $project->online_interview : old('onlineInterview')) ? 'checked' : '' }} name="onlineInterview" value="1">
                 <label class="form-check-label">可</label>
             </div>
-            <div class="form-check form-check-inline">
+            <div class="form-check">
                 <input class="form-check-input" type="radio" {{ 0 === (isset($project) ? $project->online_interview : old('onlineInterview')) ? 'checked' : '' }} name="onlineInterview" value="0">
                 <label class="form-check-label">不可</label>
             </div>
@@ -177,11 +177,11 @@
     <div class="form-group">
         <label class="col-form-label">リモートワーク</label>
         <div>
-            <div class="form-check form-check-inline">
+            <div class="form-check">
                 <input class="form-check-input" type="radio" {{ 1 === (isset($project) ? $project->remote_work : old('remoteWork')) ? 'checked' : '' }} name="remoteWork" value="1">
                 <label class="form-check-label">可</label>
             </div>
-            <div class="form-check form-check-inline">
+            <div class="form-check">
                 <input class="form-check-input" type="radio" {{ 0 === (isset($project) ? $project->remote_work : old('remoteWork')) ? 'checked' : '' }} name="remoteWork" value="0">
                 <label class="form-check-label">不可</label>
             </div>
@@ -194,15 +194,15 @@
         <label for="comment" class="col-form-label">コメント</label>
         <textarea class="form-control{{ $errors->has('comment') ? ' is-invalid' : '' }}" id="comment" name="comment" rows="8" placeholder="コメントを入力" required>{{ isset($project) ? $project->comment : old('comment') }}</textarea>
     </div>
-    <div class="form-group row">
-        <label for="icon" class="col-sm-2 col-form-label">アイコン</label>
-        <div class="col-sm-8">
+    <div class="form-group">
+        <label for="icon" class="col-form-label">アイコン</label>
+        <div>
             <input type="checkbox" id="icon" {{ 1 === (isset($project) ? $project->avatar : old('icon')) ? 'checked' : '' }}  name="icon" value="1" data-toggle="toggle" data-on="公開" data-off="非公開" data-width="119" data-height="41" data-onstyle="theme" data-offstyle="theme" data-style="ios">
         </div>
     </div>
-    <div class="form-group row">
-        <label for="fullName" class="col-sm-2 col-form-label">氏名</label>
-        <div class="col-sm-8">
+    <div class="form-group">
+        <label for="fullName" class="col-form-label">氏名</label>
+        <div>
             <input type="checkbox" id="fullName" {{ 1 === (isset($project) ? $project->client : old('fullName')) ? 'checked' : '' }} name="fullName" value="1" data-toggle="toggle" data-on="公開" data-off="非公開" data-width="119" data-height="41" data-onstyle="theme" data-offstyle="theme" data-style="ios">
         </div>
     </div>

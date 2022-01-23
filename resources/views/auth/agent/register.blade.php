@@ -6,8 +6,12 @@
             <div class="col-md-6">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8 d-flex justify-content-center">
+                        <div class="col-md-3">
+                            <a href="{{ route('home') }}">
+                                <img src="{{ static_asset('assets/img/logo/logo.png') }}" alt="logo" class="pt-4">
+                            </a>
+                        </div>
+                        <div class="col-md-7 d-flex justify-content-center">
                             <div class="content-member-input">
                                 <div class="step-wizard d-flex justify-content-center">
                                     <div class="content-step-wizard d-flex justify-content-between">
@@ -30,7 +34,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="name" class="col-form-label">氏名</label>
-                                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" id="name" name="name" placeholder="山田 太郎" required maxlength="255">
+                                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" id="name" name="name" placeholder="氏名を入力" required maxlength="255">
                                             @if ($errors->has('name'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('name') }}</strong>
@@ -39,7 +43,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="nameKana" class="col-form-label">氏名(カナ)</label>
-                                            <input type="text" class="form-control{{ $errors->has('nameKana') ? ' is-invalid' : '' }}" value="{{ old('nameKana') }}" id="nameKana" name="nameKana" placeholder="山田 太郎" required maxlength="255">
+                                            <input type="text" class="form-control{{ $errors->has('nameKana') ? ' is-invalid' : '' }}" value="{{ old('nameKana') }}" id="nameKana" name="nameKana" placeholder="氏名(カナ)を入力" required maxlength="255">
                                             @if ($errors->has('nameKana'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('nameKana') }}</strong>
@@ -48,7 +52,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="phone" class="col-form-label">電話番号</label>
-                                            <input type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" id="phone" name="phone" placeholder="080-0000-0000" required>
+                                            <input type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" id="phone" name="phone" placeholder="電話番号を入力" required>
                                             @if ($errors->has('phone'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('phone') }}</strong>
@@ -57,7 +61,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="email" class="col-form-label">メールアドレス</label>
-                                            <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" id="email" name="email" placeholder="example@example.com" required>
+                                            <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" id="email" name="email" placeholder="メールアドレスを入力" required>
                                             @if ($errors->has('email'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('email') }}</strong>
@@ -75,7 +79,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password" class="col-form-label">パスワード</label>
-                                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password" placeholder="password" required minlength="6" maxlength="20" data-parsley-error-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern="/^[a-zA-Z0-9!@#$%^&*]{6,20}$/">
+                                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password" placeholder="パスワードを入力" required minlength="6" maxlength="20" data-parsley-error-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern="/^[a-zA-Z0-9!@#$%^&*]{6,20}$/">
                                             @if ($errors->has('password'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('password') }}</strong>
@@ -131,19 +135,20 @@
                                         <div class="col-sm-7 preview-value">password</div>
                                     </div>
                                     <div class="terms-policy-text">
-                                        <p><a href="{{ route('policy') }}">「<span>個人情報の取扱いについて</span>」</a>と<a href="{{ route('terms') }}">「<span>利用規約</span>」</a>をご確認の上、「同意して登録する」を押してください。</p>
+                                        <p>「<a href="{{ route('policy') }}"><span>個人情報の取扱いについて</span></a>」と「<a href="{{ route('terms') }}"><span>利用規約</span></a>」への同意が必要です</p>
                                     </div>
                                     <div class="member-input-btn text-center">
-                                        <button class="btn btn-black btn-prev">修正する</button>
-                                        <button class="btn btn-black btn-next">同意して登録する</button>
+                                        <p><button class="btn btn-black btn-prev">修正する</button></p>
+                                        <p><button class="btn btn-black btn-next">同意して登録する</button></p>
                                     </div>
                                 </div>
                                 <div class="step-content{{ session('step') && session('step') === 3 ? ' active': '' }}" data-step="3">
                                     <div class="completion-icon">
                                         登録完了しました
                                     </div>
-                                    <div class="member-input-btn d-flex justify-content-center">
-                                        <a href="{{ route('agent.dashboard') }}" class="btn btn-theme btn-medium d-flex justify-content-center align-items-center">ダッシュボードへ</a>
+                                    <div class="member-input-btn text-center">
+                                        <p><a href="#" class="btn btn-black justify-content-center align-items-center">チュートリアル</a></p>
+                                        <p><a href="{{ route('agent.dashboard') }}" class="btn btn-black justify-content-center align-items-center">ダッシュボードへ</a></p>
                                     </div>
                                 </div>
                             </div>

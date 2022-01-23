@@ -20,16 +20,22 @@ function setStep(step) {
 
     switch (step) {
         case 1:
+            $('.user-contact').hide();
+            $('.edit-content').css('background-color', '#f7f6f3');
             stepDot2.removeClass('active');
             stepDot3.removeClass('active');
             stepContent1.addClass('active');
             break;
         case 2:
+            $('.user-contact').show();
+            $('.edit-content').css('background-color', '#ffffff');
             stepDot2.addClass('active');
             stepDot3.removeClass('active');
             stepContent2.addClass('active');
             break;
         case 3:
+            $('.user-contact').hide();
+            $('.edit-content').css('background-color', '#f7f6f3');
             stepDot3.addClass('active');
             stepContent3.addClass('active');
             break;
@@ -107,7 +113,7 @@ $(document).ready(function () {
             $('input[name=remoteWork]').parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
             isValid = false;
         }
-        if(!$('input[name=contractType]:checked').val()){
+        if(!$('input.contractType:checked').length){
             $('input[name=contractType]').parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
             isValid = false;
         }
@@ -129,9 +135,14 @@ $(document).ready(function () {
             $('[data-for="week"]').text('週' + weeks[$('input[name=week]:checked').val()]);
             $('[data-for="onlineInterview"]').text(onlineInterviews[$('input[name=onlineInterview]:checked').val()]);
             $('[data-for="remoteWork"]').text(remoteWorks[$('input[name=remoteWork]:checked').val()]);
-            $('[data-for="contractType"]').text(contractTypes[$('input[name=contractType]:checked').val()]);
-            $('[data-for="unitPrice"]').text('¥ ' + $('input[name=unitPrice]:checked').val() + '/ 月');
-            $('[data-for="interviews"]').text($('#interviews').val() + ' 回');
+            let html = '';
+            $('input.contractType:checked').each(function () {
+                html += `<p>${$(this).siblings('label').text()}</p>`;
+                console.log(html);
+            });
+            $('[data-for="contractType"]').html(html);
+            $('[data-for="unitPrice"]').text('¥ ' + $('input[name=unitPrice]').val() + '/ 月');
+            $('[data-for="interviews"]').text($('input[name=interviews]').val() + ' 回');
             $('button.job-type').text(jobTypes[$('#jobType').val()]);
             $('button.job-industry').text(industries[$('#industry').val()]);
             $('[data-for="workLocation"]').text(addresses[$('#workLocation').val()]);
@@ -161,21 +172,8 @@ $(document).ready(function () {
         const inputVal = $(this).val();
         $('[data-for="' + domID +'"]').text(inputVal);
     });
-    $('input[name=week]').change(function () {
+    $('input[name=week], input[name=onlineInterview], input[name=interviews], input[name=remoteWork], input[name=contractType]').change(function () {
         $(this).parents('.form-group').find('.invalid-feedback strong').text('');
-        $('.preview-value[data-for="week"]').text(weeks[$(this).val()]);
-    });
-    $('input[name=onlineInterview]').change(function () {
-        $(this).parents('.form-group').find('.invalid-feedback strong').text('');
-        $('.preview-value[data-for="onlineInterview"]').text(onlineInterviews[$(this).val()]);
-    });
-    $('input[name=remoteWork]').change(function () {
-        $(this).parents('.form-group').find('.invalid-feedback strong').text('');
-        $('.preview-value[data-for="remoteWork"]').text(remoteWorks[$(this).val()]);
-    });
-    $('input[name=contractType]').change(function () {
-        $(this).parents('.form-group').find('.invalid-feedback strong').text('');
-        $('.preview-value[data-for="contractType"]').text(contractTypes[$(this).val()]);
     });
     stepContent1.find('img.image-upload').click(function (e) {
         $('.img-thumbnail-preview img').attr('src', img_thumbnail_preview);

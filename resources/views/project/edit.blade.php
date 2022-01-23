@@ -2,27 +2,38 @@
 
 @section('content')
     <section class="content-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 d-flex justify-content-center">
-                    <div class="content-case-entry for-company step{{ session('step') }}">
-                        @include('inc.step')
-                        <div class="step-content{{ (session('step') && session('step') === 1) || !session('step') ? ' active': '' }}" data-step="1">
-                            @if(isCompany())
-                                @include('project.edit.step1.company')
-                            @elseif(isAgent())
-                                @include('project.edit.step1.agent')
-                            @endif
-                        </div>
-                        <div class="step-content{{ session('step') && session('step') === 2 ? ' active': '' }}" data-step="2">
-                            @if(isCompany())
-                                @include('project.edit.step2.company')
-                            @elseif(isAgent())
-                                @include('project.edit.step2.agent')
-                            @endif
-                        </div>
-                        <div class="step-content{{ session('step') && session('step') === 3 ? ' active': '' }}" data-step="3">
-                            @include('project.edit.step3.default')
+        @include('inc.step')
+        <div class="edit-content">
+            <div class="user-contact">
+                <div class="image-upload-preview d-flex flex-column align-items-center">
+                    <img src="{{ upload_asset(Auth::user()->avatar) ?? static_asset('assets/img/account.png') }}" class="object-cover-center" alt="{{ Auth::user()->name }}">
+                    <span>{{ Auth::user()->name }}</span>
+                    <a href="#" class="btn btn-theme btn-chat d-flex justify-content-center align-items-center">チャットで話を聞く</a>
+                    <a href="#" class="btn btn-theme btn-call d-flex justify-content-center align-items-center">電話で話を聞く</a>
+                    <a href="#" class="btn btn-theme btn-fix d-flex justify-content-center align-items-center">気になるリストに追加</a>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <div class="content-case-entry for-company step{{ session('step') }}">
+                            <div class="step-content{{ (session('step') && session('step') === 1) || !session('step') ? ' active': '' }}" data-step="1">
+                                @if(isCompany())
+                                    @include('project.edit.step1.company')
+                                @elseif(isAgent())
+                                    @include('project.edit.step1.agent')
+                                @endif
+                            </div>
+                            <div class="step-content{{ session('step') && session('step') === 2 ? ' active': '' }}" data-step="2">
+                                @if(isCompany())
+                                    @include('project.edit.step2.company')
+                                @elseif(isAgent())
+                                    @include('project.edit.step2.agent')
+                                @endif
+                            </div>
+                            <div class="step-content{{ session('step') && session('step') === 3 ? ' active': '' }}" data-step="3">
+                                @include('project.edit.step3.default')
+                            </div>
                         </div>
                     </div>
                 </div>

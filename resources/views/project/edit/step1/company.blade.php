@@ -7,7 +7,7 @@
     @endisset
     <div class="form-group">
         <label for="caseName" class="col-form-label">募集タイトル</label>
-        <input type="text" class="form-control{{ $errors->has('caseName') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->name : old('caseName') }}" id="caseName" name="caseName" placeholder="募集タイトルを入力" required >
+        <input type="text" class="form-control{{ $errors->has('caseName') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->name : old('caseName') }}" id="caseName" name="caseName" placeholder="応募タイトルを入力" required >
     </div>
     <div class="form-group">
         <label for="jobType" class="col-form-label">職種</label>
@@ -32,7 +32,7 @@
         <div>
             @foreach($contractTypes as $contractType)
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="contractType" {{ $contractType->id == (isset($project) ? $project->contract_type : old('contractType')) ? 'checked' : '' }} value="{{ $contractType->id }}">
+                    <input class="form-check-input contractType" type="checkbox" name="contractType[{{ $contractType->id }}]" {{ (isset($project) ? in_array($contractType->id, explode(' ', $project->contract_type)) : old("contractType[$contractType->id]")) ? 'checked' : '' }}>
                     <label class="form-check-label">{{ $contractType->name }}</label>
                 </div>
             @endforeach
@@ -56,10 +56,10 @@
         </span>
     </div>
     <div class="form-group">
-        <label for="unitPrice" class="col-form-label">単価</label>
+        <label for="unitPrice" class="col-form-label">単価/円</label>
         <div class="unite-price-range">
             <div>
-                <input type="text" class="form-control{{ $errors->has('unitPrice') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->price : old('unitPrice') }}" id="unitPrice" name="unitPrice" min="0" placeholder="単価を入力" required data-parsley-type="number">
+                <input type="text" class="form-control{{ $errors->has('unitPrice') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->price : old('unitPrice') }}" id="unitPrice" name="unitPrice" min="0" placeholder="価格を入力" required data-parsley-type="number">
             </div>
             <span class="unit">円</span>
         </div>
@@ -86,7 +86,7 @@
     </div>
     <div class="form-group">
         <label for="gainedSkills" class="col-form-label">得られるスキル</label>
-        <textarea class="form-control{{ $errors->has('gainedSkills') ? ' is-invalid' : '' }}" id="gainedSkills" name="gainedSkills" rows="8" placeholder="得られるスキルを入力" required>{{ isset($project) ? $project->gained_skills : old('gainedSkills') }}</textarea>
+        <textarea class="form-control{{ $errors->has('gainedSkills') ? ' is-invalid' : '' }}" id="gainedSkills" name="gainedSkills" rows="8" placeholder="取られるスキルを入力" required>{{ isset($project) ? $project->gained_skills : old('gainedSkills') }}</textarea>
     </div>
     <div class="form-group">
         <label for="workLocation" class="col-form-label">勤務地</label>

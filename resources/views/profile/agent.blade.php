@@ -242,6 +242,10 @@
     </section>
 @endsection
 
+@section('style')
+    <link rel="stylesheet" href="{{ static_asset('assets/lib/custom-focus-input/style.css') }}">
+@endsection
+
 @section('script')
     <script type="text/javascript">
         const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
@@ -407,4 +411,5 @@
             });
         });
     </script>
+    <script src="{{ static_asset('assets/lib/custom-focus-input/script.js') }}"></script>
 @endsection

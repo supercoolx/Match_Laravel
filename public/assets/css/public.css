@@ -103,6 +103,23 @@ textarea{
     border-radius: 18px;
     font-weight: bold;
 }
+
+.btn-black:hover{
+    color: var(--color-white);
+}
+
+.btn-black-sm{
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    width: 87px;
+    border-radius: 18px;
+    font-weight: bold;
+}
+
+.btn-black-sm:hover{
+    color: var(--color-white);
+}
+
 .btn-black:hover{
     color: var(--color-white);
 }
@@ -2427,7 +2444,6 @@ img.img-success-background{
     color: var(--color-primary);
 }
 .applicant-profile-input .form-group{
-    display: flex;
     flex-wrap: wrap;
     margin-bottom: 17px;
 }

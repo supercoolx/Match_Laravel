@@ -108,6 +108,6 @@
     <div class="preview-value" data-for="comment">{{ isset($project) ? $project->comment : old('comment') }}</div>
 </div>
 <div class="input-preview-btn-group text-center">
-    <button class="btn btn-black btn-prev">修正</button>
-    <button class="btn btn-black btn-next">掲載</button>
+    <button class="btn btn-black-sm btn-prev">修正</button>
+    <button class="btn btn-black-sm btn-next">掲載</button>
 </div>

@@ -79,15 +79,15 @@
             @if(isset($project))
                 @foreach(range(1,3) as $interview)
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="interviews" value="{{ $interview }}"{{ $interview == $project->interviews ? ' checked' : '' }}>
-                        <label class="form-check-label">{{ $interview }}回</label>
+                        <input type="radio" class="form-check-input" name="interviews" id="interviews{{ $interview }}" value="{{ $interview }}"{{ $interview == $project->interviews ? ' checked' : '' }}>
+                        <label class="form-check-label" for="interviews{{ $interview }}">{{ $interview }}回</label>
                     </div>
                 @endforeach
             @else
                 @foreach(range(1,3) as $interview)
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="interviews" value="{{ $interview }}"{{ $interview === old('interviews') ? ' checked' : '' }}>
-                        <label class="form-check-label">{{ $interview }}回</label>
+                        <input type="radio" class="form-check-input" name="interviews" id="interviews{{ $interview }}" value="{{ $interview }}"{{ $interview === old('interviews') ? ' checked' : '' }}>
+                        <label class="form-check-label" for="interviews{{ $interview }}">{{ $interview }}回</label>
                     </div>
                 @endforeach
             @endif
@@ -104,11 +104,11 @@
         <label for="startTime" class="col-form-label">始業/終業時間</label>
         <div class="start-end-time">
             <div>
-                <input type="text" class="time-mask form-control{{ $errors->has('startTime') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->start_time : old('startTime') }}" id="startTime" name="startTime" placeholder="始業時間を入力" required>
+                <input type="number" class="form-control{{ $errors->has('startTime') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->start_time : old('startTime') }}" id="startTime" name="startTime" min="0" max="23" placeholder="始業時間を入力" required>
             </div>
-            <span>～</span>
+            <span>&nbsp;～&nbsp;</span>
             <div>
-                <input type="text" class="time-mask form-control{{ $errors->has('endTime') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->end_time : old('endTime') }}" id="endTime" name="endTime" placeholder="終業時間を入力" required>
+                <input type="number" class="form-control{{ $errors->has('endTime') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->end_time : old('endTime') }}" id="endTime" name="endTime" min="0" max="23" placeholder="終業時間を入力" required>
             </div>
         </div>
         <span class="invalid-feedback" role="alert">
@@ -119,11 +119,11 @@
         <label for="averageUptimeStart" class="col-form-label">平均稼働時間</label>
         <div class="start-end-time">
             <div>
-                <input type="number" class="form-control{{ $errors->has('averageUptimeStart') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->uptime_min : old('averageUptimeStart') }}" id="averageUptimeStart" name="averageUptimeStart" placeholder="下限時間を入力" required>
+                <input type="number" class="form-control{{ $errors->has('averageUptimeStart') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->uptime_min : old('averageUptimeStart') }}" id="averageUptimeStart" name="averageUptimeStart" min="1" max="24" placeholder="下限時間を入力" required>
             </div>
-            <span>～</span>
+            <span>&nbsp;～&nbsp;</span>
             <div>
-                <input type="number" class="form-control{{ $errors->has('averageUptimeEnd') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->uptime_max : old('averageUptimeEnd') }}" id="averageUptimeEnd" name="averageUptimeEnd" placeholder="上限時間を入力" required>
+                <input type="number" class="form-control{{ $errors->has('averageUptimeEnd') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->uptime_max : old('averageUptimeEnd') }}" id="averageUptimeEnd" name="averageUptimeEnd" min="1" max="24" placeholder="上限時間を入力" required>
             </div>
         </div>
         <span class="invalid-feedback" role="alert">
@@ -135,8 +135,8 @@
         <div>
             @foreach($weeks as $week)
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="week" {{ $week->id == (isset($project) ? $project->week : old('week')) ? 'checked' : '' }} value="{{ $week->id }}">
-                    <label class="form-check-label">{{ $week->name }}</label>
+                    <input class="form-check-input" type="radio" name="week" id="week{{ $week->id }}" {{ $week->id == (isset($project) ? $project->week : old('week')) ? 'checked' : '' }} value="{{ $week->id }}">
+                    <label class="form-check-label" for="week{{ $week->id }}">{{ $week->name }}</label>
                 </div>
             @endforeach
         </div>
@@ -149,8 +149,8 @@
         <div>
             @foreach($contractTypes as $contractType)
                 <div class="form-check">
-                    <input class="form-check-input contractType" type="checkbox" name="contractType[{{ $contractType->id }}]" {{ (isset($project) ? in_array($contractType->id, explode(' ', $project->contract_type)) : old("contractType[$contractType->id]")) ? 'checked' : '' }}>
-                    <label class="form-check-label">{{ $contractType->name }}</label>
+                    <input class="form-check-input contractType" type="checkbox" name="contractType[{{ $contractType->id }}]" id="contractType{{ $contractType->id }}" {{ (isset($project) ? in_array($contractType->id, explode(' ', $project->contract_type)) : old("contractType[$contractType->id]")) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="contractType{{ $contractType->id }}">{{ $contractType->name }}</label>
                 </div>
             @endforeach
         </div>
@@ -162,12 +162,12 @@
         <label class="col-form-label">オンライン面談</label>
         <div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" {{ 1 === (isset($project) ? $project->online_interview : old('onlineInterview')) ? 'checked' : '' }} name="onlineInterview" value="1">
-                <label class="form-check-label">可</label>
+                <input class="form-check-input" type="radio" {{ 1 === (isset($project) ? $project->online_interview : old('onlineInterview')) ? 'checked' : '' }} name="onlineInterview" id="onlineInterview1" value="1">
+                <label class="form-check-label" for="onlineInterview1">可</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" {{ 0 === (isset($project) ? $project->online_interview : old('onlineInterview')) ? 'checked' : '' }} name="onlineInterview" value="0">
-                <label class="form-check-label">不可</label>
+                <input class="form-check-input" type="radio" {{ 0 === (isset($project) ? $project->online_interview : old('onlineInterview')) ? 'checked' : '' }} name="onlineInterview" id="onlineInterview0" value="0">
+                <label class="form-check-label" for="onlineInterview0">不可</label>
             </div>
         </div>
         <span class="invalid-feedback" role="alert">
@@ -178,12 +178,12 @@
         <label class="col-form-label">リモートワーク</label>
         <div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" {{ 1 === (isset($project) ? $project->remote_work : old('remoteWork')) ? 'checked' : '' }} name="remoteWork" value="1">
-                <label class="form-check-label">可</label>
+                <input class="form-check-input" type="radio" {{ 1 === (isset($project) ? $project->remote_work : old('remoteWork')) ? 'checked' : '' }} name="remoteWork" id="remoteWork1" value="1">
+                <label class="form-check-label" for="remoteWork1">可</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" {{ 0 === (isset($project) ? $project->remote_work : old('remoteWork')) ? 'checked' : '' }} name="remoteWork" value="0">
-                <label class="form-check-label">不可</label>
+                <input class="form-check-input" type="radio" {{ 0 === (isset($project) ? $project->remote_work : old('remoteWork')) ? 'checked' : '' }} name="remoteWork" id="remoteWork0" value="0">
+                <label class="form-check-label" for="remoteWork0">不可</label>
             </div>
         </div>
         <span class="invalid-feedback" role="alert">
@@ -207,6 +207,6 @@
         </div>
     </div>
     <div class="case-entry-btn text-center">
-        <button type="submit" class="btn btn-black btn-next">確認画面</button>
+        <button type="submit" class="btn btn-black-sm btn-next">確認</button>
     </div>
 </form>

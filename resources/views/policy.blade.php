@@ -62,11 +62,18 @@
                 </div>
             </div>
             <div class="text-center pb-3">
-                <button class="btn btn-black">確認</button>
+                <button class="btn btn-black" onclick="closeMe()">確認</button>
             </div>
         </div>
     </section>
 @endsection
 
 @section('script')
+<script>
+    function closeMe()
+    {
+        window.opener = self; 
+        window.close();
+    }
+</script>
 @endsection

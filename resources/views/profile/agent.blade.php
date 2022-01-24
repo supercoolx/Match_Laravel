@@ -25,23 +25,17 @@
                                     <div class="col-form-input work-experience">
                                         @foreach($experiences as $exp)
                                             <div class="col-form-input-item">
-                                                <div class="row">
-                                                    <input type="text" class="form-control col-8" name="experienceTitle[]" placeholder="タイトル" value="{{ $exp->title }}" required>
-                                                    <div class="form-input-add-remove col-4">
-                                                        <div class="form-input-add"></div>
-                                                        <div class="form-input-remove"></div>
-                                                    </div>
+                                                <div class="form-input-add-remove">
+                                                    <div class="form-input-add"></div>
+                                                    <div class="form-input-remove"></div>
                                                 </div>
-                                                <div class="work-experience-duration date-range-selector row">
-                                                    <div>
-                                                        <input type="text" class="form-control w194" name="experienceStartDate[]" value="{{ $exp->start_date }}" required>
-                                                    </div>
+                                                <input type="text" class="form-control" name="experienceTitle[]" placeholder="タイトル" value="{{ $exp->title }}" required>
+                                                <div class="work-experience-duration date-range-selector">
+                                                    <input type="date" class="form-control w194" name="experienceStartDate[]" value="{{ $exp->start_date }}" required>
                                                     <span>～</span>
-                                                    <div>
-                                                        <input type="text" class="form-control w194" name="experienceEndDate[]" value="{{ $exp->end_date }}" required>
-                                                    </div>
+                                                    <input type="date" class="form-control w194" name="experienceEndDate[]" value="{{ $exp->end_date }}" required>
                                                 </div>
-                                                <div class="experience-comment row">
+                                                <div class="experience-comment">
                                                     <textarea class="form-control" name="experienceComment[]" placeholder="タイトル" required>{{ $exp->content }}</textarea>
                                                 </div>
                                             </div>
@@ -53,23 +47,21 @@
                                     <div class="col-form-input">
                                         @foreach($educations as $edu)
                                             <div class="col-form-input-item">
-                                                <div class="school-name row">
-                                                    <input type="text" class="form-control col-8" name="schoolName[]" placeholder="学校名" value="{{ $edu->school_name }}" required>
-                                                    <div class="form-input-add-remove col-4">
-                                                        <div class="form-input-add"></div>
-                                                        <div class="form-input-remove"></div>
-                                                    </div>
+                                                <div class="form-input-add-remove">
+                                                    <div class="form-input-add"></div>
+                                                    <div class="form-input-remove"></div>
                                                 </div>
-                                                <div class="mt13 row">
-                                                    <input type="text" class="form-control w333" name="departmentSubjectName[]" placeholder="学部、学科名" value="{{ $edu->subject_name }}" required>
+                                                <input type="text" class="form-control" name="schoolName[]" placeholder="学校名" value="{{ $edu->school_name }}" required>
+                                                <div class="mt13">
+                                                    <input type="text" class="form-control" name="departmentSubjectName[]" placeholder="学部、学科名" value="{{ $edu->subject_name }}" required>
                                                 </div>
-                                                <div class="mt18 date-range-selector row">
+                                                <div class="mt18 date-range-selector">
                                                     <div>
-                                                        <input type="text" class="form-control w194" name="educationStartDate[]" value="{{ $edu->start_date }}" required>
+                                                        <input type="date" class="form-control w194" name="educationStartDate[]" value="{{ $edu->start_date }}" required>
                                                     </div>
                                                     <span>～</span>
                                                     <div>
-                                                        <input type="text" class="form-control w194" name="educationEndDate[]" value="{{ $edu->end_date }}" required>
+                                                        <input type="date" class="form-control w194" name="educationEndDate[]" value="{{ $edu->end_date }}" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -81,15 +73,15 @@
                                     <div class="col-form-input qualifications">
                                         @foreach($qualifications as $qua)
                                             <div class="col-form-input-item">
-                                                <div class="qualification-name row">
-                                                    <input type="text" class="form-control col-8" name="qualificationName[]" placeholder="資格名" value="{{ $qua->name }}" required>
-                                                    <div class="form-input-add-remove col-4">
-                                                        <div class="form-input-add"></div>
-                                                        <div class="form-input-remove"></div>
-                                                    </div>
+                                                <div class="form-input-add-remove">
+                                                    <div class="form-input-add"></div>
+                                                    <div class="form-input-remove"></div>
                                                 </div>
-                                                <div class="qualification-date row">
-                                                    <input type="text" class="form-control w194" name="qualificationDate[]" value="{{ $qua->date }}" required>
+                                                <div class="qualification-name">
+                                                    <input type="text" class="form-control" name="qualificationName[]" placeholder="資格名" value="{{ $qua->name }}" required>
+                                                </div>
+                                                <div class="qualification-date">
+                                                    <input type="date" class="form-control w194" name="qualificationDate[]" value="{{ $qua->date }}" required>
                                                 </div>
                                             </div>
                                         @endforeach
@@ -100,15 +92,14 @@
                                     <div class="col-form-input">
                                         @foreach($employees as $employee)
                                             <div class="col-form-input-item">
-                                                <div class="row">
-                                                    <input type="text" class="form-control col-8" name="employmentName[]" placeholder="タイトル" value="{{ $employee->employee_name }}" required>
-                                                    <div class="form-input-add-remove col-4">
-                                                        <div class="form-input-add"></div>
-                                                        <div class="form-input-remove"></div>
-                                                    </div>
+                                                <div class="form-input-add-remove col-4">
+                                                    <div class="form-input-add"></div>
+                                                    <div class="form-input-remove"></div>
                                                 </div>
-                                                <div class="mt18 row">
-                                                    <input type="text" class="form-control w194" name="employmentDate[]" value="{{ $employee->employee_date }}" required>
+                                                <input type="text" class="form-control" name="employmentName[]" placeholder="タイトル" value="{{ $employee->employee_name }}" required>
+                                                </div>
+                                                <div class="mt18">
+                                                    <input type="date" class="form-control w194" name="employmentDate[]" value="{{ $employee->employee_date }}" required>
                                                 </div>
                                             </div>
                                         @endforeach
@@ -119,18 +110,13 @@
                                     <div class="col-form-input">
                                         @foreach($writings as $writing)
                                             <div class="col-form-input-item">
-                                                <div class="row">
-                                                    <input type="text" class="form-control col-8" name="writingName[]" placeholder="タイトル" value="{{ $writing->name }}" required>
-                                                    <div class="form-input-add-remove col-4">
-                                                        <div class="form-input-add"></div>
-                                                        <div class="form-input-remove"></div>
-                                                    </div>
+                                                <div class="form-input-add-remove col-4">
+                                                    <div class="form-input-add"></div>
+                                                    <div class="form-input-remove"></div>
                                                 </div>
-                                                <div  class="mt13 row">
-                                                    <input type="text" class="form-control w333" name="writingLink[]" placeholder="関連リンク" value="{{ $writing->link }}" required>
-                                                </div>
-                                                <div class="mt18 row">
-                                                    <input type="text" class="form-control w194" name="writingDate[]" value="{{ $writing->date }}" required>
+                                                <input type="text" class="form-control col-8" name="writingName[]" placeholder="タイトル" value="{{ $writing->name }}" required>
+                                                <div class="mt18">
+                                                    <input type="date" class="form-control w194" name="writingDate[]" value="{{ $writing->date }}" required>
                                                 </div>
                                             </div>
                                         @endforeach

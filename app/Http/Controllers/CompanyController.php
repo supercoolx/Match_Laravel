@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 class CompanyController extends Controller
 {
     public function register(Request $request) {
+        if(Auth::check()) return redirect()->route('home');
         return view("auth.company.register");
     }
 

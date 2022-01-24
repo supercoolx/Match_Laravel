@@ -39,6 +39,11 @@ body {
     --color-light: #f7f6f3;
 }
 
+.row{
+    margin-right: 0;
+    margin-left: 0;
+}
+
 .form-control {
     border: 1px solid var(--color-gray);
     font-size: 15px;
@@ -805,8 +810,17 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-top: 72px;
 }
 
+.content-member-input .member-input-btn p {
+    margin-bottom: 0;
+}
+
 .content-member-input .member-input-btn .btn {
     margin-bottom: 10px;
+}
+
+.content-member-input .input-preview .preview-value {
+    color: var(--color-black);
+    font-weight: bold;
 }
 
 .input-preview {
@@ -847,7 +861,7 @@ img.img-success-background{
 }
 
 .terms-policy-text {
-    color: var(--color-primary);
+    color: var(--color-black);
     margin-top: 90px;
     font-size: 15px;
     letter-spacing: 0.76px;
@@ -863,7 +877,7 @@ img.img-success-background{
 }
 
 .terms-policy-text a span {
-    color: var(--color-blue-dark);
+    color: var(--color-black);
 }
 
 .content-member-input.step2 {
@@ -2460,8 +2474,10 @@ img.img-success-background{
     position: relative;
 }
 .applicant-profile-input .form-input-add-remove{
-    top: 9px;
     display: flex;
+    position: absolute;
+    top: -36px;
+    right: 0px;
 }
 .applicant-profile-input .form-input-add, .applicant-profile-input .form-input-remove{
     width: 20px;
@@ -2471,26 +2487,31 @@ img.img-success-background{
     cursor: pointer;
 }
 .applicant-profile-input .form-input-add{
-    background-image: url("../img/icon-plus.png");
-    margin-right: 12px;
+    background-image: url("../img/icon-plus-dark.png");
+    height: 18px;
+    width: 18px;
+    background-repeat: no-repeat;
+    margin-right: 20px;
 }
 .applicant-profile-input .form-input-remove{
-    background-image: url("../img/icon-x.png");
+    background-image: url("../img/icon-minus-dark.png");
+    height: 18px;
+    width: 18px;
+    background-repeat: no-repeat;
 }
 
 .applicant-profile-input .col-form-input-item{
     min-width: 300px;
-    margin-left: 10px;
     margin-right: 10px;
 }
 .applicant-profile-input .w194{
-    max-width: 130px;
+    max-width: 180px;
 }
 .applicant-profile-input .w333{
     max-width: 333px;
 }
 .applicant-profile-input input, .applicant-profile-input select, .applicant-profile-input textarea{
-    padding-left: 18px;
+    padding-left: 13px;
     padding-right: 18px;
     border-color: var(--color-gray-light);
 }
@@ -2512,8 +2533,8 @@ img.img-success-background{
     margin-top: 10px;
 }
 .applicant-profile-input .experience-comment textarea{
-    height: 163px;
-    padding-top: 24px;
+    height: 148px;
+    padding-top: 15px;
 }
 .applicant-profile-input .qualification-date{
     margin-top: 18px;

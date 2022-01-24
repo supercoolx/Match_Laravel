@@ -12,7 +12,7 @@
                                 <img src="{{ static_asset('assets/img/logo/logo.png') }}" alt="logo" class="pt-4">
                             </a>
                         </div>
-                        <div class="col-md-7 d-flex justify-content-center">
+                        <div class="col-md-8 d-flex justify-content-center">
                             <div class="content-member-input">
                                 <div class="step-wizard d-flex justify-content-center">
                                     <div class="content-step-wizard d-flex justify-content-between">
@@ -97,7 +97,7 @@
                                             @endif
                                         </div>
                                         <div class="member-input-btn text-center">
-                                            <button type="submit" class="btn btn-black btn-next">確認画面</button>
+                                            <button type="submit" class="btn btn-black btn-next">確認</button>
                                         </div>
                                     </form>
                                 </div>
@@ -139,8 +139,8 @@
                                         <p>「<a href="{{ route('policy') }}"><span>個人情報の取扱いについて</span></a>」と「<a href="{{ route('terms') }}"><span>利用規約</span></a>」への同意が必要です</p>
                                     </div>
                                     <div class="member-input-btn text-center">
-                                        <p><button class="btn btn-black btn-prev">修正する</button></p>
-                                        <p><button class="btn btn-black btn-next">同意して登録する</button></p>
+                                        <p><button class="btn btn-black btn-next">同意して登録</button></p>
+                                        <p><button class="btn btn-black btn-prev">修正</button></p>
                                     </div>
                                 </div>
                                 <div class="step-content{{ session('step') && session('step') === 3 ? ' active': '' }}" data-step="3">

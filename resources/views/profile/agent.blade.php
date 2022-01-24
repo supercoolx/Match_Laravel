@@ -92,12 +92,11 @@
                                     <div class="col-form-input">
                                         @foreach($employees as $employee)
                                             <div class="col-form-input-item">
-                                                <div class="form-input-add-remove col-4">
+                                                <div class="form-input-add-remove">
                                                     <div class="form-input-add"></div>
                                                     <div class="form-input-remove"></div>
                                                 </div>
                                                 <input type="text" class="form-control" name="employmentName[]" placeholder="タイトル" value="{{ $employee->employee_name }}" required>
-                                                </div>
                                                 <div class="mt18">
                                                     <input type="date" class="form-control w194" name="employmentDate[]" value="{{ $employee->employee_date }}" required>
                                                 </div>
@@ -110,11 +109,11 @@
                                     <div class="col-form-input">
                                         @foreach($writings as $writing)
                                             <div class="col-form-input-item">
-                                                <div class="form-input-add-remove col-4">
+                                                <div class="form-input-add-remove">
                                                     <div class="form-input-add"></div>
                                                     <div class="form-input-remove"></div>
                                                 </div>
-                                                <input type="text" class="form-control col-8" name="writingName[]" placeholder="タイトル" value="{{ $writing->name }}" required>
+                                                <input type="text" class="form-control" name="writingName[]" placeholder="タイトル" value="{{ $writing->name }}" required>
                                                 <div class="mt18">
                                                     <input type="date" class="form-control w194" name="writingDate[]" value="{{ $writing->date }}" required>
                                                 </div>
@@ -367,8 +366,7 @@
             //     setStep($(this).data('step'));
             // });
             $('div.form-input-add').click(function (e) {
-                item = $(this).closest('.col-form-input-item').clone(true);
-                $(this).closest('.col-form-input').append(item);
+                $(this).closest('.col-form-input-item').clone(true).appendTo($(this).closest('.col-form-input')).find('input').val('');
             });
             $('div.form-input-remove').click(function (e) {
                 item = $(this).closest('.col-form-input-item').remove();

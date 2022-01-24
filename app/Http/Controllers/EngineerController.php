@@ -29,7 +29,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 class EngineerController extends Controller
 {
     public function register(Request $request) {
-        if(Auth::check()) return redirect()->route('home');
+        if(!session('step') && Auth::check()) return redirect()->route('home');
         return view("auth.engineer.register");
     }
 

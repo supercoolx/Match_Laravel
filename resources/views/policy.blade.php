@@ -6,7 +6,7 @@
             <div class="d-flex justify-content-center">
                 <div class="blog-content">
                     <h1>個人情報保護方針</h1>
-                    <div class="divider-small"></div>
+                    <div class="divider-large"></div>
                     <p class="abstract">Scope株式会社（以下「当社」といいます。)は、事業活動を推進するにあたり、プライバシーの適切な保護の重要性と社会的責任を十分に認識し、個人情報の保護に関する法律（以下「個人情報保護法」といいます。）その他の関係法令を遵守いたします。</p>
                     <br>
                     <h3>(1) 個人情報の取扱い</h3>
@@ -25,7 +25,7 @@
                     <p>当社は、個人情報保護マネジメントシステムを継続的に見直し改善いたします。</p>
                     <br>
                     <h1>個人情報取扱いについて</h1>
-                    <div class="divider-medium"></div>
+                    <div class="divider-large"></div>
                     <p class="abstract">当社では、お預かりした個人情報について、以下のとおり適正かつ安全に管理・運用することに努めます。</p>
                     <br>
                     <h3>(1) 利用目的</h3>
@@ -48,18 +48,21 @@
                     <p>貴殿の個人情報について、ご本人には、開示・訂正・削除・利用停止を請求する権利があります。手続きにあたっては、ご本人確認のうえ対応させていただきますが、代理人の場合も可能です。詳細については、以下のお問合わせ窓口をご参照ください。</p>
                     <br>
                     <h1>個人情報管理責任者</h1>
-                    <div class="divider-medium"></div>
+                    <div class="divider-large"></div>
                     <p class="abstract">お預かりした個人情報は、以下の者が責任をもって管理いたします。<br>
                         Scope株式会社 個人情報管理責任者</p>
                     <br>
                     <h1>お問合わせ窓口</h1>
-                    <div class="divider-medium"></div>
+                    <div class="divider-large"></div>
                     <p class="abstract">Scope株式会社<br>
                         〒104-0061<br>
                         東京都中央区銀座一丁目22番11号銀座大竹ビジデンス2階
                     </p>
                     <p class="abstract">お問い合わせは、当社公式WebサイトのCONTACTよりお願いいたします。</p>
                 </div>
+            </div>
+            <div class="text-center pb-3">
+                <button class="btn btn-black">確認</button>
             </div>
         </div>
     </section>

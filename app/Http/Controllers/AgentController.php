@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 class AgentController extends Controller
 {
     public function register(Request $request) {
-        if(Auth::check()) return redirect()->route('home');
+        if(!session('step') && Auth::check()) return redirect()->route('home');
         return view("auth.agent.register");
     }
 

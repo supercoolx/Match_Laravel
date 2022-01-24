@@ -28,7 +28,9 @@
 <div class="site-wrapper">
     <!-- Header -->
     @auth
-        @include('inc.nav')
+        @if(Route::currentRouteName() !== 'company.register' && Route::currentRouteName() !== 'agent.register' && Route::currentRouteName() !== 'engineer.register')
+            @include('inc.nav')
+        @endif
     @endauth
 
     @yield('content')

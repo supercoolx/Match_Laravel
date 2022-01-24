@@ -6,7 +6,7 @@
             <div class="d-flex justify-content-center">
                 <div class="blog-content">
                     <h1>利用規約</h1>
-                    <div class="divider-small"></div>
+                    <div class="divider-large"></div>
                     <p class="abstract">この利用規約（以下，「本規約」といいます。）は，Scope株式会社（以下，「当社」といいます。）がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。 </p>
                     <h3>第1条（適用）</h3>
                     <p>1.本規約は，ユーザーと当社との間の本サービスの利用に関わる一切の関係に適用されるものとします。</p>
@@ -93,9 +93,19 @@
                     <br>
                 </div>
             </div>
+            <div class="text-center pb-3">
+                <button class="btn btn-black" onclick="closeMe()">確認</button>
+            </div>
         </div>
     </section>
 @endsection
 
 @section('script')
+<script>
+    function closeMe()
+    {
+        window.opener = self; 
+        window.close();
+    }
+</script>
 @endsection

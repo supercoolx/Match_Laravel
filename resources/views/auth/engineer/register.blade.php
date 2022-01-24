@@ -71,7 +71,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="confirmEmail" class="col-form-label">メールアドレス(確認)</label>
-                                            <input type="email" class="form-control{{ $errors->has('email_confirmation') ? ' is-invalid' : '' }}" value="{{ old('email_confirmation') }}" id="confirmEmail" name="email_confirmation" placeholder="上記同様のメールアドレスをご入力ください" required data-parsley-equalto="#email">
+                                            <input type="email" class="form-control{{ $errors->has('email_confirmation') ? ' is-invalid' : '' }}" value="{{ old('email_confirmation') }}" id="confirmEmail" name="email_confirmation" placeholder="上記同様のメールアドレスをご入力" required data-parsley-equalto="#email">
                                             @if ($errors->has('email_confirmation'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('email_confirmation') }}</strong>
@@ -89,7 +89,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password-confirm" class="col-form-label">パスワード(確認)</label>
-                                            <input type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="password-confirm" name="password_confirmation" placeholder="上記同様のパスワードをご入力ください" required data-parsley-equalto="#password" minlength="6" data-parsley-required-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern="/^[a-zA-Z0-9!@#$%^&*]{6,20}$/">
+                                            <input type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="password-confirm" name="password_confirmation" placeholder="上記同様のパスワードをご入力" required data-parsley-equalto="#password" minlength="6" data-parsley-required-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern="/^[a-zA-Z0-9!@#$%^&*]{6,20}$/">
                                             @if ($errors->has('password_confirmation'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -136,7 +136,7 @@
                                         <div class="col-sm-7 preview-value">password</div>
                                     </div>
                                     <div class="terms-policy-text">
-                                        <p>「<a href="{{ route('policy') }}"><span>個人情報の取扱いについて</span></a>」と「<a href="{{ route('terms') }}"><span>利用規約</span></a>」への同意が必要です</p>
+                                        <p>「<a href="{{ route('policy') }}" target="_blank"><span>個人情報の取扱いについて</span></a>」と「<a href="{{ route('terms') }}" target="_blank"><span>利用規約</span></a>」への同意が必要です</p>
                                     </div>
                                     <div class="member-input-btn text-center">
                                         <p><button class="btn btn-black btn-next">同意して登録</button></p>
@@ -163,31 +163,7 @@
 @endsection
 
 @section('style')
-<style>
-#focus{
-  border:3px solid #fef6fb;
-  box-shadow:0 0 10px 0 #e8e7e4;
-  position:absolute;
-  transition:
-    width .2s ease, 
-    height .2s ease, 
-    left .2s ease, 
-    top .2s ease, 
-    border-radius .2s ease;
-  z-index:5;
-  display:none;
-  box-sizing:border-box;
-}
-.form-control:focus{
-    box-shadow: none;
-}
-div.side-image{
-    background-image: url("{{static_asset('assets/img/register/step1.png')}}");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: white;
-}
-</style>
+    <link rel="stylesheet" href="{{ static_asset('assets/lib/custom-focus-input/style.css') }}">
 @endsection
 
 @section('script')
@@ -298,44 +274,6 @@ div.side-image{
             });
         });
         
-        const FOCUS = $("#focus"); // focus element
-
-        // function for positioning the div
-        function position(e) {
-        // get position
-            var props = {
-                top: e.offset().top,
-                left: e.offset().left,
-                width: e.outerWidth(),
-                height: e.outerHeight(),
-                radius: parseInt(e.css("border-radius"))
-            };
-            
-            // set position
-            FOCUS.css({
-                top: props.top,
-                left: props.left,
-                width: props.width,
-                height: props.height,
-                "border-radius": props.radius
-            });
-            
-            FOCUS.fadeIn(200);
-        }
-
-        $('input').each(function(i) {
-            $(this).focus(function() {
-                el = $(this);
-                position(el);
-            });
-        });
-
-        $('input').on("focusout", function(e) {
-            setTimeout(function() {
-                if (!(document.activeElement instanceof HTMLInputElement)) {
-                    FOCUS.fadeOut(200);
-                }
-            }, 0);
-        });
     </script>
+    <script src="{{ static_asset('assets/lib/custom-focus-input/script.js') }}"></script>
 @endsection

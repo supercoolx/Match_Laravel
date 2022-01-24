@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="confirmEmail" class="col-form-label">メールアドレス(確認)</label>
-                                            <input type="email" class="form-control{{ $errors->has('email_confirmation') ? ' is-invalid' : '' }}" value="{{ old('email_confirmation') }}" id="confirmEmail" name="email_confirmation" placeholder="上記同様のメールアドレスをご入力ください" required data-parsley-equalto="#email">
+                                            <input type="email" class="form-control{{ $errors->has('email_confirmation') ? ' is-invalid' : '' }}" value="{{ old('email_confirmation') }}" id="confirmEmail" name="email_confirmation" placeholder="上記同様のメールアドレスをご入力" required data-parsley-equalto="#email">
                                             @if ($errors->has('email_confirmation'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('email_confirmation') }}</strong>
@@ -88,7 +88,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password-confirm" class="col-form-label">パスワード(確認)</label>
-                                            <input type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="password-confirm"  name="password_confirmation" placeholder="上記同様のパスワードをご入力ください" required data-parsley-equalto="#password" data-parsley-required-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern="/^[a-zA-Z0-9!@#$%^&*]{6,20}$/">
+                                            <input type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="password-confirm"  name="password_confirmation" placeholder="上記同様のパスワードをご入力" required data-parsley-equalto="#password" data-parsley-required-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern="/^[a-zA-Z0-9!@#$%^&*]{6,20}$/">
                                             @if ($errors->has('password_confirmation'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -135,7 +135,7 @@
                                         <div class="col-sm-7 preview-value">password</div>
                                     </div>
                                     <div class="terms-policy-text">
-                                        <p>「<a href="{{ route('policy') }}"><span>個人情報の取扱いについて</span></a>」と「<a href="{{ route('terms') }}"><span>利用規約</span></a>」への同意が必要です</p>
+                                        <p>「<a href="{{ route('policy') }}" target="_blank"><span>個人情報の取扱いについて</span></a>」と「<a href="{{ route('terms') }}" target="_blank"><span>利用規約</span></a>」への同意が必要です</p>
                                     </div>
                                     <div class="member-input-btn text-center">
                                         <p><button class="btn btn-black btn-next">同意して登録</button></p>

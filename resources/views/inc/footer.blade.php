@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <div class="footer-terms">
-                        <span><a href="{{ route('policy') }}">個人情報の取扱いについて</a>  /  <a href="{{ route('terms') }}">利用規約</a></span>
+                        <span><a href="{{ route('policy') }}" target="_blank">個人情報の取扱いについて</a>  /  <a href="{{ route('terms') }}" target="_blank">利用規約</a></span>
                     </div>
                 </div>
             </div>

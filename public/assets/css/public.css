@@ -129,6 +129,16 @@ textarea{
     color: var(--color-white);
 }
 
+.btn-circle{
+    border: 2px solid var(--color-blue);
+    color: var(--color-blue);
+    border-radius: 20px;
+}
+.btn-circle:hover{
+    background-color: var(--color-blue);
+    color: var(--color-white);
+}
+
 .btn-medium {
     width: 168px;
     height: 52px;
@@ -1108,7 +1118,7 @@ img.img-success-background{
     height: 43px;
 }
 
-.user-contact .btn-chat:before{
+.btn-chat:before{
     content: "";
     background-image: url("../img/chat-light.png");
     background-repeat: no-repeat;
@@ -1117,7 +1127,7 @@ img.img-success-background{
     height: 21px;
 }
 
-.user-contact .btn-call:before{
+.btn-call:before{
     content: "";
     background-image: url("../img/call-light.png");
     background-repeat: no-repeat;
@@ -2426,7 +2436,6 @@ img.img-success-background{
     margin-right: 20px;
 }
 .applicant-profile-input{
-    max-width: 771px;
     width: 100%;
     margin-top: 12px;
     color: var(--color-primary);
@@ -2434,20 +2443,28 @@ img.img-success-background{
 .applicant-profile-input .content-step-wizard{
     max-width: 439px;
 }
+.applicant-profile-input .step-content[data-step='1']{
+    max-width: 771px;
+    margin: auto;
+}
 .applicant-profile-input .avatar-picker{
     margin-top: 126px;
     margin-bottom: 59px;
 }
-.applicant-profile-input .avatar-picker .avatar-img{
+.applicant-profile-input .avatar-img{
     width: 79px;
     height: 79px;
     border-radius: 50%;
-    margin-bottom: 13px;
+    object-fit: cover;
 }
 .applicant-profile-input .image-upload{
     max-width: 540px;
     min-width: inherit;
     width: 100%;
+}
+.applicant-profile-input .profile-header > div{
+    margin: auto;
+    text-align: center;
 }
 .applicant-profile-input .registrant-name{
     color: var(--color-dark);
@@ -2455,7 +2472,32 @@ img.img-success-background{
 }
 .applicant-profile-input .registrant-name-kana{
     font-size: 15px;
-    color: var(--color-primary);
+    color: var(--color-black);
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.applicant-profile-input #user-chart{
+    height: 250px;
+}
+.applicant-profile-input .profile-header .btn:not(.btn-circle){
+    width: 198px;
+    font-size: 14px;
+    margin: auto;
+    margin-top: 10px;
+    height: 43px;
+}
+.applicant-profile-input .profile-container{
+    padding-top: 30px;
+    padding-bottom: 44px;
+    background-color: var(--color-white);
+}
+.applicant-profile-input .profile-container nav .nav-item{
+    color: var(--color-gray-dark);
+}
+.applicant-profile-input .profile-container nav .nav-item.active{
+    color: var(--color-black);
+    font-weight: bold;
 }
 .applicant-profile-input .form-group{
     flex-wrap: wrap;
@@ -2548,17 +2590,7 @@ img.img-success-background{
 }
 .applicant-profile-input .applicant-profile-input-btn{
     margin-top: 37px;
-    margin-bottom: 24px;
-}
-.applicant-profile-input .applicant-profile-input-btn .btn{
-    width: 329px;
-}
-.applicant-profile-preview{
-    max-width: 858px;
-    margin-bottom: 44px;
-}
-.applicant-profile-preview .registrant-name-kana{
-    color: var(--color-sky-blue);
+    padding-bottom: 24px;
 }
 .applicant-profile-preview .input-preview{
     display: flex;

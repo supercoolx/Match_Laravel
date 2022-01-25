@@ -2,227 +2,32 @@
 
 @section('content')
     <section class="content-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 d-flex justify-content-center">
-                    <div class="applicant-profile-input">
-                        <div class="step-wizard d-flex justify-content-center">
-                            <div class="content-step-wizard d-flex justify-content-between">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: {{ $step ? ($step - 1) * 50 : 0 }}%;" aria-valuenow="{{ $step ? ($step - 1) * 50 : 0 }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <div class="step-item{{ $step > 0 ? ' active': '' }}" data-step="1">入力</div>
-                                <div class="step-item{{ $step > 1 ? ' active': '' }}" data-step="2">確認</div>
-                                <div class="step-item{{ $step > 2 ? ' active': '' }}" data-step="3">掲載</div>
-                            </div>
-                        </div>
-                        <div class="step-content{{ $step == 1 ? ' active': '' }}" data-step="1">
-                            <form method="POST" role="form" action="{{ route('engineer.profile.update') }}" enctype="multipart/form-data" id="form">
-                                @csrf
-                                <input type="hidden" name="id" value="{{ $agent->id }}">
-                                <div class="form-group">
-                                    <label class="col-form-label">業務経験</label>
-                                    <div class="col-form-input work-experience">
-                                        @foreach($experiences as $exp)
-                                            <div class="col-form-input-item">
-                                                <div class="form-input-add-remove">
-                                                    <div class="form-input-add"></div>
-                                                    <div class="form-input-remove"></div>
-                                                </div>
-                                                <input type="text" class="form-control" name="experienceTitle[]" placeholder="タイトル" value="{{ $exp->title }}" required>
-                                                <div class="work-experience-duration date-range-selector">
-                                                    <input type="date" class="form-control w194" name="experienceStartDate[]" value="{{ $exp->start_date }}" required>
-                                                    <span>～</span>
-                                                    <input type="date" class="form-control w194" name="experienceEndDate[]" value="{{ $exp->end_date }}" required>
-                                                </div>
-                                                <div class="experience-comment">
-                                                    <textarea class="form-control" name="experienceComment[]" placeholder="タイトル" required>{{ $exp->content }}</textarea>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">学歴</label>
-                                    <div class="col-form-input">
-                                        @foreach($educations as $edu)
-                                            <div class="col-form-input-item">
-                                                <div class="form-input-add-remove">
-                                                    <div class="form-input-add"></div>
-                                                    <div class="form-input-remove"></div>
-                                                </div>
-                                                <input type="text" class="form-control" name="schoolName[]" placeholder="学校名" value="{{ $edu->school_name }}" required>
-                                                <div class="mt13">
-                                                    <input type="text" class="form-control" name="departmentSubjectName[]" placeholder="学部、学科名" value="{{ $edu->subject_name }}" required>
-                                                </div>
-                                                <div class="mt18 date-range-selector">
-                                                    <div>
-                                                        <input type="date" class="form-control w194" name="educationStartDate[]" value="{{ $edu->start_date }}" required>
-                                                    </div>
-                                                    <span>～</span>
-                                                    <div>
-                                                        <input type="date" class="form-control w194" name="educationEndDate[]" value="{{ $edu->end_date }}" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">資格</label>
-                                    <div class="col-form-input qualifications">
-                                        @foreach($qualifications as $qua)
-                                            <div class="col-form-input-item">
-                                                <div class="form-input-add-remove">
-                                                    <div class="form-input-add"></div>
-                                                    <div class="form-input-remove"></div>
-                                                </div>
-                                                <div class="qualification-name">
-                                                    <input type="text" class="form-control" name="qualificationName[]" placeholder="資格名" value="{{ $qua->name }}" required>
-                                                </div>
-                                                <div class="qualification-date">
-                                                    <input type="date" class="form-control w194" name="qualificationDate[]" value="{{ $qua->date }}" required>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">受賞歴</label>
-                                    <div class="col-form-input">
-                                        @foreach($employees as $employee)
-                                            <div class="col-form-input-item">
-                                                <div class="form-input-add-remove">
-                                                    <div class="form-input-add"></div>
-                                                    <div class="form-input-remove"></div>
-                                                </div>
-                                                <input type="text" class="form-control" name="employmentName[]" placeholder="タイトル" value="{{ $employee->employee_name }}" required>
-                                                <div class="mt18">
-                                                    <input type="date" class="form-control w194" name="employmentDate[]" value="{{ $employee->employee_date }}" required>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">執筆歴</label>
-                                    <div class="col-form-input">
-                                        @foreach($writings as $writing)
-                                            <div class="col-form-input-item">
-                                                <div class="form-input-add-remove">
-                                                    <div class="form-input-add"></div>
-                                                    <div class="form-input-remove"></div>
-                                                </div>
-                                                <input type="text" class="form-control" name="writingName[]" placeholder="タイトル" value="{{ $writing->name }}" required>
-                                                <div class="mt18">
-                                                    <input type="date" class="form-control w194" name="writingDate[]" value="{{ $writing->date }}" required>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">アイコン</label>
-                                    <div class="col-form-input">
-                                        <input type="checkbox" id="icon" name="icon" data-toggle="toggle" data-on="公開" data-off="非公開" data-width="119" data-height="41" data-onstyle="theme" data-offstyle="theme" data-style="ios" @if($profile->icon) {{ 'checked' }} @endif>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">氏名</label>
-                                    <div class="col-form-input">
-                                        <input type="checkbox" name="fullName" data-toggle="toggle" data-on="公開" data-off="非公開" data-width="119" data-height="41" data-onstyle="theme" data-offstyle="theme" data-style="ios" @if($profile->full_name) {{ 'checked' }} @endif>
-                                    </div>
-                                </div>
-                                <div class="applicant-profile-input-btn text-center">
-                                    <button type="submit" class="btn btn-theme btn-medium btn-next">確認画面へ</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="step-content{{ $step == 2 ? ' active': '' }}" data-step="2">
-                            <div class="applicant-profile-preview">
-                                <div class="d-flex flex-column align-items-center avatar-picker">
-                                    <img src="{{ $agent->avatar ? upload_asset($agent->avatar) : static_asset('assets/img/avatar/default.png') }}" alt="" class="avatar-img">
-                                    <span class="registrant-name">{{ $agent->name }}</span>
-                                    <span class="registrant-name-kana">{{ $agent->name_kana }}</span>
-                                </div>
-                                <div class="input-preview">
-                                    <div class="preview-label">
-                                        <label>専門職種</label>
-                                    </div>
-                                    <div class="preview-value" id="p-occupation">
-                                        @foreach($jobs as $job)
-                                            <p>{{ $job->type->name ?? '' }}</p>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="input-preview">
-                                    <div class="preview-label">
-                                        <label>対応可能日数 / 週</label>
-                                    </div>
-                                    <div class="preview-value" id="p-week">{{ $profile->week }}日</div>
-                                </div>
-                                <div class="input-preview">
-                                    <div class="preview-label">
-                                        <label>希望契約形態</label>
-                                    </div>
-                                    <div class="preview-value" id="p-contact">{{ $profile->contractType->name ?? '' }}</div>
-                                </div>
-                                <div class="input-preview">
-                                    <div class="preview-label">
-                                        <label>業務経験</label>
-                                    </div>
-                                    <div class="preview-value" id="p-experience">
-                                        @foreach($experiences as $exp)
-                                            <div class="experience-title-preview"><span>{{ $exp->title }}</span></div>
-                                            <div class="experience-comment-preview">{{ $exp->content }}</div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="input-preview">
-                                    <div class="preview-label">
-                                        <label>資格</label>
-                                    </div>
-                                    <div class="preview-value" id="p-qualification">
-                                        @foreach($qualifications as $qua)
-                                            <div class="qualifications-preiew">
-                                                <p>{{ $qua->name }}</p>
-                                                <p>{{ $qua->date }}</p>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="input-preview">
-                                    <div class="preview-label">
-                                        <label>ポートフォリオ</label>
-                                    </div>
-                                    <div class="preview-value" id="p-portfolio">
-                                        @foreach($portfolios as $portfolio)
-                                            <div class="portfolio-preview">
-                                                <p class="portfolio-title-preview">{{ $portfolio->name }}</p>
-                                                <p class="portfolio-link-preview"><a href="{{ $portfolio->link }}">{{ $portfolio->link }}</a></p>
-                                                <img src="{{ upload_asset($portfolio->image) }}" alt="" class="portfolio-img-preview">
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="applicant-profile-preview-buttons d-flex justify-content-center">
-                                    <button class="btn btn-dark btn-large btn-prev">修正する</button>
-                                    <button class="btn btn-theme btn-large btn-next">掲載する</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="step-content{{ $step == 3 ? ' active': '' }}" data-step="3">
-                            <div class="completion-icon">
-                                登録完了しました
-                            </div>
-                            <div class="applicant-profile-completion-buttons d-flex justify-content-center">
-                                <button class="btn btn-theme btn-large" onclick="javascript: location.href = '{{ route('engineer.dashboard') }}'">ダッシュボードへ</a>
-                                <button class="btn btn-theme btn-large" onclick="javascript: location.href = '{{ route('projects.list') }}'">掲載プロフィール一覧へ</a>
-                            </div>
-                        </div>
+        <div class="applicant-profile-input">
+            <div class="step-wizard d-flex justify-content-center">
+                <div class="content-step-wizard d-flex justify-content-between">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ $step ? ($step - 1) * 50 : 0 }}%;" aria-valuenow="{{ $step ? ($step - 1) * 50 : 0 }}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
+                    <div class="step-item{{ $step > 0 ? ' active': '' }}" data-step="1">入力</div>
+                    <div class="step-item{{ $step > 1 ? ' active': '' }}" data-step="2">確認</div>
+                    <div class="step-item{{ $step > 2 ? ' active': '' }}" data-step="3">掲載</div>
                 </div>
             </div>
+            {{-- <div class="step-content{{ $step == 1 ? ' active': '' }}" data-step="1">
+                @include('profile.step1.agent')
+            </div> --}}
+            <div class="step-content active" data-step="2">
+                @include('profile.step2.agent')
+            </div>
+            {{-- <div class="step-content{{ $step == 3 ? ' active': '' }}" data-step="3">
+                <div class="completion-icon">
+                    登録完了しました
+                </div>
+                <div class="applicant-profile-completion-buttons d-flex justify-content-center">
+                    <button class="btn btn-theme btn-large" onclick="javascript: location.href = '{{ route('engineer.dashboard') }}'">ダッシュボードへ</a>
+                    <button class="btn btn-theme btn-large" onclick="javascript: location.href = '{{ route('projects.list') }}'">掲載プロフィール一覧へ</a>
+                </div>
+            </div> --}}
         </div>
     </section>
 @endsection
@@ -396,4 +201,46 @@
         });
     </script>
     <script src="{{ static_asset('assets/lib/custom-focus-input/script.js') }}"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-radar.min.js"></script>
+    <script>
+        anychart.onDocumentReady(function () {
+            // our data from bulbapedia
+            var data = [
+                {x: "公開案件数", value: 3},
+                {x: "公開案件閲覧数", value: 5},
+                {x: "契約成立数", value: 4},
+                {x: "フォロー数", value: 6},
+                {x: "フォロワー数", value: 5},
+                {x: "友達招待数", value: 6},
+            ];
+        
+            var chart = anychart.radar();
+            
+            chart.height('250px');
+            chart.yScale().minimum(0);
+            chart.yScale().maximum(6);
+            chart.yScale().ticks().interval(1);
+            chart.background().fill('#f7f6f3');
+            chart.yGrid().palette(["white"]);
+            chart.area(data).markers(true);
+
+            var tooltip = chart.tooltip();
+            tooltip.titleFormat('{%x}: {%value}');
+            tooltip.format('');
+            tooltip.separator(false);
+        
+            // create first series
+            chart.line(data);
+        
+            // set container id for the chart
+            chart.container('user-chart');
+            // initiate chart drawing
+            chart.draw();
+            $('.anychart-credits').remove();
+        });
+    </script>
+    <script>
+        // '公開案件数', '公開案件閲覧数', '契約成立数','フォロー数','フォロワー数','友達招待数'
+    </script>
 @endsection

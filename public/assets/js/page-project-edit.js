@@ -93,10 +93,6 @@ $(document).ready(function () {
                 isValid = false;
             }
         }
-        if($('#averageUptimeStart').val() === '' || $('#averageUptimeEnd').val() === '') {
-            $('#averageUptimeStart').parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
-            isValid = false;
-        }
         if(!$('input[name=week]:checked').val()){
             $('input[name=week]').parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
             isValid = false;
@@ -114,7 +110,7 @@ $(document).ready(function () {
             isValid = false;
         }
         if(!$('input.contractType:checked').length){
-            $('input[name=contractType]').parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
+            $('input[name="contractType[1]"]').parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
             isValid = false;
         }
         // if($('input[name="contractType"]:checked').serialize() === ''){
@@ -166,14 +162,18 @@ $(document).ready(function () {
     //     console.log($(this).data('step'));
     //     setStep($(this).data('step'));
     // });
-    form.on('input', 'input.form-control, select.form-control, textarea.form-control', function (e) {
+    form.on('input', 'input.form-control, input.form-check-input, select.form-control, textarea.form-control', function (e) {
         $(this).parents('.form-group').find('.invalid-feedback strong').text('');
         const domID = $(this).attr('id');
         const inputVal = $(this).val();
         $('[data-for="' + domID +'"]').text(inputVal);
     });
-    $('input[name=week], input[name=onlineInterview], input[name=interviews], input[name=remoteWork], input[name=contractType]').change(function () {
+    $('input[name=week], input[name=onlineInterview], input[name=interviews], input[name=remoteWork]').change(function () {
         $(this).parents('.form-group').find('.invalid-feedback strong').text('');
+    });
+    $('input.contractType').change(function () {
+        if(!$('input.contractType:checked').length)
+            $(this).parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
     });
     stepContent1.find('img.image-upload').click(function (e) {
         $('.img-thumbnail-preview img').attr('src', img_thumbnail_preview);

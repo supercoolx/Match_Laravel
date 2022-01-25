@@ -72,7 +72,6 @@ class UserController extends Controller
 
         if($user->email != null){
             $user->save();
-            flash('登録完了しました。')->success();
         }
 
         return $this->updated($request, $user);

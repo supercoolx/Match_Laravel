@@ -8,12 +8,11 @@
         <input type="text" class="form-control{{ $errors->has('caseName') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->name : old('caseName') }}" id="caseName" name="caseName" placeholder="募集タイトルを入力" required >
     </div>
     <div class="form-group">
-        <label for="unitPrice" class="col-form-label">単価/円</label>
+        <label for="unitPrice" class="col-form-label">単価/月</label>
         <div class="unite-price-range">
             <div>
                 <input type="text" class="form-control{{ $errors->has('unitPrice') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->price : old('unitPrice') }}" id="unitPrice" name="unitPrice" min="0" placeholder="単価を入力" required data-parsley-type="number">
             </div>
-            <span class="unit">円</span>
         </div>
     </div>
     <div class="form-group">

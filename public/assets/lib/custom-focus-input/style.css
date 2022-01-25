@@ -14,8 +14,3 @@
 .form-control:focus{
     box-shadow: none;
 }
-div.side-image{
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: white;
-}

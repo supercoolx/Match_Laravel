@@ -727,6 +727,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: var(--color-white);
 }
 /* Member input */
+div.side-image{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: white;
+    background-position: center;
+}
+
 .content-member-input {
     width: 100%;
     max-width: 627px;
@@ -1332,7 +1339,7 @@ img.img-success-background{
     margin-bottom: 4px;
     flex-wrap: wrap;
 }
-.input-preview .preview-value[data-for='unitPrice']{
+div[data-for='unitPrice']{
     color: var(--color-blue) !important;
     font-weight: bold;
 }

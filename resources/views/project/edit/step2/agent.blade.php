@@ -5,12 +5,7 @@
         <span class="preview-value" data-for="week">週{{ isset($project) ? $project->weeks->name : old('week') }}</span>
     </div>
     <h2 data-for="caseName" class="pt-2">{{ isset($project) ? $project->name : old('caseName') }}</h2>
-</div>
-<div class="input-preview">
-    <div class="preview-label">
-        <div class="preview-value" data-for="unitPrice">¥ {{ isset($project) ? $project->price : old('unitPrice') }}/ 月</div>
-    </div>
-    <div class="preview-value" data-for="jobContent">{{ isset($project) ? $project->content : old('jobContent') }}</div>
+    <div data-for="unitPrice">¥ {{ isset($project) ? $project->price : old('unitPrice') }}/ 月</div>
 </div>
 <div class="input-preview">
     <div class="preview-label">
@@ -18,6 +13,12 @@
     </div>
     <div class="preview-value" data-for="contractType">
     </div>
+</div>
+<div class="input-preview">
+    <div class="preview-label">
+        <label>職務内容</label>
+    </div>
+    <div class="preview-value" data-for="jobContent">{{ isset($project) ? $project->content : old('jobContent') }}</div>
 </div>
 <div class="input-preview">
     <div class="preview-label">

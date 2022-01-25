@@ -95,7 +95,6 @@ class ProjectController extends Controller
         $project = $this->createProject($request->all());
         if ($project->name != null) {
             $project->save();
-            flash('掲載しました。')->success();
         }
         return back()->with('step', 3);
     }
@@ -148,7 +147,6 @@ class ProjectController extends Controller
         $this->validator($request->all())->validate();
         $project = $this->updateProject($project, $request->all());
         $project->save();
-        flash('掲載しました。')->success();
         return back()->with('step', 3);
     }
 

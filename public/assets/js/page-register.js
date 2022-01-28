@@ -47,7 +47,8 @@ function checkAvatarPath() {
     return avatarPath && avatarPath.length > 0;
 }
 $(document).ready(function () {
-    $('div.side-image').css('background-image', 'url("/public/assets/img/register/step1.png")');
+    let step = $('div.step-content.active').attr('data-step');
+    $('div.side-image').css('background-image', 'url("/public/assets/img/register/step' + step + '.png")');
     var form = $('#form');
     var elPhone = document.getElementById('phone');
     var maskPhone = IMask(elPhone, {

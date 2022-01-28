@@ -80,7 +80,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password" class="col-form-label">パスワード</label>
-                                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password" placeholder="パスワードを入力" required minlength="6" maxlength="20" data-parsley-error-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern="/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,20}$/">
+                                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password" placeholder="パスワードを入力" required minlength="6" maxlength="20" data-parsley-error-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*\W)[A-Za-z\d\W]{6,20}$/">
                                             @if ($errors->has('password'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('password') }}</strong>
@@ -89,7 +89,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password-confirm" class="col-form-label">パスワード(確認)</label>
-                                            <input type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="password-confirm" name="password_confirmation" placeholder="上記同様のパスワードを入力" required data-parsley-equalto="#password" minlength="6" data-parsley-required-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern="/^[a-zA-Z0-9!@#$%^&*]{6,20}$/">
+                                            <input type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="password-confirm" name="password_confirmation" placeholder="上記同様のパスワードを入力" required data-parsley-equalto="#password" minlength="6" data-parsley-required-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern-message="半角英数字記号6文字以上20文字以内で入力してください" data-parsley-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*\W)[A-Za-z\d\W]{6,20}$/">
                                             @if ($errors->has('password_confirmation'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -142,7 +142,7 @@
                                         <div class="col-sm-5 preview-label">
                                             <label>パスワード</label>
                                         </div>
-                                        <div class="col-sm-7 preview-value">**********</div>
+                                        <div class="col-sm-7 preview-value" data-for="password">**********</div>
                                     </div>
                                     <div class="input-preview row">
                                         <div class="col-sm-5 preview-label">

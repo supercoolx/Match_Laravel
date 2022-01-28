@@ -10,6 +10,7 @@ use App\Http\Controllers\EngineerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -72,9 +73,9 @@ Route::group(['middleware' => ['company']], function() {
 Route::group(['middleware' => ['agent']], function() {
     Route::get('/agent/dashboard', [AgentController::class, 'dashboard'])->name('agent.dashboard');
     Route::get('/agent/setting', [AgentController::class, 'setting'])->name('agent.setting');
-    Route::get('/agent/profile', [AgentController::class, 'profile_setting'])->name('agent.profile.setting');
+    Route::get('/agent/profile', [ProfileController::class, 'setting'])->name('agent.profile.setting');
     Route::post('/agent/setting', [UserController::class, 'update'])->name('agent.update');
-    Route::post('/agent/profile', [AgentController::class, 'profile_update'])->name('agent.profile.update');
+    Route::post('/agent/profile', [ProfileController::class, 'update'])->name('agent.profile.update');
 
     Route::get('/agent/project/post', [AgentController::class, 'postProject'])->name('agent.project.create');
     Route::get('/agent/project/edit/{id}', [AgentController::class, 'editProject'])->name('agent.project.edit');
@@ -88,9 +89,9 @@ Route::group(['middleware' => ['agent']], function() {
 Route::group(['middleware' => ['engineer']], function() {
     Route::get('/engineer/dashboard', [EngineerController::class, 'dashboard'])->name('engineer.dashboard');
     Route::get('/engineer/setting', [EngineerController::class, 'setting'])->name('engineer.setting');
-    Route::get('/engineer/profile', [EngineerController::class, 'profile_setting'])->name('engineer.profile.setting');
+    Route::get('/engineer/profile', [ProfileController::class, 'setting'])->name('engineer.profile.setting');
     Route::post('/engineer/setting', [UserController::class, 'update'])->name('engineer.update');
-    Route::post('/engineer/profile', [EngineerController::class, 'profile_update'])->name('engineer.profile.update');
+    Route::post('/engineer/profile', [ProfileController::class, 'update'])->name('engineer.profile.update');
 });
 
 Route::group(['middleware' => ['chat']], function() {

@@ -113,11 +113,9 @@ class RegisterController extends Controller
             if (true) {
                 $user->email_verified_at = date('Y-m-d H:m:s');
                 $user->save();
-                flash('登録完了しました。')->success();
             }
             else {
                 event(new Registered($user));
-                flash('登録完了しました。メールアドレスをご確認ください。')->success();
             }
         }
 

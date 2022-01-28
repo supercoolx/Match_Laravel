@@ -198,7 +198,7 @@ textarea{
     color: var(--color-red);
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+input[type="date"]::-webkit-calendar-picker-indicator, input[type="month"]::-webkit-calendar-picker-indicator{
     background: url('../img/calendar.png') no-repeat;
 }
 
@@ -728,7 +728,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 /* Member input */
 div.side-image{
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-color: white;
     background-position: center;
@@ -738,7 +738,7 @@ div.side-image{
     width: 100%;
     max-width: 627px;
     margin-top: 12px;
-    margin-bottom: 39px;
+    margin-bottom: 130px;
 }
 
 .content-step-wizard{
@@ -2469,6 +2469,9 @@ div[data-for='unitPrice']{
     min-width: inherit;
     width: 100%;
 }
+.applicant-profile-input .profile-header{
+    padding-bottom: 30px;
+}
 .applicant-profile-input .profile-header > div{
     margin: auto;
     text-align: center;
@@ -2506,6 +2509,43 @@ div[data-for='unitPrice']{
     color: var(--color-black);
     font-weight: bold;
 }
+.applicant-profile-input .tab-content{
+    margin-top: 30px;
+}
+.applicant-profile-input .tab-pane{
+    min-height: 365px;
+}
+.applicant-profile-input .tab-pane .item{
+    margin-bottom: 10px;
+}
+.applicant-profile-input .tab-pane .item-header{
+    background-color: #d8d8d8;
+    font-weight: bold;
+    color: var(--color-black);
+}
+.applicant-profile-input .tab-pane .item-header i{
+    background-color: #e8e8e8;
+    padding: 5px;
+    margin-right: 5px;
+}
+.applicant-profile-input .tab-pane .item-date{
+    padding-top: 10px;
+    font-weight: bold;
+    color: black;
+}
+.applicant-profile-input .tab-pane .item-body{
+    padding-top: 5px;
+}
+.applicant-profile-input .tab-pane .collapse, .applicant-profile-input .tab-pane .collapsing{
+    padding-left: 27px;
+}
+.applicant-profile-input #nav-score .review{
+    display: flex;
+    flex-wrap: wrap;
+}
+.applicant-profile-input #nav-score .review > div{
+    width: 100%;
+}
 .applicant-profile-input .form-group{
     flex-wrap: wrap;
     margin-bottom: 17px;
@@ -2521,6 +2561,13 @@ div[data-for='unitPrice']{
 .applicant-profile-input .col-form-input-item{
     margin-top: 17px;
     position: relative;
+    min-width: 300px;
+    margin-right: 10px;
+    margin-bottom: 50px;
+}
+.col-form-input-item > .col-form-input-item{
+    margin-top: 50px;
+    margin-right: 0px;
 }
 .applicant-profile-input .form-input-add-remove{
     display: flex;
@@ -2549,11 +2596,6 @@ div[data-for='unitPrice']{
     background-repeat: no-repeat;
 }
 
-.applicant-profile-input .col-form-input-item{
-    min-width: 300px;
-    margin-right: 10px;
-    margin-bottom: 50px;
-}
 .applicant-profile-input .w194{
     max-width: 180px;
 }
@@ -2660,8 +2702,14 @@ div.preview-value p{
     margin-top: 171px;
     margin-bottom: 217px;
 }
+.applicant-profile-input .col-salary input{
+    margin-right: 5px;
+}
+.applicant-profile-input .col-salary span{
+    padding-top: 7px;
+}
 .applicant-profile-completion-buttons{
-    margin-bottom: 61px;
+    padding-bottom: 61px;
 }
 .applicant-profile-completion-buttons .btn:first-child{
     margin-right: 21px;

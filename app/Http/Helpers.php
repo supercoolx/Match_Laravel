@@ -254,6 +254,19 @@ if (!function_exists('ceiling')) {
     }
 }
 
+if (!function_exists('convert_url')) {
+    function convert_url($str) {
+        if($str) {
+            $scheme = parse_url($str, PHP_URL_SCHEME);
+            if (empty($scheme)) {
+                $str = 'http://' . ltrim($str, '/');
+            }
+            return $str;
+        }
+        else return '#';
+    }
+}
+
 //if (!function_exists('get_images')) {
 //    function get_images($given_ids, $with_trashed = false)
 //    {

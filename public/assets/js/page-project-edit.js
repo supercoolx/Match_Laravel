@@ -138,7 +138,7 @@ $(document).ready(function () {
             });
             $('[data-for="contractType"]').html(html);
             $('[data-for="unitPrice"]').text('¥ ' + $('input[name=unitPrice]').val() + '/ 月');
-            $('[data-for="interviews"]').text($('input[name=interviews]').val() + ' 回');
+            $('[data-for="interviews"]').text($('input[name=interviews]:checked').val() + ' 回');
             $('button.job-type').text(jobTypes[$('#jobType').val()]);
             $('button.job-industry').text(industries[$('#industry').val()]);
             $('[data-for="workLocation"]').text(addresses[$('#workLocation').val()]);

@@ -3,7 +3,7 @@
         <div class="profile-header row">
             <div class="user-follow col-md-4">
                 <img src="{{ getAuthAvatar() }}" alt="" class="avatar-img">
-                <p class="registrant-name-kana">{{ $agent->name_kana }}</p>
+                <p class="registrant-name-kana">{{ Auth::user()->name_kana }}</p>
                 <button class="btn btn-circle btn-follow">フォロー</button>
             </div>
             <div class="col-md-4">
@@ -48,74 +48,9 @@
                 </div>
             </div>
         </div>
-    </div>
-    {{-- <div class="d-flex flex-column align-items-center avatar-picker">
-        <img src="{{ $agent->avatar ? upload_asset($agent->avatar) : static_asset('assets/img/avatar/default.png') }}" alt="" class="avatar-img">
-        <span class="registrant-name">{{ $agent->name }}</span>
-        <span class="registrant-name-kana">{{ $agent->name_kana }}</span>
-    </div>
-    <div class="input-preview">
-        <div class="preview-label">
-            <label>専門職種</label>
-        </div>
-        <div class="preview-value" id="p-occupation">
-            @foreach($jobs as $job)
-                <p>{{ $job->type->name ?? '' }}</p>
-            @endforeach
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-black-sm btn-prev mr-4">修正</button>
+            <button class="btn btn-black-sm btn-next">掲載</button>
         </div>
     </div>
-    <div class="input-preview">
-        <div class="preview-label">
-            <label>対応可能日数 / 週</label>
-        </div>
-        <div class="preview-value" id="p-week">{{ $profile->week }}日</div>
-    </div>
-    <div class="input-preview">
-        <div class="preview-label">
-            <label>希望契約形態</label>
-        </div>
-        <div class="preview-value" id="p-contact">{{ $profile->contractType->name ?? '' }}</div>
-    </div>
-    <div class="input-preview">
-        <div class="preview-label">
-            <label>業務経験</label>
-        </div>
-        <div class="preview-value" id="p-experience">
-            @foreach($experiences as $exp)
-                <div class="experience-title-preview"><span>{{ $exp->title }}</span></div>
-                <div class="experience-comment-preview">{{ $exp->content }}</div>
-            @endforeach
-        </div>
-    </div>
-    <div class="input-preview">
-        <div class="preview-label">
-            <label>資格</label>
-        </div>
-        <div class="preview-value" id="p-qualification">
-            @foreach($qualifications as $qua)
-                <div class="qualifications-preiew">
-                    <p>{{ $qua->name }}</p>
-                    <p>{{ $qua->date }}</p>
-                </div>
-            @endforeach
-        </div>
-    </div>
-    <div class="input-preview">
-        <div class="preview-label">
-            <label>ポートフォリオ</label>
-        </div>
-        <div class="preview-value" id="p-portfolio">
-            @foreach($portfolios as $portfolio)
-                <div class="portfolio-preview">
-                    <p class="portfolio-title-preview">{{ $portfolio->name }}</p>
-                    <p class="portfolio-link-preview"><a href="{{ $portfolio->link }}">{{ $portfolio->link }}</a></p>
-                    <img src="{{ upload_asset($portfolio->image) }}" alt="" class="portfolio-img-preview">
-                </div>
-            @endforeach
-        </div>
-    </div>
-    <div class="applicant-profile-preview-buttons d-flex justify-content-center">
-        <button class="btn btn-dark btn-large btn-prev">修正する</button>
-        <button class="btn btn-theme btn-large btn-next">掲載する</button>
-    </div> --}}
 </div>

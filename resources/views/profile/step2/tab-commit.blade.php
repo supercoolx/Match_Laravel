@@ -6,7 +6,7 @@
             </div>
             <div id="salary" class="collapse show">
                 <div class="item-body">
-                    @isset($profile->salary) {{ $profile->salary }} @endisset
+                    @isset($profile->salary) {{ $profile->salary }}円~ @endisset
                 </div>
             </div>
         </div>

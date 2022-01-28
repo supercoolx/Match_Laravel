@@ -9,15 +9,23 @@
             <div class="col-md-4 text-left">
                 <p><div class="row">
                     <div class="col-md-3"><img src="{{ static_asset('assets/img/icon-light.png') }}"></div>
-                    <div class="col-md-9" id="profile-job">インフラエンジニア</div>
+                    <div class="col-md-9" id="profile-job">
+                        @isset($profile->jobs)
+                            {{ implode(', ', array_column($profile->jobs->toArray(), 'name')) }}
+                        @endisset
+                    </div>
                 </div></p>
                 <p><div class="row">
                     <div class="col-md-3"><img src="{{ static_asset('assets/img/icon-calendar.png') }}"></div>
-                    <div class="col-md-9" id="profile-week">週{{ $profile->week }}日</div>
+                    <div class="col-md-9" id="profile-week">週{{ isset($profile->week) ? $profile->week : '5' }}日</div>
                 </div></p>
                 <p><div class="row">
                     <div class="col-md-3"><img src="{{ static_asset('assets/img/icon-handshake.png') }}"></div>
-                    <div class="col-md-9" id="profile-contract">業務委託</div>
+                    <div class="col-md-9" id="profile-contract">
+                        @isset($profile->contractTypes)
+                            {{ implode(', ', array_column($profile->contractTypes->toArray(), 'name')) }}
+                        @endisset
+                    </div>
                 </div></p>
             </div>
             <div class="col-md-4">

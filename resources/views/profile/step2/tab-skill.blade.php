@@ -112,13 +112,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" id="experience-other">
             @foreach($skill_other as $type => $skill)
                 <div class="item">
-                    <div class="item-header" data-toggle="collapse" data-target="#experience-tool">
+                    <div class="item-header" data-toggle="collapse" data-target="#experience-{{$skill[0]->id}}">
                         <i class="fas fa-caret-down"></i>{{ $type }}
                     </div>
-                    <div id="experience-tool" class="collapse show">
+                    <div id="experience-{{$skill[0]->id}}" class="collapse show">
                         @foreach($skill as $exp)
                             <div class="row">
                                 <div class="col-md-6">{{ $exp->name }}</div>

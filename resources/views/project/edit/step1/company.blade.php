@@ -32,7 +32,7 @@
         <div>
             @foreach($contractTypes as $contractType)
                 <div class="form-check">
-                    <input class="form-check-input contractType" type="checkbox" name="contractType[{{ $contractType->id }}]" id="contractType{{ $contractType->id }}" {{ (isset($project) ? in_array($contractType->id, explode(' ', $project->contract_type)) : old("contractType[$contractType->id]")) ? 'checked' : '' }}>
+                    <input class="form-check-input contractType" type="checkbox" name="contractType[{{ $contractType->id }}]" id="contractType{{ $contractType->id }}" {{ (isset($project) ? in_array($contractType->id, array_column($project->contractTypes->toArray(), 'id')) : old("contractType[$contractType->id]")) ? 'checked' : '' }}>
                     <label class="form-check-label" for="contractType{{ $contractType->id }}">{{ $contractType->name }}</label>
                 </div>
             @endforeach

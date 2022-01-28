@@ -51,7 +51,7 @@ class CompanyController extends Controller
 
     public function editProject(Request $request, $id) {
         $company = Auth::user();
-        $project = Project::where([['user_id', $company->id], ['id', $id]])->with('user', 'jobType', 'industries', 'weeks')->first();
+        $project = Project::where([['user_id', $company->id], ['id', $id]])->with('user', 'jobType', 'contractTypes', 'industries', 'weeks')->first();
         if (!$project) {
             abort(404);
         }

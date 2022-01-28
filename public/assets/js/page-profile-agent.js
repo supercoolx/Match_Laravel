@@ -30,8 +30,8 @@ function setStep(step) {
     }
 }
 function formatDate(str) {
-    let date = new Date(str);
-    return date.getFullYear() + '年' + (date.getMonth() + 1) + '月';
+    let date = str.split('-');
+    return date[0] + '年' + date[1] + '月';
 }
 function preview() {
     let id = 0;
@@ -136,11 +136,25 @@ function preview() {
         id++;
     }
 }
+function validate() {
+    var form = $('#form');
+    $('input, textarea', $('#form')).css('border', 'unset');
+    isValid = true;
+    $('input, textarea', $('#form')).each(function (el) {
+        if(!$(this).val()) {
+            isValid = false;
+            $(this).css('border', 'solid 1px red');
+            $(this).focus();
+            return;
+        }
+    });
+    return form.parsley().validate() && isValid;
+}
 $(document).ready(function () {
     var form = $('#form');
     stepContent1.find('.btn-next').click(function (e) {
         e.preventDefault();
-        if (form.parsley().validate()) {
+        if (validate()) {
             preview();
             setStep(2);
             // if (checkAvatarFile(inputAvatar.attr('id')) || checkAvatarPath()) {
@@ -163,20 +177,13 @@ $(document).ready(function () {
     //     setStep($(this).data('step'));
     // });
     $('div.form-input-add').click(function (e) {
-        $(this).closest('.col-form-input-item').clone(true).appendTo($(this).closest('.col-form-input')).find('input, textarea').val('');
+        el = $(this).closest('.col-form-input-item').clone(true);
+        el.insertAfter($(this).closest('.col-form-input-item')).find('input:not([type=hidden]), textarea').val('');
+        el.find('ul').remove();
     });
     $('div.form-input-remove').click(function (e) {
-        item = $(this).closest('.col-form-input-item').remove();
-    });
-    $('input.contractType').change(function () {
-        if(!$('input.contractType:checked').length){
-            $('input[name="contractType[1]"]').parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
-        }
-        else $('input[name="contractType[1]"]').parents('.form-group').find('.invalid-feedback strong').text('');
-    });
-    stepContent1.find('.image-picker img').click(function (e) {
-        // $(this).attr('src', '{{ static_asset('assets/img/avatar/default.png') }}');
-        $('input.image', $(this).parent()).click();
+        if($(this).closest('.col-form-input-item').parent().find('> .col-form-input-item').length > 1)
+            item = $(this).closest('.col-form-input-item').remove();
     });
 });
 

@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\Week;
 use App\Models\ContractType;
 use App\Models\Dress;
+use App\Models\JobType;
 use App\Models\profile\ProfileEducation;
 use App\Models\profile\ProfileEmployee;
 use App\Models\profile\ProfileExperience;
@@ -23,10 +24,6 @@ class Profile extends Model
 
     public function weeks() {
         return $this->belongsTo(Week::class, 'week', 'id');
-    }
-
-    public function contractType() {
-        return $this->belongsTo(ContractType::class, 'contract', 'id');
     }
 
     public function dress() {
@@ -58,7 +55,11 @@ class Profile extends Model
     }
 
     public function jobs() {
-        return $this->hasMany(ProfileJob::class, 'user_id', 'user_id');
+        return $this->belongsToMany(JobType::class, 'profile_job', 'user_id', 'job_id', 'user_id', 'id');
+    }
+
+    public function contractTypes() {
+        return $this->belongsToMany(ContractType::class, 'profile_contract', 'user_id', 'contract_id', 'user_id', 'id');
     }
 
     public function portfolios() {

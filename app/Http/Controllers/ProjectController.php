@@ -7,6 +7,7 @@ use App\Models\ContractType;
 use App\Models\Industry;
 use App\Models\JobType;
 use App\Models\Project;
+use App\Models\ProjectContract;
 use App\Models\Week;
 use App\Models\User;
 use Auth;
@@ -45,9 +46,6 @@ class ProjectController extends Controller
 
     protected function createProject(array $data)
     {
-        $contract_type = '';
-        foreach($data['contractType'] as $value => $status)
-            $contract_type .= ("$value" . " ");
         $project = Project::create([
             'name' => $data['caseName'],
             'price' => $data['unitPrice'],
@@ -67,7 +65,6 @@ class ProjectController extends Controller
             'uptime_min' => $data['averageUptimeStart'],
             'uptime_max' => $data['averageUptimeEnd'],
             'week' => $data['week'],
-            'contract_type' => $contract_type,
             'online_interview' => $data['onlineInterview'],
             'remote_work' => $data['remoteWork'],
             'comment' => $data['comment'],
@@ -92,18 +89,21 @@ class ProjectController extends Controller
             ]);
         }
         $this->validator($request->all())->validate();
+
         $project = $this->createProject($request->all());
-        if ($project->name != null) {
-            $project->save();
+        $project->save();
+        
+        foreach($request->contractType as $value => $status) {
+            $project_contract = new ProjectContract;
+            $project_contract->project_id = $project->id;
+            $project_contract->contract_id = $value;
+            $project_contract->save();
         }
         return back()->with('step', 3);
     }
 
     protected function updateProject(Project $project, array $data)
     {
-        $contract_type = '';
-        foreach($data['contractType'] as $value => $status)
-            $contract_type .= ("$value" . " ");
         $project->name = $data['caseName'];
         $project->price = $data['unitPrice'];
         $project->job_type = $data['jobType'];
@@ -122,7 +122,6 @@ class ProjectController extends Controller
         $project->uptime_min = $data['averageUptimeStart'];
         $project->uptime_max = $data['averageUptimeEnd'];
         $project->week = $data['week'];
-        $project->contract_type = $contract_type;
         $project->online_interview = $data['onlineInterview'];
         $project->remote_work = $data['remoteWork'];
         $project->comment = $data['comment'];
@@ -147,6 +146,14 @@ class ProjectController extends Controller
         $this->validator($request->all())->validate();
         $project = $this->updateProject($project, $request->all());
         $project->save();
+
+        ProjectContract::where('project_id', $project->id)->delete();
+        foreach($request->contractType as $value => $status) {
+            $project_contract = new ProjectContract;
+            $project_contract->project_id = $project->id;
+            $project_contract->contract_id = $value;
+            $project_contract->save();
+        }
         return back()->with('step', 3);
     }
 
@@ -242,7 +249,7 @@ class ProjectController extends Controller
         }
 
         $cnt = $projects->count();
-        $projects = $projects->with('user', 'jobType', 'industries', 'weeks', 'contractType')->paginate(7);
+        $projects = $projects->with('user', 'jobType', 'industries', 'weeks', 'contractTypes')->paginate(7);
 
         $addresses = $this->getChildrenAddresses(0);
         return view("project.index",
@@ -260,7 +267,7 @@ class ProjectController extends Controller
     }
 
     public function detail(Request $request, $id) {
-        $project = Project::where('id', $id)->with('user', 'jobType', 'industries', 'address', 'weeks', 'contractType')->first();
+        $project = Project::where('id', $id)->with('user', 'jobType', 'industries', 'address', 'weeks', 'contractTypes')->first();
         if (!$project) {
             abort(404);
         }

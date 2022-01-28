@@ -14,6 +14,7 @@ use App\Models\profile\ProfileEducation;
 use App\Models\profile\ProfileEmployee;
 use App\Models\profile\ProfileExperience;
 use App\Models\profile\ProfileJob;
+use App\Models\profile\ProfileContract;
 use App\Models\profile\ProfilePortfolio;
 use App\Models\profile\ProfileQualification;
 use App\Models\profile\ProfileWriting;
@@ -32,7 +33,7 @@ class ProfileController extends Controller
     public function setting(Request $request) {
         $step = $request->query('step', 2);
         $user_id = Auth::user()->id;
-        $profile = Profile::where('user_id', $user_id)->with('weeks', 'contractType', 'educations', 'employees', 'experiences', 'jobs', 'portfolios', 'qualifications', 'writings', 'remote_work', 'dress', 'location', 'skills')->first();
+        $profile = Profile::where('user_id', $user_id)->with('weeks', 'contractTypes', 'educations', 'employees', 'experiences', 'jobs', 'portfolios', 'qualifications', 'writings', 'remote_work', 'dress', 'location', 'skills')->first();
         if($profile) {
             
         }
@@ -57,12 +58,6 @@ class ProfileController extends Controller
         $profile = new Profile();        
         $profile->user_id = $user_id;
         $profile->week = $request->availableDaysWeek;
-        $contract_type = '';
-        if($request->has('contractType')){
-            foreach($request->contractType as $value => $status)
-                $contract_type .= ("$value" . " ");
-            $profile->contract = $contract_type;
-        }
         $profile->icon = $request->icon ? 1 : 0;
         $profile->full_name = $request->fullName ? 1 : 0;
         $profile->phone = $request->phone ? 1 : 0;
@@ -74,6 +69,16 @@ class ProfileController extends Controller
         $profile->dress_id = $request->dress;
         $profile->other = $request->other;
         $profile->save();
+
+        ProfileContract::where('user_id', $user_id)->delete();
+        if(isset($request->contractType)) {
+            foreach($request->contractType as $value => $status) {
+                $profile_contract = new ProfileContract();
+                $profile_contract->user_id = $user_id;
+                $profile_contract->contract_id = $value;
+                $profile_contract->save();
+            }
+        }
 
         ProfileEducation::where('user_id', $user_id)->delete();
         if(isset($request->schoolName)) {
@@ -114,10 +119,10 @@ class ProfileController extends Controller
 
         ProfileJob::where('user_id', $user_id)->delete();
         if(isset($request->professionalOccupation)) {
-            foreach($request->professionalOccupation as $i => $item) {
+            foreach($request->professionalOccupation as $item) {
                 $job = new ProfileJob();
                 $job->user_id = $user_id;
-                $job->job_id = $request->professionalOccupation[$i];
+                $job->job_id = $item;
                 $job->save();
             }
         }
@@ -166,75 +171,75 @@ class ProfileController extends Controller
         ProfileSkill::where('user_id', $user_id)->delete();
         if(isset($request->skill_os)) {
             foreach($request->skill_os as $i => $item) {
-                $writing = new ProfileSkill();
-                $writing->user_id = $user_id;
-                $writing->name = $request->skill_os[$i];
-                $writing->year = $request->skill_os_year[$i];
-                $writing->type = 'os';
-                $writing->save();
+                $skill = new ProfileSkill();
+                $skill->user_id = $user_id;
+                $skill->name = $request->skill_os[$i];
+                $skill->year = $request->skill_os_year[$i];
+                $skill->type = 'os';
+                $skill->save();
             }
         }
         if(isset($request->skill_pro)) {
             foreach($request->skill_pro as $i => $item) {
-                $writing = new ProfileSkill();
-                $writing->user_id = $user_id;
-                $writing->name = $request->skill_pro[$i];
-                $writing->year = $request->skill_pro_year[$i];
-                $writing->type = 'pro';
-                $writing->save();
+                $skill = new ProfileSkill();
+                $skill->user_id = $user_id;
+                $skill->name = $request->skill_pro[$i];
+                $skill->year = $request->skill_pro_year[$i];
+                $skill->type = 'pro';
+                $skill->save();
             }
         }
         if(isset($request->skill_db)) {
             foreach($request->skill_db as $i => $item) {
-                $writing = new ProfileSkill();
-                $writing->user_id = $user_id;
-                $writing->name = $request->skill_db[$i];
-                $writing->year = $request->skill_db_year[$i];
-                $writing->type = 'db';
-                $writing->save();
+                $skill = new ProfileSkill();
+                $skill->user_id = $user_id;
+                $skill->name = $request->skill_db[$i];
+                $skill->year = $request->skill_db_year[$i];
+                $skill->type = 'db';
+                $skill->save();
             }
         }
         if(isset($request->skill_infra)) {
             foreach($request->skill_infra as $i => $item) {
-                $writing = new ProfileSkill();
-                $writing->user_id = $user_id;
-                $writing->name = $request->skill_infra[$i];
-                $writing->year = $request->skill_infra_year[$i];
-                $writing->type = 'infra';
-                $writing->save();
+                $skill = new ProfileSkill();
+                $skill->user_id = $user_id;
+                $skill->name = $request->skill_infra[$i];
+                $skill->year = $request->skill_infra_year[$i];
+                $skill->type = 'infra';
+                $skill->save();
             }
         }
         if(isset($request->skill_frame)) {
             foreach($request->skill_frame as $i => $item) {
-                $writing = new ProfileSkill();
-                $writing->user_id = $user_id;
-                $writing->name = $request->skill_frame[$i];
-                $writing->year = $request->skill_frame_year[$i];
-                $writing->type = 'frame';
-                $writing->save();
+                $skill = new ProfileSkill();
+                $skill->user_id = $user_id;
+                $skill->name = $request->skill_frame[$i];
+                $skill->year = $request->skill_frame_year[$i];
+                $skill->type = 'frame';
+                $skill->save();
             }
         }
         if(isset($request->skill_tool)) {
             foreach($request->skill_tool as $i => $item) {
-                $writing = new ProfileSkill();
-                $writing->user_id = $user_id;
-                $writing->name = $request->skill_tool[$i];
-                $writing->year = $request->skill_tool_year[$i];
-                $writing->type = 'tool';
-                $writing->save();
+                $skill = new ProfileSkill();
+                $skill->user_id = $user_id;
+                $skill->name = $request->skill_tool[$i];
+                $skill->year = $request->skill_tool_year[$i];
+                $skill->type = 'tool';
+                $skill->save();
             }
         }
-        // if(isset($request->skill_other)) {
-        //     foreach($request->skill_tool as $i => $item) {
-        //         $writing = new ProfileSkill();
-        //         $writing->user_id = $user_id;
-        //         $writing->name = $request->skill_tool[$i];
-        //         $writing->year = $request->skill_tool_year[$i];
-        //         $writing->type = $request->;
-        //         $writing->save();
-        //     }
-        // }
-        
+        if(isset($request->skill_other_category)) {
+            foreach($request->skill_other_category as $i => $category) {
+                $skill = new ProfileSkill();
+                $skill->user_id = $user_id;
+                $skill->name = $request->skill_other[$i];
+                $skill->year = $request->skill_other_year[$i];
+                $skill->type = $category;
+                $skill->save();
+            }
+        }
+
         if(isAgent())
             return redirect()->route('agent.profile.setting', ['step' => 3]);
         else if(isEngineer())

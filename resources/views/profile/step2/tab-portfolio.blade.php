@@ -1,7 +1,7 @@
-<div class="row">
-    <div class="col-md-6 portfolio-preview">
-        @isset($profile->portfolios)
-            @foreach($profile->portfolios as $port)
+@isset($profile->portfolios)
+    @foreach($profile->portfolios as $port)
+        <div class="row">
+            <div class="col-md-6">
                 <div class="item">
                     <div class="item-header" data-toggle="collapse" data-target="#portfolio{{ $port->id }}">
                         <i class="fas fa-caret-down"></i>{{ $port->name }}
@@ -15,8 +15,14 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
-        @endisset
-    </div>
-    <div class="col-md-6"></div>
-</div>
+            </div>
+            <div class="col-md-6">
+                @if($port->image)
+                    <img src="{{ upload_asset($port->image) }}" alt="" class="image-upload mb-2">
+                @else
+                    <img src="{{ static_asset('assets/img/icon-image.png') }}" alt="">
+                @endif
+            </div>
+        </div>
+    @endforeach
+@endisset

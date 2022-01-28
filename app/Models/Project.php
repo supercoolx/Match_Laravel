@@ -153,4 +153,8 @@ class Project extends Model
     {
         return $this->belongsTo(Week::class, 'week', 'id');
     }
+
+    public function contractTypes() {
+        return $this->belongsToMany(ContractType::class, 'project_contract', 'project_id', 'contract_id', 'id', 'id');
+    }
 }

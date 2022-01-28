@@ -13,7 +13,7 @@
                         </div>
                         <select class="form-control" name="professionalOccupation[]">
                             @foreach ($jobTypes as $jobType)
-                                <option value="{{ $jobType->id }}" @if($jobType->id === $job->job_id) {{'selected'}} @endif>{{ $jobType->name }}</option>
+                                <option value="{{ $jobType->id }}" @if($jobType->id === $job->id) {{'selected'}} @endif>{{ $jobType->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -26,7 +26,7 @@
                     </div>
                     <select class="form-control" name="professionalOccupation[]">
                         @foreach ($jobTypes as $jobType)
-                            <option value="{{ $jobType->id }}" @if($jobType->id === $job->job_id) {{'selected'}} @endif>{{ $jobType->name }}</option>
+                            <option value="{{ $jobType->id }}" @if($jobType->id === $job->id) {{'selected'}} @endif>{{ $jobType->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -49,7 +49,7 @@
         <div class="col-form-input desired-contract-form">
             @foreach($contractTypes as $contractType)
                 <div class="form-check">
-                    <input class="form-check-input contractType" type="checkbox" name="contractType[{{ $contractType->id }}]" id="contractType{{ $contractType->id }}" {{ (isset($profile) ? in_array($contractType->id, explode(' ', $profile->contract)) : old("contractType[$contractType->id]")) ? 'checked' : '' }}>
+                    <input class="form-check-input contractType" type="checkbox" name="contractType[{{ $contractType->id }}]" id="contractType{{ $contractType->id }}" {{ (isset($profile) ? in_array($contractType->id, array_column($profile->contractTypes->toArray(), 'id')) : old("contractType[$contractType->id]")) ? 'checked' : '' }}>
                     <label class="form-check-label" for="contractType{{ $contractType->id }}">{{ $contractType->name }}</label>
                 </div>
             @endforeach
@@ -108,9 +108,9 @@
     </div>
     <div class="form-group">
         <label class="col-form-label">スキル(エンジニア)</label>
-        @if(isset($profile->skills))
-            @php
-                $skill_os = []; $skill_pro = []; $skill_frame = []; $skill_db = []; $skill_infra = []; $skill_tool = []; $skill_other = [];
+        @php
+            $skill_os = []; $skill_pro = []; $skill_frame = []; $skill_db = []; $skill_infra = []; $skill_tool = []; $skill_other = [];
+            if(isset($profile->skills)) {
                 foreach($profile->skills as $exp) {
                     switch ($exp->type) {
                         case 'os':
@@ -136,204 +136,232 @@
                             break;
                     }
                 }
-            @endphp
-            @if($skill_os) 
-                <div class="col-form-input col-skill-os">
-                    @foreach($skill_os as $exp)
-                        <div class="col-form-input-item">
-                            <div class="form-input-add-remove">
-                                <div class="form-input-add"></div>
-                                <div class="form-input-remove"></div>
-                            </div>
-                            <input type="text" class="form-control" name="skill_os[]" placeholder="OSを入力" value="{{ $exp->name }}" required>
-                            <div class="mt13 w194">
-                                <input type="text" class="form-control" name="skill_os_year[]" placeholder="経験年数を入力" value="{{ $exp->year }}" required>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div class="col-form-input col-skill-os">
+            }
+        @endphp
+        @if($skill_os) 
+            <div class="col-form-input col-skill-os">
+                @foreach($skill_os as $exp)
                     <div class="col-form-input-item">
                         <div class="form-input-add-remove">
                             <div class="form-input-add"></div>
                             <div class="form-input-remove"></div>
                         </div>
-                        <input type="text" class="form-control" name="skill_os[]" placeholder="OSを入力" value="" required>
+                        <input type="text" class="form-control" name="skill_os[]" placeholder="OSを入力" value="{{ $exp->name }}" required>
                         <div class="mt13 w194">
-                            <input type="text" class="form-control" name="skill_os_year[]" placeholder="経験年数を入力" value="" required>
+                            <input type="text" class="form-control" name="skill_os_year[]" placeholder="経験年数を入力" value="{{ $exp->year }}" required>
                         </div>
                     </div>
-                </div>
-            @endif
-            @if($skill_pro) 
-                <div class="col-form-input col-skill-pro">
-                    @foreach($skill_pro as $exp)
-                        <div class="col-form-input-item">
-                            <div class="form-input-add-remove">
-                                <div class="form-input-add"></div>
-                                <div class="form-input-remove"></div>
-                            </div>
-                            <input type="text" class="form-control" name="skill_pro[]" placeholder="プログラミング言語を入力" value="{{ $exp->name }}" required>
-                            <div class="mt13 w194">
-                                <input type="text" class="form-control" name="skill_pro_year[]" placeholder="経験年数を入力" value="{{ $exp->year }}" required>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div class="col-form-input col-skill-pro">
-                    <div class="col-form-input-item">
-                        <div class="form-input-add-remove">
-                            <div class="form-input-add"></div>
-                            <div class="form-input-remove"></div>
-                        </div>
-                        <input type="text" class="form-control" name="skill_pro[]" placeholder="プログラミング言語を入力" value="" required>
-                        <div class="mt13 w194">
-                            <input type="text" class="form-control" name="skill_pro_year[]" placeholder="経験年数を入力" value="" required>
-                        </div>
-                    </div>
-                </div>
-            @endif
-            @if($skill_frame) 
-                <div class="col-form-input col-skill-frame">
-                    @foreach($skill_frame as $exp)
-                        <div class="col-form-input-item">
-                            <div class="form-input-add-remove">
-                                <div class="form-input-add"></div>
-                                <div class="form-input-remove"></div>
-                            </div>
-                            <input type="text" class="form-control" name="skill_frame[]" placeholder="フレームワークを入力" value="{{ $exp->name }}" required>
-                            <div class="mt13 w194">
-                                <input type="text" class="form-control" name="skill_frame_year[]" placeholder="経験年数を入力" value="{{ $exp->year }}" required>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div class="col-form-input col-skill-frame">
-                    <div class="col-form-input-item">
-                        <div class="form-input-add-remove">
-                            <div class="form-input-add"></div>
-                            <div class="form-input-remove"></div>
-                        </div>
-                        <input type="text" class="form-control" name="skill_frame[]" placeholder="フレームワークを入力" value="" required>
-                        <div class="mt13 w194">
-                            <input type="text" class="form-control" name="skill_frame_year[]" placeholder="経験年数を入力" value="" required>
-                        </div>
-                    </div>
-                </div>
-            @endif
-            @if($skill_db)
-                <div class="col-form-input col-skill-db">
-                    @foreach($skill_db as $exp)
-                        <div class="col-form-input-item">
-                            <div class="form-input-add-remove">
-                                <div class="form-input-add"></div>
-                                <div class="form-input-remove"></div>
-                            </div>
-                            <input type="text" class="form-control" name="skill_db[]" placeholder="データベースを入力" value="{{ $exp->name }}" required>
-                            <div class="mt13 w194">
-                                <input type="text" class="form-control" name="skill_db_year[]" placeholder="経験年数を入力" value="{{ $exp->year }}" required>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div class="col-form-input col-skill-db">
-                    <div class="col-form-input-item">
-                        <div class="form-input-add-remove">
-                            <div class="form-input-add"></div>
-                            <div class="form-input-remove"></div>
-                        </div>
-                        <input type="text" class="form-control" name="skill_db[]" placeholder="データベースを入力" value="" required>
-                        <div class="mt13 w194">
-                            <input type="text" class="form-control" name="skill_db_year[]" placeholder="経験年数を入力" value="" required>
-                        </div>
-                    </div>
-                </div>
-            @endif
-            @if($skill_infra)
-                <div class="col-form-input col-skill-infra">
-                    @foreach($skill_infra as $exp)
-                        <div class="col-form-input-item">
-                            <div class="form-input-add-remove">
-                                <div class="form-input-add"></div>
-                                <div class="form-input-remove"></div>
-                            </div>
-                            <input type="text" class="form-control" name="skill_infra[]" placeholder="インフラを入力" value="{{ $exp->name }}" required>
-                            <div class="mt13 w194">
-                                <input type="text" class="form-control" name="skill_infra_year[]" placeholder="経験年数を入力" value="{{ $exp->year }}" required>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div class="col-form-input col-skill-infra">
-                    <div class="col-form-input-item">
-                        <div class="form-input-add-remove">
-                            <div class="form-input-add"></div>
-                            <div class="form-input-remove"></div>
-                        </div>
-                        <input type="text" class="form-control" name="skill_infra[]" placeholder="インフラを入力" value="" required>
-                        <div class="mt13 w194">
-                            <input type="text" class="form-control" name="skill_infra_year[]" placeholder="経験年数を入力" value="" required>
-                        </div>
-                    </div>
-                </div>
-            @endif
-            @if($skill_tool)
-                <div class="col-form-input col-skill-tool">
-                    @foreach($skill_tool as $exp)
-                        <div class="col-form-input-item">
-                            <div class="form-input-add-remove">
-                                <div class="form-input-add"></div>
-                                <div class="form-input-remove"></div>
-                            </div>
-                            <input type="text" class="form-control" name="skill_tool[]" placeholder="その他ツールを入力" value="{{ $exp->name }}" required>
-                            <div class="mt13 w194">
-                                <input type="text" class="form-control" name="skill_tool_year[]" placeholder="経験年数を入力" value="{{ $exp->year }}" required>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div class="col-form-input col-skill-tool">
-                    <div class="col-form-input-item">
-                        <div class="form-input-add-remove">
-                            <div class="form-input-add"></div>
-                            <div class="form-input-remove"></div>
-                        </div>
-                        <input type="text" class="form-control" name="skill_tool[]" placeholder="その他ツールを入力" value="" required>
-                        <div class="mt13 w194">
-                            <input type="text" class="form-control" name="skill_tool_year[]" placeholder="経験年数を入力" value="" required>
-                        </div>
-                    </div>
-                </div>
-            @endif
-        @endif
-    </div>
-    <div class="form-group">
-        <label class="col-form-label">スキル(エンジニア以外)</label>
-        <div class="col-form-input col-skill-other">
-            <div class="col-form-input-item">
-                <div class="form-input-add-remove">
-                    <div class="form-input-add"></div>
-                    <div class="form-input-remove"></div>
-                </div>
-                <input type="text" class="form-control" name="skill_other_category[]" placeholder="カテゴリを入力" value="" required>
+                @endforeach
+            </div>
+        @else
+            <div class="col-form-input col-skill-os">
                 <div class="col-form-input-item">
                     <div class="form-input-add-remove">
                         <div class="form-input-add"></div>
                         <div class="form-input-remove"></div>
                     </div>
-                    <input type="text" class="form-control" name="skill_other[]" placeholder="スキルを入力" value="" required>
+                    <input type="text" class="form-control" name="skill_os[]" placeholder="OSを入力" value="" required>
                     <div class="mt13 w194">
-                        <input type="text" class="form-control" name="skill_other_year[]" placeholder="経験年数を入力" value="" required>
+                        <input type="text" class="form-control" name="skill_os_year[]" placeholder="経験年数を入力" value="" required>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
+        @if($skill_pro) 
+            <div class="col-form-input col-skill-pro">
+                @foreach($skill_pro as $exp)
+                    <div class="col-form-input-item">
+                        <div class="form-input-add-remove">
+                            <div class="form-input-add"></div>
+                            <div class="form-input-remove"></div>
+                        </div>
+                        <input type="text" class="form-control" name="skill_pro[]" placeholder="プログラミング言語を入力" value="{{ $exp->name }}" required>
+                        <div class="mt13 w194">
+                            <input type="text" class="form-control" name="skill_pro_year[]" placeholder="経験年数を入力" value="{{ $exp->year }}" required>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="col-form-input col-skill-pro">
+                <div class="col-form-input-item">
+                    <div class="form-input-add-remove">
+                        <div class="form-input-add"></div>
+                        <div class="form-input-remove"></div>
+                    </div>
+                    <input type="text" class="form-control" name="skill_pro[]" placeholder="プログラミング言語を入力" value="" required>
+                    <div class="mt13 w194">
+                        <input type="text" class="form-control" name="skill_pro_year[]" placeholder="経験年数を入力" value="" required>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if($skill_frame) 
+            <div class="col-form-input col-skill-frame">
+                @foreach($skill_frame as $exp)
+                    <div class="col-form-input-item">
+                        <div class="form-input-add-remove">
+                            <div class="form-input-add"></div>
+                            <div class="form-input-remove"></div>
+                        </div>
+                        <input type="text" class="form-control" name="skill_frame[]" placeholder="フレームワークを入力" value="{{ $exp->name }}" required>
+                        <div class="mt13 w194">
+                            <input type="text" class="form-control" name="skill_frame_year[]" placeholder="経験年数を入力" value="{{ $exp->year }}" required>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="col-form-input col-skill-frame">
+                <div class="col-form-input-item">
+                    <div class="form-input-add-remove">
+                        <div class="form-input-add"></div>
+                        <div class="form-input-remove"></div>
+                    </div>
+                    <input type="text" class="form-control" name="skill_frame[]" placeholder="フレームワークを入力" value="" required>
+                    <div class="mt13 w194">
+                        <input type="text" class="form-control" name="skill_frame_year[]" placeholder="経験年数を入力" value="" required>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if($skill_db)
+            <div class="col-form-input col-skill-db">
+                @foreach($skill_db as $exp)
+                    <div class="col-form-input-item">
+                        <div class="form-input-add-remove">
+                            <div class="form-input-add"></div>
+                            <div class="form-input-remove"></div>
+                        </div>
+                        <input type="text" class="form-control" name="skill_db[]" placeholder="データベースを入力" value="{{ $exp->name }}" required>
+                        <div class="mt13 w194">
+                            <input type="text" class="form-control" name="skill_db_year[]" placeholder="経験年数を入力" value="{{ $exp->year }}" required>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="col-form-input col-skill-db">
+                <div class="col-form-input-item">
+                    <div class="form-input-add-remove">
+                        <div class="form-input-add"></div>
+                        <div class="form-input-remove"></div>
+                    </div>
+                    <input type="text" class="form-control" name="skill_db[]" placeholder="データベースを入力" value="" required>
+                    <div class="mt13 w194">
+                        <input type="text" class="form-control" name="skill_db_year[]" placeholder="経験年数を入力" value="" required>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if($skill_infra)
+            <div class="col-form-input col-skill-infra">
+                @foreach($skill_infra as $exp)
+                    <div class="col-form-input-item">
+                        <div class="form-input-add-remove">
+                            <div class="form-input-add"></div>
+                            <div class="form-input-remove"></div>
+                        </div>
+                        <input type="text" class="form-control" name="skill_infra[]" placeholder="インフラを入力" value="{{ $exp->name }}" required>
+                        <div class="mt13 w194">
+                            <input type="text" class="form-control" name="skill_infra_year[]" placeholder="経験年数を入力" value="{{ $exp->year }}" required>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="col-form-input col-skill-infra">
+                <div class="col-form-input-item">
+                    <div class="form-input-add-remove">
+                        <div class="form-input-add"></div>
+                        <div class="form-input-remove"></div>
+                    </div>
+                    <input type="text" class="form-control" name="skill_infra[]" placeholder="インフラを入力" value="" required>
+                    <div class="mt13 w194">
+                        <input type="text" class="form-control" name="skill_infra_year[]" placeholder="経験年数を入力" value="" required>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if($skill_tool)
+            <div class="col-form-input col-skill-tool">
+                @foreach($skill_tool as $exp)
+                    <div class="col-form-input-item">
+                        <div class="form-input-add-remove">
+                            <div class="form-input-add"></div>
+                            <div class="form-input-remove"></div>
+                        </div>
+                        <input type="text" class="form-control" name="skill_tool[]" placeholder="その他ツールを入力" value="{{ $exp->name }}" required>
+                        <div class="mt13 w194">
+                            <input type="text" class="form-control" name="skill_tool_year[]" placeholder="経験年数を入力" value="{{ $exp->year }}" required>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="col-form-input col-skill-tool">
+                <div class="col-form-input-item">
+                    <div class="form-input-add-remove">
+                        <div class="form-input-add"></div>
+                        <div class="form-input-remove"></div>
+                    </div>
+                    <input type="text" class="form-control" name="skill_tool[]" placeholder="その他ツールを入力" value="" required>
+                    <div class="mt13 w194">
+                        <input type="text" class="form-control" name="skill_tool_year[]" placeholder="経験年数を入力" value="" required>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">スキル(エンジニア以外)</label>
+        @if($skill_other)
+            <div class="col-form-input col-skill-other">
+                @foreach($skill_other as $type => $skill)
+                    <div class="col-form-input-item">
+                        <div class="form-input-add-remove">
+                            <div class="form-input-add"></div>
+                            <div class="form-input-remove"></div>
+                        </div>
+                        <input type="text" class="form-control col-skill-other" placeholder="カテゴリを入力" value="{{ $type }}" required>
+                        @foreach($skill as $exp)
+                            <div class="col-form-input-item col-skill-other-item">
+                                <div class="form-input-add-remove">
+                                    <div class="form-input-add"></div>
+                                    <div class="form-input-remove"></div>
+                                </div>
+                                <input type="text" class="form-control skill-other" name="skill_other[]" placeholder="スキルを入力" value="{{ $exp->name }}" required>
+                                <div class="mt13 w194">
+                                    <input type="text" class="form-control skill-other-year" name="skill_other_year[]" placeholder="経験年数を入力" value="{{ $exp->year }}" required>
+                                </div>
+                                <input type="hidden" class="skill-other-category" name="skill_other_category[]" value="{{ $exp->type }}">
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="col-form-input col-skill-other">
+                <div class="col-form-input-item">
+                    <div class="form-input-add-remove">
+                        <div class="form-input-add"></div>
+                        <div class="form-input-remove"></div>
+                    </div>
+                    <input type="text" class="form-control col-skill-other" placeholder="カテゴリを入力" value="" required>
+                    <div class="col-form-input-item col-skill-other-item">
+                        <div class="form-input-add-remove">
+                            <div class="form-input-add"></div>
+                            <div class="form-input-remove"></div>
+                        </div>
+                        <input type="text" class="form-control skill-other" name="skill_other[]" placeholder="スキルを入力" value="" required>
+                        <div class="mt13 w194">
+                            <input type="text" class="form-control skill-other-year" name="skill_other_year[]" placeholder="経験年数を入力" value="" required>
+                        </div>
+                        <input type="hidden" class="skill-other-category" name="skill_other_category[]" value="">
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <div class="form-group">
         <label class="col-form-label">学歴</label>

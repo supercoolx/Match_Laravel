@@ -32,9 +32,15 @@ function setStep(step) {
     }
 }
 function formatDate(str) {
-    let date = new Date(str);
-    return date.getFullYear() + '年' + (date.getMonth() + 1) + '月';
+    let date = str.split('-');
+    return date[0] + '年' + date[1] + '月';
 }
+function snakeCase(str) {
+    return str.replace(/\W+/g, " ")
+      .split(/ |\B(?=[A-Z])/)
+      .map(word => word.toLowerCase())
+      .join('_');
+} 
 function preview() {
     let id = 0;
     display = $('#nav-work');
@@ -138,23 +144,31 @@ function preview() {
         id++;
     }
 
-    display = $('.portfolio-preview');
+    display = $('#nav-portfolio');
     display.empty();
     element = $('div.col-form-input-item', 'div.col-portfolio');
     for (let list of element) {
         title = $('input[name="portfolioName[]"]', list).val();
         startDate = formatDate($('input[name="portfolioDate[]"]', list).val()) + '制作';
+        endDate = $('.image-picker > img', list).attr('src');
         content = $('input[name="portfolioLink[]"]', list).val();
         display.append(`
-            <div class="item">
-                <div class="item-header" data-toggle="collapse" data-target="#portfolio${id}">
-                    <i class="fas fa-caret-down"></i>${title}
-                </div>
-                <div id="experience-pro" class="collapse show">
-                    <div class="item-body">
-                        <a href="#">${content}</a>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="item">
+                        <div class="item-header" data-toggle="collapse" data-target="#portfolio${id}">
+                            <i class="fas fa-caret-down"></i>${title}
+                        </div>
+                        <div id="portfolio${id}" class="collapse show">
+                            <div class="item-body">
+                                <a href="${content}">${content}</a>
+                            </div>
+                            <div class="item-date">${startDate}</div>
+                        </div>
                     </div>
-                    <div class="item-date">${startDate}</div>
+                </div>
+                <div class="col-md-6">
+                    <img src="${endDate}" class="image-upload mb-2" alt="portfolio-img">
                 </div>
             </div>
         `);
@@ -245,9 +259,39 @@ function preview() {
         `);
     }
 
-    $('#profile-job').text($('option:selected', $('select[name="professionalOccupation[]"]:first')).text());
+    display = $('#experience-other');
+    display.empty();
+    element = $('div.col-skill-other>div.col-form-input-item');
+    for (let list of element) {
+        let html = `
+            <div class="item">
+                <div class="item-header" data-toggle="collapse" data-target="#experience-${id}">
+                    <i class="fas fa-caret-down"></i>${ $('input.col-skill-other', list).val() }
+                </div>
+                <div id="experience-${id}" class="collapse show">
+        `;
+        items = $('div.col-skill-other-item', list);
+        for (let item of items) {
+            title = $('input[name="skill_other[]"]', item).val();
+            startDate = $('input[name="skill_other_year[]"]', item).val();
+            html += `
+                    <div class="row">
+                        <div class="col-md-6">${title}</div>
+                        <div class="col-md-6">${startDate}</div>
+                    </div>
+            `;
+        }
+        html += `
+                </div>
+            </div>
+        `;
+        display.append(html)
+        id++;
+    }
+
+    $('#profile-job').text($('option:selected', $('select[name="professionalOccupation[]"]')).toArray().map(el => $(el).text()).join(', '));
     $('#profile-week').text('週' + $('input[name="availableDaysWeek"]:checked').val() + '日');
-    $('#profile-contract').text($('input.contractType:checked:first').siblings('label').text());
+    $('#profile-contract').text($('input.contractType:checked').toArray().map(el => $(el).siblings('label').text()).join(', '));
     $('.item-body', $('#salary')).text($('input[name="salary"]').val() + '円~');
     $('.item-body', $('#location')).text($('input[name="work_location"]').val());
     $('.item-body', $('#remote')).text($('input[name="remote"]:checked').siblings('label').text());
@@ -262,20 +306,29 @@ function checkAvatarFile(dom) {
     const fileType = file["type"];
     return $.inArray(fileType, validImageTypes) !== -1;
 }
-function validateOthers() {
-    let isValid = true;
+function validate() {
+    isValid = true;
     if(!$('input.contractType:checked').length){
         $('input[name="contractType[1]"]').parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
         $('input[name="contractType[1]"]').focus();
         isValid = false;
     }
-    return isValid;
+    var form = $('#form');
+    $('input, textarea', $('#form')).css('border', 'unset');
+    $('input:not([type=checkbox], [type=radio], [type=file]), textarea', $('#form')).each(function (el) {
+        if(!$(this).val().trim()) {
+            isValid = false;
+            $(this).css('border', 'solid 1px red');
+            $(this).focus();
+            return;
+        }
+    });
+    return form.parsley().validate() && isValid;
 }
 $(document).ready(function () {
-    var form = $('#form');
     stepContent1.find('.btn-next').click(function (e) {
         e.preventDefault();
-        if (validateOthers() && form.parsley().validate()) {
+        if (validate()) {
             preview();
             setStep(2);
             // if (checkAvatarFile(inputAvatar.attr('id')) || checkAvatarPath()) {
@@ -298,16 +351,23 @@ $(document).ready(function () {
     //     setStep($(this).data('step'));
     // });
     $('div.form-input-add').click(function (e) {
-        $(this).closest('.col-form-input-item').clone(true).appendTo($(this).closest('.col-form-input')).find('input, textarea').val('');
+        el = $(this).closest('.col-form-input-item').clone(true);
+        el.insertAfter($(this).closest('.col-form-input-item')).find('input:not([type=hidden]), textarea').val('');
+        el.find('ul').remove();
     });
     $('div.form-input-remove').click(function (e) {
-        item = $(this).closest('.col-form-input-item').remove();
+        if($(this).closest('.col-form-input-item').parent().find('> .col-form-input-item').length > 1)
+            item = $(this).closest('.col-form-input-item').remove();
     });
     $('input.contractType').change(function () {
         if(!$('input.contractType:checked').length){
             $('input[name="contractType[1]"]').parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
         }
         else $('input[name="contractType[1]"]').parents('.form-group').find('.invalid-feedback strong').text('');
+    });
+    $('input.col-skill-other').change(function () {
+        let name = snakeCase($(this).val());
+        $(this).closest('.col-form-input-item').find('input.skill-other-category').attr('value', $(this).val());
     });
     stepContent1.find('.image-picker img').click(function (e) {
         // $(this).attr('src', '{{ static_asset('assets/img/avatar/default.png') }}');

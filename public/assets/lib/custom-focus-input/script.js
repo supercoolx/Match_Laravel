@@ -28,14 +28,14 @@ function position(e) {
     FOCUS.fadeIn(200);
 }
 
-$('form input[type="text"], form input[type="number"], form input[type="url"], form input[type="password"], form input[type="email"], form input[type="date"], form select, form textarea').each(function(i) {
+$('form input:not([type="checkbox"]):not([type="radio"]), form select, form textarea').each(function(i) {
     $(this).focus(function() {
         el = $(this);
         position(el);
     });
 });
 
-$('form input[type="text"], form input[type="number"], form input[type="url"], form input[type="password"], form input[type="email"], form input[type="date"], form select, form textarea').on("focusout", function(e) {
+$('form input:not([type="checkbox"]):not([type="radio"]), form select, form textarea').on("focusout", function(e) {
     setTimeout(function() {
         if (!(document.activeElement instanceof HTMLInputElement || 
               document.activeElement instanceof HTMLTextAreaElement ||
@@ -44,4 +44,12 @@ $('form input[type="text"], form input[type="number"], form input[type="url"], f
             FOCUS.fadeOut(200);
         }
     }, 0);
+});
+
+$(window).resize(function () {
+    el = document.activeElement;
+    if (el instanceof HTMLInputElement || 
+        el instanceof HTMLTextAreaElement ||
+        el instanceof HTMLSelectElement
+    ) position($(el));
 });

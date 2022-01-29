@@ -18,7 +18,11 @@
                             <div class="preview-label">
                                 <label>契約形態</label>
                             </div>
-                            <div class="preview-value">{{ $project->contractType->name }}</div>
+                            <div class="preview-value">
+                                @isset($project->contractTypes)
+                                    {{ implode(', ', array_column($project->contractTypes->toArray(), 'name')) }}
+                                @endisset
+                            </div>
                         </div>
                         <div class="input-preview">
                             <div class="preview-label">

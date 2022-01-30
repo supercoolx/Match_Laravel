@@ -267,6 +267,12 @@ if (!function_exists('convert_url')) {
     }
 }
 
+if (!function_exists('number_comma')) {
+    function number_comma($num) {
+        return number_format($num, 0, '', ',');
+    }
+}
+
 //if (!function_exists('get_images')) {
 //    function get_images($given_ids, $with_trashed = false)
 //    {

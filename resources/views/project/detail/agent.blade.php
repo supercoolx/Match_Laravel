@@ -12,7 +12,7 @@
                                 <button class="btn job-type">{{ $project->jobType->name }}</button>
                                 <button class="btn job-industry">{{ $project->industries->name }}</button>
                             </div>
-                            <h3 class="text-center">{{ $project->price }} / 月</h3>
+                            <h3 class="text-center">{{ number_comma($project->price_min) }} ~ {{ number_comma($project->price_max) }} / 月</h3>
                         </div>
                         <div class="input-preview">
                             <div class="preview-label">
@@ -88,13 +88,13 @@
                             <div class="preview-label">
                                 <label>始業/終業時間</label>
                             </div>
-                            <div class="preview-value">{{ $project->start_time }}時 ～ {{ $project->end_time }}時</div>
+                            <div class="preview-value">{{ $project->start_time }} ～ {{ $project->end_time }}</div>
                         </div>
                         <div class="input-preview">
                             <div class="preview-label">
                                 <label>平均稼働時間</label>
                             </div>
-                            <div class="preview-value">{{ $project->uptime_min }}h ～ {{ $project->uptime_max }}h</div>
+                            <div class="preview-value">{{ $project->uptime_min }} ～ {{ $project->uptime_max }}</div>
                         </div>
                         <div class="input-preview">
                             <div class="preview-label">

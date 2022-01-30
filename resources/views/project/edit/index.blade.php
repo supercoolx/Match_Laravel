@@ -6,7 +6,7 @@
         <div class="edit-content">
             <div class="user-contact">
                 <div class="image-upload-preview d-flex flex-column align-items-center">
-                    <img src="{{ upload_asset(Auth::user()->avatar) ?? static_asset('assets/img/account.png') }}" class="object-cover-center" alt="{{ Auth::user()->name }}">
+                    <img src="{{ Auth::user()->avatar ? upload_asset(Auth::user()->avatar) : static_asset('assets/img/account.png') }}" class="object-cover-center" alt="{{ Auth::user()->name }}">
                     <span>{{ Auth::user()->name }}</span>
                     <a href="#" class="btn btn-theme btn-chat d-flex justify-content-center align-items-center">チャットで話を聞く</a>
                     <a href="#" class="btn btn-theme btn-call d-flex justify-content-center align-items-center">電話で話を聞く</a>
@@ -44,6 +44,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ static_asset('assets/lib/custom-focus-input/style.css') }}">
+    <link rel="stylesheet" href="{{ static_asset('assets/lib/jquery.timepicker/jquery.timepicker.css') }}">
 @endsection
 
 @section('script')
@@ -85,6 +86,7 @@
         }
         const img_thumbnail_preview = '{{ static_asset('assets/img/icon-image.png') }}';
     </script>
+    <script src="{{ static_asset('assets/lib/jquery.timepicker/jquery.timepicker.js') }}"></script>
     <script src="{{ static_asset('assets/js/page-project-edit.js') }}"></script>
     <script src="{{ static_asset('assets/lib/custom-focus-input/script.js') }}"></script>
 @endsection

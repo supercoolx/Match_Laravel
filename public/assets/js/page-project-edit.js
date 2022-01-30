@@ -20,15 +20,29 @@ function setStep(step) {
 
     switch (step) {
         case 1:
+            scrollTo(0, 0);
             $('.user-contact').hide();
             $('.edit-content').css('background-color', '#f7f6f3');
+            $('.step-wizard').css({
+                'position': '',
+                'width': '',
+                'background-color': '',
+                'z-index': ''
+            });
             stepDot2.removeClass('active');
             stepDot3.removeClass('active');
             stepContent1.addClass('active');
             break;
         case 2:
+            scrollTo(0, 0);
             $('.user-contact').show();
             $('.edit-content').css('background-color', '#ffffff');
+            $('.step-wizard').css({
+                'position': 'fixed',
+                'width': '100%',
+                'background-color': '#f7f6f3',
+                'z-index': '99'
+            });
             stepDot2.addClass('active');
             stepDot3.removeClass('active');
             stepContent2.addClass('active');
@@ -52,47 +66,10 @@ function checkImageFile(domId) {
 $(document).ready(function () {
     var form = $('#form');
     var parsleyInstance = form.parsley();
-    const timeFormat = 'HH';
-    let elTimeMasks = document.getElementsByClassName('time-mask');
-    let timeMasks = [];
-    for(let i = 0; i < elTimeMasks.length; i++) {
-        let timeMask = IMask(elTimeMasks[i], {
-            mask: Date,
-            lazy: false,
-            pattern: timeFormat,
-            format: function (date) {
-                return moment(date).format(timeFormat);
-            },
-            parse: function (str) {
-                return moment(str, timeFormat);
-            },
-            blocks: {
-                HH: {
-                    mask: IMask.MaskedRange,
-                    from: 0,
-                    to: 23
-                },
-            }
-        });
-        timeMasks.push({
-            timeMask: timeMask,
-            elTimeMask: elTimeMasks[i]
-        });
-    }
-    let elUnitPrice = document.getElementById('unitPrice');
-    IMask(elUnitPrice, {
-        mask: Number,
-        min: 0,
-        max: 99999999999
-    });
+    $('input.timepicker').timepicker();
+
     function validateOthers() {
         let isValid = true;
-        for (let i = 0; i < timeMasks.length; i++) {
-            if (timeMasks[i].timeMask.unmaskedValue === '') {
-                $(timeMasks[i].elTimeMask).parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
-                isValid = false;
-            }
-        }
         if(!$('input[name=week]:checked').val()){
             $('input[name=week]').parents('.form-group').find('.invalid-feedback strong').text('この値は必須です。');
             isValid = false;
@@ -124,9 +101,9 @@ $(document).ready(function () {
         e.preventDefault();
         const validOthers = validateOthers();
         if (parsleyInstance.validate() && validOthers) {
-            $('[data-for="unitPrice"]').text($('#unitPriceMin').val() + ' ～ ' + $('#unitPriceMax').val() + ' / 月');
-            $('[data-for="startEndTime"]').text($('#startTime').val() + '時  ～  ' + $('#endTime').val() + '時');
-            $('[data-for="averageUptimeStartEnd"]').text($('#averageUptimeStart').val() + 'h  ～  ' + $('#averageUptimeEnd').val() + 'h');
+            $('[data-for="unitPrice"]').text($('#unitPriceMin').val().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ～ ' + $('#unitPriceMax').val().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' / 月');
+            $('[data-for="startEndTime"]').text($('#startTime').val() + '  ～  ' + $('#endTime').val());
+            $('[data-for="averageUptimeStartEnd"]').text($('#averageUptimeStart').val() + '  ～  ' + $('#averageUptimeEnd').val());
             $('[data-for="openStartDate"]').text($('#openStartDate').val());
             $('[data-for="week"]').text('週' + weeks[$('input[name=week]:checked').val()]);
             $('[data-for="onlineInterview"]').text(onlineInterviews[$('input[name=onlineInterview]:checked').val()]);
@@ -137,7 +114,6 @@ $(document).ready(function () {
                 console.log(html);
             });
             $('[data-for="contractType"]').html(html);
-            $('[data-for="unitPrice"]').text('¥ ' + $('input[name=unitPrice]').val() + '/ 月');
             $('[data-for="interviews"]').text($('input[name=interviews]:checked').val() + ' 回');
             $('button.job-type').text(jobTypes[$('#jobType').val()]);
             $('button.job-industry').text(industries[$('#industry').val()]);

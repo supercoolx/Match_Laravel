@@ -96,6 +96,10 @@ textarea{
     color: var(--color-white);
 }
 
+.btn-dark {
+    background-color: #343a40;
+}
+
 .btn-theme:hover {
     color: var(--color-white);
 }
@@ -306,6 +310,21 @@ textarea{
 
 input[type="date"]::-webkit-calendar-picker-indicator, input[type="month"]::-webkit-calendar-picker-indicator{
     background: url('../img/calendar.png') no-repeat;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type=checkbox], input[type=radio]{
+    cursor: pointer;
 }
 
 .tooltip {
@@ -646,7 +665,12 @@ input[type="date"]::-webkit-calendar-picker-indicator, input[type="month"]::-web
 
 /* Header */
 .site-wrapper .site-header {
+    background-color: var(--color-white);
     padding: 5px 5px;
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+    top: 0;
 }
 
 .site-wrapper .site-header .navbar {
@@ -782,6 +806,7 @@ input[type="date"]::-webkit-calendar-picker-indicator, input[type="month"]::-web
 .content-section {
     min-height: calc(100vh - 280px);
     background-color: #f7f6f3;
+    margin-top: 57px;
 }
 
 /* Footer section */
@@ -849,7 +874,7 @@ div.side-image{
 
 .content-step-wizard{
     width: 100%;
-    margin: 8px 30px 100px 30px;
+    margin: 8px 30px 140px 30px;
     position: relative;
     max-width: 432px;
 }
@@ -904,6 +929,10 @@ div.side-image{
 
 .step-content input[type="file"]{
     display: none;
+}
+
+.step-content[data-step="2"]{
+    margin-top: 200px;
 }
 
 .step-content[data-step="3"] p{
@@ -1217,11 +1246,12 @@ img.img-success-background{
 
 /* Case Entry */
 .user-contact{
-    position: absolute;
+    position: fixed;
     margin-left: 58px;
     padding-top: 12px;
     z-index: 2;
     display: none;
+    margin-top: 200px;
 }
 
 .user-contact .btn{
@@ -1269,7 +1299,7 @@ img.img-success-background{
     width: 100%;
 }
 .content-case-entry .form-group{
-    margin-bottom: 19px;
+    margin-bottom: 40px;
 }
 .content-case-entry select.form-control{
     max-width: 333px;
@@ -1292,7 +1322,7 @@ img.img-success-background{
     margin-right: 12px;
 }
 .unite-price-range span:last-child{
-    margin-top: 5px;
+    margin-top: 10px;
 }
 .content-case-entry textarea{
     min-height: 163px;
@@ -1328,6 +1358,7 @@ img.img-success-background{
 }
 .content-case-entry .form-check-label{
     font-size: 15px;
+    cursor: pointer;
 }
 .case-entry-btn{
     margin-top: 33px;

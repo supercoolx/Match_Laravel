@@ -100,7 +100,8 @@ class Project extends Model
 
     protected $fillable = [
         'name',
-        'price',
+        'price_min',
+        'price_max',
         'job_type',
         'industry',
         'content',

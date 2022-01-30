@@ -20,7 +20,8 @@ class ProjectController extends Controller
     {
         return Validator::make($data, [
             'caseName' => 'required|string|max:1023',
-            'unitPrice' => 'required',
+            'unitPriceMin' => 'required',
+            'unitPriceMax' => 'required',
             'jobType' => 'required',
             'industry' => 'required',
             'jobContent' => 'required',
@@ -48,7 +49,8 @@ class ProjectController extends Controller
     {
         $project = Project::create([
             'name' => $data['caseName'],
-            'price' => $data['unitPrice'],
+            'price_min' => $data['unitPriceMin'],
+            'price_max' => $data['unitPriceMax'],
             'job_type' => $data['jobType'],
             'industry' => $data['industry'],
             'content' => $data['jobContent'],
@@ -105,7 +107,8 @@ class ProjectController extends Controller
     protected function updateProject(Project $project, array $data)
     {
         $project->name = $data['caseName'];
-        $project->price = $data['unitPrice'];
+        $project->price_min = $data['unitPriceMin'];
+        $project->price_max = $data['unitPriceMax'];
         $project->job_type = $data['jobType'];
         $project->industry = $data['industry'];
         $project->content = $data['jobContent'];
@@ -206,7 +209,8 @@ class ProjectController extends Controller
         $search['industries'] = $search['industries'] ?? [];
         $search['addresses'] = $search['addresses'] ?? [];
         $search['s'] = $search['s'] ?? null;
-        $search['minPrice'] = $search['minPrice'] ?? null;
+        $search['minPriceMin'] = $search['minPriceMin'] ?? null;
+        $search['minPriceMax'] = $search['minPriceMax'] ?? null;
 
         $jobTypes = JobType::all();
         $industries = Industry::all();

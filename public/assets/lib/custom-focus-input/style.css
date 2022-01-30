@@ -11,6 +11,9 @@
     display:none;
     box-sizing:border-box;
 }
+.form-control{
+    border: none;
+}
 .form-control:focus{
     box-shadow: none;
 }

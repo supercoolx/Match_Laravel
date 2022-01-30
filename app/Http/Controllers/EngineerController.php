@@ -43,7 +43,7 @@ class EngineerController extends Controller
         $engineer = Auth::user()->id;
         $channel_ids = Message::where('from', $engineer)->pluck('channel_id')->toArray();
         $project_ids = Channel::whereIn('id', $channel_ids)->pluck('project_id')->toArray();
-        $projects = Project::whereIn('id', $project_ids)->with('user', 'jobType', 'industries', 'weeks', 'contractTypes');
+        $projects = Project::whereIn('id', $project_ids);
         $tabs_for = $request->for ?? 'agent';
         $cnt = $projects->count();
         $projects = $projects->paginate(7);

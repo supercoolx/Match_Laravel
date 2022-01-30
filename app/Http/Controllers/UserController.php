@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\ContractType;
+use Auth;
+use App\Models\User;
+use App\Models\Follow;
+use App\Models\Industry;
+use App\Models\JobType;
+use App\Models\Week;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -93,15 +99,147 @@ class UserController extends Controller
     public function list(Request $request)
     {
         $search = $request->all();
-        $search['for'] = $search['for'] ?? config("constants.tab_for.agent");
-        if ($search['for'] === config("constants.user_type.company")) {
-            return redirect()->route('company.setting', ['step' => 3]);
-        } elseif ($search['for'] === config("constants.user_type.agent")) {
-            return redirect()->route('agent.setting', ['step' => 3]);
-        } elseif ($search['for'] === config("constants.user_type.engineer")) {
-            return redirect()->route('engineer.setting', ['step' => 3]);
+        $search['for'] = $search['for'] ?? config("constants.tab_for.engineer");
+        $search['jobType'] = $search['jobType'] ?? [];
+        $search['contractType'] = $search['contractType'] ?? [];
+        $search['week'] = $search['week'] ?? [];
+        $search['industries'] = $search['industries'] ?? [];
+        $search['addresses'] = $search['addresses'] ?? [];
+        $search['s'] = $search['s'] ?? '';
+        $search['minPrice'] = $search['minPrice'] ?? null;
+
+        $jobTypes = JobType::all();
+        $industries = Industry::all();
+        $weeks = Week::all();
+        $contractTypes = ContractType::all();
+
+        $matchThese = [];
+        if ($search['for'] == config("constants.tab_for.agent")) {
+            $matchThese[] = ['user_type', config("constants.user_type.agent")];
+        } elseif ($search['for'] == config("constants.tab_for.company")) {
+            $matchThese[] = ['user_type', config("constants.user_type.company")];
+        } elseif ($search['for'] == config("constants.tab_for.engineer")) {
+            $matchThese[] = ['user_type', config("constants.user_type.engineer")];
         }
-        $users = User::where('user_type', '=', $search['for'])->get();
-        return view('user.list', compact('search', 'users'));
+        
+        
+        $users = User::where($matchThese);
+        // if ($search['jobType']) {
+        //     $users = $users->whereIn('job_type', $search['jobType']);
+        // }
+        // if ($search['contractType']) {
+        //     $users = $users->whereIn('contract_type', $search['contractType']);
+        // }
+        // if ($search['week']) {
+        //     $users = $users->whereIn('week', $search['week']);
+        // }
+        // if ($search['industries']) {
+        //     $users = $users->whereIn('industry', $search['industries']);
+        // }
+        // if ($search['addresses']) {
+        //     $users = $users->whereIn('work_location', $search['addresses']);
+        // }
+        // if ($search['minPrice']) {
+        //     $users = $users->where(function($query) use ($search) {
+        //         $query->where('price_min', '>=', $search['minPrice'])
+        //             ->orWhere('price_max', '>=', $search['minPrice']);
+        //     });
+        // }
+        if ($search['s']) {
+            $users = $users->where('name', 'LIKE', '%'.$search['s'].'%')->orWhere('name_kana', 'LIKE', '%'.$search['s'].'%');
+        }
+
+        $count = $users->count();
+        $users = $users->get();
+        return view('user.list.index', compact('search', 'users', 'jobTypes', 'industries', 'weeks', 'contractTypes', 'count'));
+    }
+
+    public function follow(Request $request, $id) {
+        $result = array();
+
+        if(!Auth::check()) {
+            $result = array(
+                'success' => false,
+                'message' => 'フォローするにはログインする必要があります。'
+            );
+            return response()->json($result);
+        }
+
+        $user_id = Auth::user()->id;
+        $followed_user = User::find($id);
+        if(!$followed_user || $followed_user->user_type == config('constants.user_type.admin')) {
+            $result = array(
+                'success' => false,
+                'message' => 'そのユーザーが見つかりません。'
+            );
+            return response()->json($result);
+        }
+
+        if($user_id == $id) {
+            $result = array(
+                'success' => false,
+                'message' => '自分をフォローすることはできません。'
+            );
+            return response()->json($result);
+        };
+
+        $follow = Follow::where(['follow' => $id, 'follow_by' => $user_id]);
+        if($follow->count()) {
+            $result = array(
+                'success' => false,
+                'message' => 'あなたはすでにこのユーザーをフォローしています。'
+            );
+            return response()->json($result);
+        }
+
+        $follow = new Follow();
+        $follow->follow = $id;
+        $follow->follow_by = $user_id;
+        $follow->save();
+        $result = array('success' => true);
+        return response()->json($result);
+    }
+
+    public function unfollow(Request $request, $id) {
+        $result = array();
+
+        if(!Auth::check()) {
+            $result = array(
+                'success' => false,
+                'message' => 'ログインする必要があります。'
+            );
+            return response()->json($result);
+        }
+
+        $user_id = Auth::user()->id;
+        $followed_user = User::find($id);
+        if(!$followed_user || $followed_user->user_type == config('constants.user_type.admin')) {
+            $result = array(
+                'success' => false,
+                'message' => 'そのユーザーが見つかりません。'
+            );
+            return response()->json($result);
+        }
+
+        if($user_id == $id) {
+            $result = array(
+                'success' => false,
+                'message' => '自分をフォローすることはできません。'
+            );
+            return response()->json($result);
+        };
+
+        $follow = Follow::where(['follow' => $id, 'follow_by' => $user_id]);
+        if(!$follow->count()) {
+            $result = array(
+                'success' => false,
+                'message' => 'このユーザーをフォローしていません。'
+            );
+            return response()->json($result);
+        }
+        $follow->delete();
+        $result = array('success' => true);
+        return response()->json($result);
+
     }
 }

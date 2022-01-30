@@ -15,7 +15,7 @@ class ChatController extends Controller
 {
     public function link(Request $request, $id) {
         $user = Auth::user();
-        $project = Project::where('id', $id)->with('user', 'jobType', 'industries', 'weeks', 'contractType')->first();
+        $project = Project::where('id', $id)->first();
         if (!$project) {
             abort(404);
         } elseif ($user->user_type == config("constants.user_type.agent") || $user->user_type == config("constants.user_type.company")) {

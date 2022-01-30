@@ -19,7 +19,7 @@ class CompanyController extends Controller
 
     public function dashboard(Request $request) {
         $user_id = Auth::user()->id;
-        $projects = Project::where('user_id', $user_id)->with('user', 'jobType', 'industries', 'weeks')->paginate(5);
+        $projects = Project::where('user_id', $user_id)->paginate(5);
         return view("dashboard.company", compact('projects'));
     }
 
@@ -37,12 +37,12 @@ class CompanyController extends Controller
         $company = Auth::user();
         $addresses = AddressController::getAddresses();
 
-        return view("project.edit", compact('jobTypes','industries', 'weeks', 'contractTypes', 'company', 'addresses'));
+        return view("project.edit.index", compact('jobTypes','industries', 'weeks', 'contractTypes', 'company', 'addresses'));
     }
 
     public function projectDetail(Request $request, $id) {
         $user_id = Auth::user()->id;
-        $project = Project::where([['user_id', $user_id], ['id', $id]])->with('user', 'jobType', 'industries', 'weeks')->first();
+        $project = Project::where([['user_id', $user_id], ['id', $id]])->first();
         if (!$project) {
             abort(404);
         }
@@ -51,7 +51,7 @@ class CompanyController extends Controller
 
     public function editProject(Request $request, $id) {
         $company = Auth::user();
-        $project = Project::where([['user_id', $company->id], ['id', $id]])->with('user', 'jobType', 'contractTypes', 'industries', 'weeks')->first();
+        $project = Project::where([['user_id', $company->id], ['id', $id]])->first();
         if (!$project) {
             abort(404);
         }
@@ -60,6 +60,6 @@ class CompanyController extends Controller
         $weeks = Week::all();
         $contractTypes = ContractType::all();
         $addresses = AddressController::getAddresses();
-        return view("project.edit", compact('project', 'jobTypes', 'industries', 'weeks', 'contractTypes', 'company', 'addresses'));
+        return view("project.edit.index", compact('project', 'jobTypes', 'industries', 'weeks', 'contractTypes', 'company', 'addresses'));
     }
 }

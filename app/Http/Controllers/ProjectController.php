@@ -249,10 +249,10 @@ class ProjectController extends Controller
         }
 
         $cnt = $projects->count();
-        $projects = $projects->with('user', 'jobType', 'industries', 'weeks', 'contractTypes')->paginate(7);
+        $projects = $projects->paginate(7);
 
         $addresses = $this->getChildrenAddresses(0);
-        return view("project.index",
+        return view("project.list.index",
             compact(
                 'projects',
                 'search',
@@ -267,7 +267,7 @@ class ProjectController extends Controller
     }
 
     public function detail(Request $request, $id) {
-        $project = Project::where('id', $id)->with('user', 'jobType', 'industries', 'address', 'weeks', 'contractTypes')->first();
+        $project = Project::where('id', $id)->first();
         if (!$project) {
             abort(404);
         }

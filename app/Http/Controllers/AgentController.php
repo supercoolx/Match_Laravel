@@ -27,7 +27,7 @@ class AgentController extends Controller
 
     public function dashboard(Request $request) {
         $user_id = Auth::user()->id;
-        $projects = Project::where('user_id', $user_id)->with('user', 'jobType', 'industries', 'weeks')->paginate(5);
+        $projects = Project::where('user_id', $user_id)->paginate(5);
         return view("dashboard.agent", compact('projects'));
     }
 
@@ -45,12 +45,12 @@ class AgentController extends Controller
         $agent = Auth::user();
         $addresses = AddressController::getAddresses();
 
-        return view("project.edit", compact('jobTypes','industries', 'addresses', 'weeks', 'contractTypes', 'agent'));
+        return view("project.edit.index", compact('jobTypes','industries', 'addresses', 'weeks', 'contractTypes', 'agent'));
     }
 
     public function projectDetail(Request $request, $id) {
         $user_id = Auth::user()->id;
-        $project = Project::where([['user_id', $user_id], ['id', $id]])->with('user', 'jobType', 'industries', 'weeks')->first();
+        $project = Project::where([['user_id', $user_id], ['id', $id]])->first();
         if (!$project) {
             abort(404);
         }
@@ -59,7 +59,7 @@ class AgentController extends Controller
 
     public function editProject(Request $request, $id) {
         $user_id = Auth::user()->id;
-        $project = Project::where([['user_id', $user_id], ['id', $id]])->with('user', 'jobType', 'industries', 'weeks')->first();
+        $project = Project::where([['user_id', $user_id], ['id', $id]])->first();
         if (!$project) {
             abort(404);
         }
@@ -70,6 +70,6 @@ class AgentController extends Controller
         $contractTypes = ContractType::all();
         $agent = Auth::user();
         $addresses = AddressController::getAddresses();
-        return view("project.edit", compact('project', 'jobTypes','industries', 'addresses', 'weeks', 'contractTypes', 'agent'));
+        return view("project.edit.index", compact('project', 'jobTypes','industries', 'addresses', 'weeks', 'contractTypes', 'agent'));
     }
 }

@@ -33,7 +33,7 @@ class ProfileController extends Controller
     public function setting(Request $request) {
         $step = $request->query('step', 2);
         $user_id = Auth::user()->id;
-        $profile = Profile::where('user_id', $user_id)->with('weeks', 'contractTypes', 'educations', 'employees', 'experiences', 'jobs', 'portfolios', 'qualifications', 'writings', 'remote_work', 'dress', 'location', 'skills')->first();
+        $profile = Profile::where('user_id', $user_id)->first();
         if($profile) {
             
         }

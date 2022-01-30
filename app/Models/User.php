@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\profile\Profile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -86,11 +87,23 @@ class User extends Authenticatable
         parent::boot();
 
         static::addGlobalScope('deleted', function (Builder $builder) {
-            $builder->where('deleted', 0);
+            $builder->where('deleted', 0)->where('user_type', '<>', config('constants.user_type.admin'));
         });
 
         // static::addGlobalScope('isAdmin', function (Builder $builder) {
         //     $builder->where('user_type', '<=>', 0);
         // });
+    }
+
+    public function profile() {
+        return $this->hasOne(Profile::class, 'user_id', 'id');
+    }
+
+    public function follow() {
+        return $this->belongsToMany(User::class, 'user_follow', 'follow_by', 'follow', 'id', 'id');
+    }
+
+    public function follow_by() {
+        return $this->belongsToMany(User::class, 'user_follow', 'follow', 'follow_by', 'id', 'id');
     }
 }

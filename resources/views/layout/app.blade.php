@@ -12,6 +12,7 @@
     <meta name="description" content="プラットフォーム">
     <meta name="keyword" content="プラットフォーム">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/css/bootstrap.min.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/css/bootstrap-toggle.min.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/css/daterangepicker.min.css') }}">
@@ -55,7 +56,13 @@
 <script src="{{ static_asset('assets/lib/i18n/ja.extra.js') }}" ></script>
 {{--<script src="{{ static_asset('assets/dist/js/app.js') }}"></script>--}}
 <script src="{{ static_asset('assets/lib/main.js') }}"></script>
-
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    })
+</script>
 @yield('script')
 
 <script type="text/javascript">

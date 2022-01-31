@@ -806,7 +806,7 @@ input[type=checkbox], input[type=radio]{
 .content-section {
     min-height: calc(100vh - 280px);
     background-color: #f7f6f3;
-    margin-top: 57px;
+    padding-top: 57px;
 }
 
 /* Footer section */
@@ -931,7 +931,7 @@ div.side-image{
     display: none;
 }
 
-.step-content[data-step="2"]{
+.content-case-entry .step-content[data-step="2"]{
     margin-top: 200px;
 }
 

@@ -41,7 +41,7 @@ function setStep(step) {
                 'position': 'fixed',
                 'width': '100%',
                 'background-color': '#f7f6f3',
-                'z-index': '99'
+                'z-index': '3'
             });
             stepDot2.addClass('active');
             stepDot3.removeClass('active');

@@ -314,8 +314,20 @@ textarea{
     color: var(--color-red);
 }
 
+input[type="date"], input.datepicker{
+    cursor: pointer;
+}
+
 input[type="date"]::-webkit-calendar-picker-indicator, input[type="month"]::-webkit-calendar-picker-indicator{
     background: url('../img/calendar.png') no-repeat;
+    cursor: pointer;
+}
+
+span.icon-calendar{
+    position: relative;
+    top: -35px;
+    left: 165px;
+    cursor: pointer;
 }
 
 input::-webkit-outer-spin-button,
@@ -1417,8 +1429,8 @@ img.img-success-background{
 }
 .image-upload-preview img{
     border-radius: 50%;
-    width: 70px;
-    height: 70px;
+    width: 46px;
+    height: 46px;
 }
 .avatar-preview{
     border-radius: 50%;
@@ -2070,6 +2082,7 @@ div[data-for='unitPrice']{
 }
 .chat-sidebar ul .chat-user.active a, .chat-sidebar ul .chat-user:hover a{
     color: var(--color-black);
+    font-weight: bold;
     text-decoration: none;
 }
 .chat-sidebar ul .chat-user .chat-user-avatar{
@@ -2097,6 +2110,7 @@ div[data-for='unitPrice']{
     color: var(--color-black);
     line-height: 18px;
     margin-bottom: 16px;
+    font-weight: bold;
 }
 .chat-messages{
     padding: 23px 51px;
@@ -2752,7 +2766,7 @@ div[data-for='unitPrice']{
 }
 
 .applicant-profile-input .w194{
-    max-width: 180px;
+    max-width: 194px;
 }
 .applicant-profile-input .w333{
     max-width: 333px;

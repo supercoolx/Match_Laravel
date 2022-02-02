@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/css/bootstrap.min.css') }}">
+    <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/css/bootstrap-datepicker.min.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/css/bootstrap-toggle.min.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/css/daterangepicker.min.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ static_asset('assets/css/dropzone.min.css') }}">
@@ -58,6 +59,7 @@
 </div>
 <script src="{{ static_asset('assets/lib/popper.min.js') }}"></script>
 <script src="{{ static_asset('assets/lib/bootstrap.min.js') }}"></script>
+<script src="{{ static_asset('assets/lib/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ static_asset('assets/lib/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ static_asset('assets/lib/moment-with-locales.js') }}"></script>
 <script src="{{ static_asset('assets/lib/daterangepicker.min.js') }}"></script>

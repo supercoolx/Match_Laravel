@@ -560,7 +560,7 @@
         <div class="col-form-input col-salary">
             <div class="col-form-input-item d-flex">
                 <div>
-                    <input type="number" class="form-control w194" name="salary" value="{{ isset($profile) ? $profile->salary : '' }}" required>
+                    <input type="text" class="form-control w194 price" name="salary" value="{{ isset($profile) ? number_comma($profile->salary) : '' }}" required>
                 </div>
                 <span>円~</span>
             </div>
@@ -592,7 +592,8 @@
         <div class="col-form-input col-join-date">
             <div class="col-form-input-item">
                 <div class="mt18">
-                    <input type="date" class="form-control w194" name="join_date" value="{{ isset($profile) ? $profile->join_date : '' }}" required>
+                    <input type="text" class="form-control w194 datepicker" name="join_date" value="{{ isset($profile) ? $profile->join_date : '' }}" required>
+                    <span class="icon-calendar"><img src="{{ static_asset('assets/img/calendar.png') }}" alt=""></span>
                 </div>
             </div>
         </div>

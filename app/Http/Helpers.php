@@ -273,6 +273,12 @@ if (!function_exists('number_comma')) {
     }
 }
 
+if (!function_exists('comma_to_number')) {
+    function comma_to_number($str) {
+        return (int) filter_var($str, FILTER_SANITIZE_NUMBER_INT);
+    }
+}
+
 //if (!function_exists('get_images')) {
 //    function get_images($given_ids, $with_trashed = false)
 //    {

@@ -62,7 +62,7 @@ class ProfileController extends Controller
         $profile->full_name = $request->fullName ? 1 : 0;
         $profile->phone = $request->phone ? 1 : 0;
         $profile->open_job = $request->openJob ? 1 : 0;
-        $profile->salary = $request->salary;
+        $profile->salary = comma_to_number($request->salary);
         $profile->location = $request->work_location;
         $profile->remote_work_id = $request->remote;
         $profile->join_date = $request->join_date;

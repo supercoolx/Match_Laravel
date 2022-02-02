@@ -31,11 +31,12 @@
                                     <span class="preview-value" data-for="week">週{{ isset($project) ? $project->weeks->name : old('week') }}</span>
                                 </div>
                                 <h2 data-for="caseName" class="pt-2">{{ isset($project) ? $project->name : old('caseName') }}</h2>
-                                <div data-for="unitPrice">¥ {{ isset($project) ? number_comma($project->price_min) : number_comma(old('unitPriceMin')) }} ~ {{ isset($project) ? number_comma($project->price_max) : number_comma(old('unitPriceMax')) }}/ 月</div>
                             </div>
                             <div class="input-preview">
                                 <div class="preview-label">
-                                    <label></label>
+                                    <label>
+                                        <div data-for="unitPrice">¥ {{ isset($project) ? number_comma($project->price_min) : number_comma(old('unitPriceMin')) }} ~ {{ isset($project) ? number_comma($project->price_max) : number_comma(old('unitPriceMax')) }}/ 月</div>
+                                    </label>
                                 </div>
                                 <div class="preview-value" data-for="jobContent">{{ isset($project) ? $project->content : old('jobContent') }}</div>
                             </div>

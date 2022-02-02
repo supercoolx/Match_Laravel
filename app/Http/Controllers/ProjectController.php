@@ -49,8 +49,8 @@ class ProjectController extends Controller
     {
         $project = Project::create([
             'name' => $data['caseName'],
-            'price_min' => $data['unitPriceMin'],
-            'price_max' => $data['unitPriceMax'],
+            'price_min' => comma_to_number($data['unitPriceMin']),
+            'price_max' => comma_to_number($data['unitPriceMax']),
             'job_type' => $data['jobType'],
             'industry' => $data['industry'],
             'content' => $data['jobContent'],
@@ -107,8 +107,8 @@ class ProjectController extends Controller
     protected function updateProject(Project $project, array $data)
     {
         $project->name = $data['caseName'];
-        $project->price_min = $data['unitPriceMin'];
-        $project->price_max = $data['unitPriceMax'];
+        $project->price_min = comma_to_number($data['unitPriceMin']);
+        $project->price_max = comma_to_number($data['unitPriceMax']);
         $project->job_type = $data['jobType'];
         $project->industry = $data['industry'];
         $project->content = $data['jobContent'];

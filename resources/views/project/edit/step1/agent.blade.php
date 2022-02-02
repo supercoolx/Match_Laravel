@@ -11,11 +11,11 @@
         <label for="unitPrice" class="col-form-label">単価/月</label>
         <div class="unite-price-range">
             <div>
-                <input type="number" class="form-control{{ $errors->has('unitPriceMin') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->price_min : old('unitPriceMin') }}" id="unitPriceMin" name="unitPriceMin" min="0" placeholder="単価を入力" required>
+                <input type="text" class="form-control{{ $errors->has('unitPriceMin') ? ' is-invalid' : '' }} price" value="{{ isset($project) ? number_comma($project->price_min) : number_comma(old('unitPriceMin')) }}" id="unitPriceMin" name="unitPriceMin" placeholder="単価を入力" required>
             </div>
             <span>円&nbsp;&nbsp;&nbsp;～&nbsp;</span>
             <div>
-                <input type="number" class="form-control{{ $errors->has('unitPriceMax') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->price_max : old('unitPriceMax') }}" id="unitPriceMax" name="unitPriceMax" min="0" placeholder="単価を入力" required>
+                <input type="text" class="form-control{{ $errors->has('unitPriceMax') ? ' is-invalid' : '' }} price" value="{{ isset($project) ? number_comma($project->price_max) : number_comma(old('unitPriceMax')) }}" id="unitPriceMax" name="unitPriceMax" placeholder="単価を入力" required>
             </div>
             <span>円</span>
         </div>
@@ -102,7 +102,8 @@
     </div>
     <div class="form-group">
         <label for="openStartDate" class="col-form-label">作業開始日</label>
-        <input type="date" class="form-control{{ $errors->has('startDate') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->start_date : old('startDate') }}" id="openStartDate" name="startDate" placeholder="作業開始日を入力" required>
+        <input type="text" class="form-control{{ $errors->has('startDate') ? ' is-invalid' : '' }} datepicker" value="{{ isset($project) ? $project->start_date : old('startDate') }}" id="openStartDate" name="startDate" placeholder="作業開始日を入力" required>
+        <span class="icon-calendar"><img src="{{ static_asset('assets/img/calendar.png') }}" alt=""></span>
     </div>
     <div class="form-group">
         <label for="startTime" class="col-form-label">始業/終業時間</label>
@@ -123,11 +124,11 @@
         <label for="averageUptimeStart" class="col-form-label">平均稼働時間</label>
         <div class="start-end-time">
             <div>
-                <input type="text" class="form-control{{ $errors->has('averageUptimeStart') ? ' is-invalid' : '' }} timepicker" value="{{ isset($project) ? $project->uptime_min : old('averageUptimeStart') }}" id="averageUptimeStart" name="averageUptimeStart" placeholder="下限時間を入力" required>
+                <input type="number" class="form-control{{ $errors->has('averageUptimeStart') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->uptime_min : old('averageUptimeStart') }}" id="averageUptimeStart" name="averageUptimeStart" placeholder="下限時間を入力" required>
             </div>
             <span>&nbsp;～&nbsp;</span>
             <div>
-                <input type="text" class="form-control{{ $errors->has('averageUptimeEnd') ? ' is-invalid' : '' }} timepicker" value="{{ isset($project) ? $project->uptime_max : old('averageUptimeEnd') }}" id="averageUptimeEnd" name="averageUptimeEnd" placeholder="上限時間を入力" required>
+                <input type="number" class="form-control{{ $errors->has('averageUptimeEnd') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->uptime_max : old('averageUptimeEnd') }}" id="averageUptimeEnd" name="averageUptimeEnd" placeholder="上限時間を入力" required>
             </div>
         </div>
         <span class="invalid-feedback" role="alert">

@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Follow;
 use App\Models\Industry;
 use App\Models\JobType;
+use App\Models\profile\Profile;
+use App\Models\Project;
 use App\Models\Week;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -152,6 +154,22 @@ class UserController extends Controller
         $count = $users->count();
         $users = $users->get();
         return view('user.list.index', compact('search', 'users', 'jobTypes', 'industries', 'weeks', 'contractTypes', 'count'));
+    }
+
+    public function detail(Request $request, $id) {
+        $user = User::findOrFail($id);
+        if($user->user_type == config('constants.user_type.engineer')) {
+            $profile = $user->profile;
+            return view('user.detail.engineer', compact('profile'));
+        }
+        else if($user->user_type == config('constants.user_type.agent')) {
+            $profile = $user->profile;
+            return view('user.detail.agent', compact('profile'));
+        }
+        else if($user->user_type == config('constants.user_type.company')) {
+            $projects = Project::where('user_id', $id)->get();
+            return view('user.detail.company', compact('projects'));
+        }
     }
 
     public function follow(Request $request, $id) {

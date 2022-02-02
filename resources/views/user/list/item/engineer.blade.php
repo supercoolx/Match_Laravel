@@ -33,6 +33,6 @@
         @else
             <button class="btn btn-circle-o follow" data-id="{{ $user->id }}">フォロー</button>
         @endif
-        <button class="btn btn-circle">詳細</button>
+        <a class="btn btn-circle" href="{{ route('user.detail', ['id' => $user->id]) }}" target="_blank">詳細</a>
     </div>
 </div>

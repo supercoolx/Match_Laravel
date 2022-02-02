@@ -1,3 +1,4 @@
+<div class="gray-bar"></div>
 <div class="step-wizard d-flex justify-content-center">
     <div class="content-step-wizard d-flex justify-content-between">
         <div class="progress">

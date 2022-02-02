@@ -15,12 +15,17 @@ use App\Models\profile\ProfilePortfolio;
 use App\Models\profile\ProfileQualification;
 use App\Models\profile\ProfileWriting;
 use App\Models\RemoteWork;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
     use HasFactory;
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
     public function weeks() {
         return $this->belongsTo(Week::class, 'week', 'id');

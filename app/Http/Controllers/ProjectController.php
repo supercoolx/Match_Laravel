@@ -209,8 +209,7 @@ class ProjectController extends Controller
         $search['industries'] = $search['industries'] ?? [];
         $search['addresses'] = $search['addresses'] ?? [];
         $search['s'] = $search['s'] ?? null;
-        $search['minPriceMin'] = $search['minPriceMin'] ?? null;
-        $search['minPriceMax'] = $search['minPriceMax'] ?? null;
+        $search['minPrice'] = $search['minPrice'] ?? null;
 
         $jobTypes = JobType::all();
         $industries = Industry::all();

@@ -1,10 +1,17 @@
 <div class="applicant-profile-preview">
+    @php 
+        $follow_by = array_column($profile->user->follow_by->toArray(), 'id');
+    @endphp
     <div class="container">
         <div class="profile-header row">
             <div class="user-follow col-md-4">
-                <img src="{{ getAuthAvatar() }}" alt="" class="avatar-img">
-                <p class="registrant-name-kana">{{ Auth::user()->name_kana }}</p>
-                <button class="btn btn-circle btn-follow">フォロー</button>
+                <img src="{{ $profile->user->avatar ? upload_asset($profile->user->avatar) : static_asset('assets/img/avatar/default.png') }}" alt="" class="avatar-img">
+                <p class="registrant-name-kana">{{ $profile->user->name_kana }}</p>
+                @if(in_array(Auth::user()->id, $follow_by))
+                    <button class="btn btn-circle unfollow" data-id="{{ $profile->user_id }}">フォロー中</button>
+                @else
+                    <button class="btn btn-circle-o follow" data-id="{{ $profile->user_id }}">フォロー</button>
+                @endif
             </div>
             <div class="col-md-4">
                 <div id="user-chart"></div>
@@ -48,9 +55,11 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center">
-            <button class="btn btn-black-sm btn-prev mr-4">修正</button>
-            <button class="btn btn-black-sm btn-next">掲載</button>
-        </div>
+        @if(Route::currentRouteName() != 'user.detail')
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-black-sm btn-prev mr-4">修正</button>
+                <button class="btn btn-black-sm btn-next">掲載</button>
+            </div>
+        @endif
     </div>
 </div>

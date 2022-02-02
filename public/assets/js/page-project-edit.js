@@ -23,12 +23,6 @@ function setStep(step) {
             scrollTo(0, 0);
             $('.user-contact').hide();
             $('.edit-content').css('background-color', '#f7f6f3');
-            $('.step-wizard').css({
-                'position': '',
-                'width': '',
-                'background-color': '',
-                'z-index': ''
-            });
             stepDot2.removeClass('active');
             stepDot3.removeClass('active');
             stepContent1.addClass('active');
@@ -37,12 +31,6 @@ function setStep(step) {
             scrollTo(0, 0);
             $('.user-contact').show();
             $('.edit-content').css('background-color', '#ffffff');
-            $('.step-wizard').css({
-                'position': 'fixed',
-                'width': '100%',
-                'background-color': '#f7f6f3',
-                'z-index': '3'
-            });
             stepDot2.addClass('active');
             stepDot3.removeClass('active');
             stepContent2.addClass('active');

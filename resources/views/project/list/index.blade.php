@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-section has-sidebar">
-        <div class="container">
+        <div class="list-container">
             @include('inc.search_bar.project')
             <div class="content-list {{ $search['for'] == config("constants.tab_for.company") ? ' for-engineers' : '' }}">
                 <div class="row section-header">
@@ -19,9 +19,9 @@
                 <div class="row justify-content-center">
                     @foreach($projects as $project)
                         @if($search['for'] == config("constants.tab_for.agent"))
-                            @include('project.template.agent')
+                            @include('project.list.item.agent')
                         @elseif($search['for'] == config("constants.tab_for.company"))
-                            @include('project.template.company')
+                            @include('project.list.item.company')
                         @endif
                     @endforeach
                 </div>

@@ -243,8 +243,7 @@ class ProjectController extends Controller
         }
         if ($search['minPrice']) {
             $projects = $projects->where(function($query) use ($search) {
-                $query->where('price_min', '>=', $search['minPrice'])
-                    ->orWhere('price_max', '>=', $search['minPrice']);
+                $query->where('price_min', '>=', $search['minPrice']);
             });
         }
         if ($search['s']) {
@@ -270,10 +269,13 @@ class ProjectController extends Controller
     }
 
     public function detail(Request $request, $id) {
-        $project = Project::where('id', $id)->first();
-        if (!$project) {
-            abort(404);
+        $project = Project::findOrFail($id);
+        
+        if($project->user_type == config('constants.user_type.company')) {
+            return view('project.detail.company', compact('project'));
         }
-        return view("project.detail", compact('project'));
+        else if($project->user_type == config('constants.user_type.agent')) {
+            return view('project.detail.agent', compact('project'));
+        }
     }
 }

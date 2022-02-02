@@ -24,14 +24,14 @@
                     @foreach(range(1, 5) as $level)
                         <div class="sidebar-radio-list-item">
                             <label class="checkcontainer">Lv.{{ $level }}～
-                                <input type="radio" name="minPrice" value="{{ $level }}">
+                                <input type="radio" name="project" value="{{ $level }}">
                                 <span class="radiobtn"></span>
                             </label>
                         </div>
                     @endforeach
                     <div class="sidebar-radio-list-item">
                         <label class="checkcontainer">Lv.MAX
-                            <input type="radio" name="minPrice" value="0">
+                            <input type="radio" name="project" value="0">
                             <span class="radiobtn"></span>
                         </label>
                     </div>
@@ -41,14 +41,14 @@
                     @foreach(range(1, 5) as $level)
                         <div class="sidebar-radio-list-item">
                             <label class="checkcontainer">Lv.{{ $level }}～
-                                <input type="radio" name="minPrice" value="{{ $level }}">
+                                <input type="radio" name="project_viewed" value="{{ $level }}">
                                 <span class="radiobtn"></span>
                             </label>
                         </div>
                     @endforeach
                     <div class="sidebar-radio-list-item">
                         <label class="checkcontainer">Lv.MAX
-                            <input type="radio" name="minPrice" value="0">
+                            <input type="radio" name="project_viewed" value="0">
                             <span class="radiobtn"></span>
                         </label>
                     </div>
@@ -58,14 +58,14 @@
                     @foreach(range(1, 5) as $level)
                         <div class="sidebar-radio-list-item">
                             <label class="checkcontainer">Lv.{{ $level }}～
-                                <input type="radio" name="minPrice" value="{{ $level }}">
+                                <input type="radio" name="contract" value="{{ $level }}">
                                 <span class="radiobtn"></span>
                             </label>
                         </div>
                     @endforeach
                     <div class="sidebar-radio-list-item">
                         <label class="checkcontainer">Lv.MAX
-                            <input type="radio" name="minPrice" value="0">
+                            <input type="radio" name="contract" value="0">
                             <span class="radiobtn"></span>
                         </label>
                     </div>
@@ -75,14 +75,14 @@
                     @foreach(range(1, 5) as $level)
                         <div class="sidebar-radio-list-item">
                             <label class="checkcontainer">Lv.{{ $level }}～
-                                <input type="radio" name="minPrice" value="{{ $level }}">
+                                <input type="radio" name="follow" value="{{ $level }}">
                                 <span class="radiobtn"></span>
                             </label>
                         </div>
                     @endforeach
                     <div class="sidebar-radio-list-item">
                         <label class="checkcontainer">Lv.MAX
-                            <input type="radio" name="minPrice" value="0">
+                            <input type="radio" name="follow" value="0">
                             <span class="radiobtn"></span>
                         </label>
                     </div>
@@ -92,14 +92,14 @@
                     @foreach(range(1, 5) as $level)
                         <div class="sidebar-radio-list-item">
                             <label class="checkcontainer">Lv.{{ $level }}～
-                                <input type="radio" name="minPrice" value="{{ $level }}">
+                                <input type="radio" name="follower" value="{{ $level }}">
                                 <span class="radiobtn"></span>
                             </label>
                         </div>
                     @endforeach
                     <div class="sidebar-radio-list-item">
                         <label class="checkcontainer">Lv.MAX
-                            <input type="radio" name="minPrice" value="0">
+                            <input type="radio" name="follower" value="0">
                             <span class="radiobtn"></span>
                         </label>
                     </div>
@@ -109,14 +109,14 @@
                     @foreach(range(1, 5) as $level)
                         <div class="sidebar-radio-list-item">
                             <label class="checkcontainer">Lv.{{ $level }}～
-                                <input type="radio" name="minPrice" value="{{ $level }}">
+                                <input type="radio" name="referral" value="{{ $level }}">
                                 <span class="radiobtn"></span>
                             </label>
                         </div>
                     @endforeach
                     <div class="sidebar-radio-list-item">
                         <label class="checkcontainer">Lv.MAX
-                            <input type="radio" name="minPrice" value="0">
+                            <input type="radio" name="referral" value="0">
                             <span class="radiobtn"></span>
                         </label>
                     </div>

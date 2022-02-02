@@ -1,4 +1,4 @@
-<div class="col-md-12 project-item">
+<div class="project-item">
     <div class="job-type-industry">
         <button class="btn job-type">{{ $project->jobType->name }}</button>
         <button class="btn job-industry">{{ $project->industries->name }}</button>
@@ -12,5 +12,5 @@
         <img src="{{ $project->user->avatar ? upload_asset($project->user->avatar) : static_asset('assets/img/avatar/default.png') }}" class="object-cover-center" alt="">
         <span>{{ $project->user->name }}</span>
     </div>
-    <a href="{{ route('projects.detail', ['id' => $project->id]) }}" class="btn btn-detail d-flex justify-content-center align-items-center">詳細</a>
+    <a href="{{ route('projects.detail', ['id' => $project->id]) }}" class="btn btn-detail d-flex justify-content-center align-items-center" target="_blank">詳細</a>
 </div>

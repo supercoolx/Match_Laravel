@@ -159,11 +159,11 @@ class UserController extends Controller
     public function detail(Request $request, $id) {
         $user = User::findOrFail($id);
         if($user->user_type == config('constants.user_type.engineer')) {
-            $profile = $user->profile;
+            $profile = Profile::where('user_id', $id)->firstOrFail();
             return view('user.detail.engineer', compact('profile'));
         }
         else if($user->user_type == config('constants.user_type.agent')) {
-            $profile = $user->profile;
+            $profile = Profile::where('user_id', $id)->firstOrFail();
             return view('user.detail.agent', compact('profile'));
         }
         else if($user->user_type == config('constants.user_type.company')) {

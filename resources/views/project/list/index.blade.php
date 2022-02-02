@@ -7,8 +7,8 @@
             <div class="content-list {{ $search['for'] == config("constants.tab_for.company") ? ' for-engineers' : '' }}">
                 <div class="row section-header">
                     <div class="section-tab">
-                        <div class="section-tab-item active" onclick="setListTypeTab('{{ route('projects.list') }}')">求人・案件一覧</div>
-                        <div class="section-tab-item" onclick="setListTypeTab('{{ route('users.list') }}')">掲載プロフィール一覧</div>
+                        <div class="section-tab-item active">求人・案件一覧</div>
+                        <div class="section-tab-item" onclick="setListTypeTab()">掲載プロフィール一覧</div>
                     </div>
                     <div class="section-tab">
                         <div class="section-tab-item {{ $search['for'] == config("constants.tab_for.agent") ? 'active': '' }}" onclick="setUserTypeTab('{{ config("constants.tab_for.agent") }}')">エージェント</div>
@@ -16,7 +16,7 @@
                     </div>
                     <div class="section-items-count">該当案件数{{ count($projects) }}件中 {{ $cnt }}件表示</div>
                 </div>
-                <div class="row justify-content-center">
+                <div class="justify-content-center">
                     @foreach($projects as $project)
                         @if($search['for'] == config("constants.tab_for.agent"))
                             @include('project.list.item.agent')
@@ -133,7 +133,11 @@
 @section('script')
     <script>
         function setListTypeTab(url) {
-            window.location.href = url;
+            @if(Auth::check())
+                window.location.href = "{{ route('users.list') }}";
+            @else 
+                $('#loginModal').modal();
+            @endif
         }
         function setUserTypeTab(userType) {
             window.location.href = '{{ route('projects.list') }}?for=' + userType

@@ -43,6 +43,19 @@
 
 
 @yield('modals')
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 class="text-center">ここから先は</h4>
+                <h4 class="text-center">会員登録が必要です</h4>
+                <h5 class="text-center">※登録は無料です</h5>
+                <a href="{{ route('login') }}" class="btn text-center">登録する</a>
+                <button class="btn text-center" data-dismiss="modal">キャンセル</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="{{ static_asset('assets/lib/popper.min.js') }}"></script>
 <script src="{{ static_asset('assets/lib/bootstrap.min.js') }}"></script>
 <script src="{{ static_asset('assets/lib/bootstrap-toggle.min.js') }}"></script>

@@ -1,7 +1,7 @@
 <div class="project-item">
     <div class="job-type-industry">
-        <button class="btn job-type">{{ $project->jobType->name }}</button>
-        <button class="btn job-industry">{{ $project->industries->name }}</button>
+        <span class="btn job-type">{{ $project->jobType->name }}</span>
+        <span class="btn job-industry">{{ $project->industries->name }}</span>
         <span class="job-day">週 {{ $project->weeks->name }}</span>
     </div>
     <h2>{{ $project->name }}</h2>

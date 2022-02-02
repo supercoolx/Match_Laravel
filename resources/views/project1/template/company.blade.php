@@ -1,8 +1,8 @@
 <div class="col-md-12 project-item">
     <img src="{{ $project->image ? upload_asset($project->image): static_asset('assets/img/project-thumb.jpg') }}" alt="" class="project-thumb object-cover-center">
     <div class="job-type-industry">
-        <button class="btn job-type">{{ $project->jobType->name }}</button>
-        <button class="btn job-industry">{{ $project->industries->name }}</button>
+        <span class="btn job-type">{{ $project->jobType->name }}</span>
+        <span class="btn job-industry">{{ $project->industries->name }}</span>
         <span class="job-day">週 {{ $project->weeks->name }}</span>
     </div>
     <h2>{{ $project->name }}</h2>

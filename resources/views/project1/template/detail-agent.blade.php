@@ -2,8 +2,8 @@
     <div class="input-title-preview">
         <h2 class="text-center">{{ $project->name }}</h2>
         <div class="d-flex justify-content-center job-type-industry">
-            <button class="btn job-type">{{ $project->jobType->name }}</button>
-            <button class="btn job-industry">{{ $project->industries->name }}</button>
+            <span class="btn job-type">{{ $project->jobType->name }}</span>
+            <span class="btn job-industry">{{ $project->industries->name }}</span>
         </div>
         <h3 class="text-center">{{ $project->price_min }} ～ {{ $project->price_max }} / 月</h3>
     </div>

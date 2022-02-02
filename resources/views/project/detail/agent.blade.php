@@ -19,8 +19,8 @@
                         <div class="content-case-entry for-company item-detail">
                             <div class="input-title-preview">
                                 <div class="job-type-industry">
-                                    <button class="btn job-type">{{ isset($project) ? $project->jobType->name : '職種' }}</button>
-                                    <button class="btn job-industry">{{ isset($project) ? $project->industries->name : '業界' }}</button>
+                                    <span class="btn job-type">{{ isset($project) ? $project->jobType->name : '職種' }}</span>
+                                    <span class="btn job-industry">{{ isset($project) ? $project->industries->name : '業界' }}</span>
                                     <span class="preview-value" data-for="week">週{{ isset($project) ? $project->weeks->name : old('week') }}</span>
                                 </div>
                                 <h2 data-for="caseName" class="pt-2">{{ isset($project) ? $project->name : old('caseName') }}</h2>

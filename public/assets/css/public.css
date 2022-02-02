@@ -1161,13 +1161,18 @@ img.img-success-background{
 .job-type-industry .job-type {
     margin-right: 4px;
     color: var(--color-sky-blue);
+    background-color: white;
     border: 1px solid var(--color-sky-blue);
+    padding-top: 4px;
+    cursor: default !important;
 }
 
 .job-type-industry .job-industry {
     margin-right: 15px;
     color: var(--color-white);
     background-color: var(--color-sky-blue);
+    padding-top: 4px;
+    cursor: default !important;
 }
 
 .project-item .job-day {

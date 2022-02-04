@@ -59,6 +59,8 @@ Route::get('/projects/{id}', [ProjectController::class, 'detail'])->name('projec
 Route::group(['middleware' => ['login']], function () {
     Route::get('/users', [UserController::class, 'list'])->name('users.list');
     Route::get('/addresses', [ProjectController::class, 'addressesTree'])->name('addresses');
+    Route::get('/chat/setting', [ChatController::class, 'setting'])->name('chat.setting');
+    Route::post('/chat/setting', [ChatController::class, 'update_setting'])->name('chat.setting.update');
 });
 
 Route::group(['middleware' => ['company']], function() {
@@ -103,12 +105,10 @@ Route::group(['middleware' => ['chat']], function() {
     Route::get('/projects/{id}/messages', [ChatController::class, 'link'])->name('chat.link');
     Route::get('/messages', [ChatController::class, 'index'])->name('chat.index');
     Route::get('/messages/{channelId}', [ChatController::class, 'channel'])->name('chat.channel');
-    Route::post('/message', [ChatController::class, 'message'])->name('chat.send');
+    Route::get('/chat/setting', [ChatController::class, 'setting'])->name('chat.setting');
+    Route::post('/chat/setting', [ChatController::class, 'setting'])->name('chat.setting');
+    Route::post('/message', [ChatController::class, 'createMessage'])->name('chat.send');
     Route::post('/attachment', [ChatController::class, 'attachment'])->name('chat.attachment');
-
-    Route::get('/channels', [ChatController::class, 'getChannels'])->name('chat.channels');
-    Route::get('/channels/{channelId}', [ChatController::class, 'getMessages'])->name('chat.messages');
-    Route::get('/channels/{channelId}/read', [ChatController::class, 'read'])->name('chat.read');
 });
 
 Route::group(['middleware' => ['admin']], function() {

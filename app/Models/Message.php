@@ -54,4 +54,12 @@ class Message extends Model
         'message',
         'type',
     ];
+
+    public function user_from() {
+        return $this->belongsTo(User::class, 'from', 'id');
+    }
+
+    public function user_to() {
+        return $this->belongsTo(User::class, 'to', 'id');
+    }
 }

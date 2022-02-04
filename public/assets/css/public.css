@@ -873,6 +873,49 @@ input[type=checkbox], input[type=radio]{
 .site-wrapper .footer-section .footer-terms a{
     color: var(--color-white);
 }
+#sidebar {
+    right: 0;
+    z-index: 99;
+    width: 216px;
+    height: calc(100vh - 58px);
+    display: flex;
+    font-size: 14px;
+    position: fixed;
+    transition: all 0.3s;
+    background: #f7f6f3;
+    flex-direction: column;
+}
+#sidebar.active {
+    margin-right: -216px;
+}
+#sidebar ul{
+    margin-top: 5px;
+    padding-left: 22px;
+}
+#sidebar ul.sidebar-menu{
+    flex: 1;
+}
+#sidebar ul .item{
+    color: var(--color-gray);
+    display: flex;
+    align-items: center;
+    margin-left: -22px;
+    margin-right: -24px;
+    padding: 3px 19px 3px 22px;
+    cursor: pointer;
+}
+#sidebar ul .item a{
+    color: var(--color-gray);
+    text-decoration: none;
+    width: 100%;
+}
+#sidebar ul .item:hover{
+    background-color: #e8e7e4;
+}
+#sidebar ul .item:hover a{
+    color: var(--color-black);
+    font-weight: bold;
+}
 /* Member input */
 div.side-image{
     background-size: contain;
@@ -1121,10 +1164,14 @@ img.img-success-background{
 }
 
 .section-header .section-header-divider {
-    width: 197px;
+    width: 318px;
     height: 3px;
     margin: 0 auto;
     background-color: var(--color-blue-light);
+}
+
+.section-header .section-header-divider.black {
+    background-color: var(--color-black);
 }
 
 .section-header p {
@@ -1920,7 +1967,7 @@ div[data-for='unitPrice']{
     margin-top: 54px;
 }
 .content-no-posted.for-corporate-dashboard{
-    padding-top: 179px;
+    padding-top: 69px;
     padding-bottom: 214px;
 }
 .not-found-text{
@@ -2051,16 +2098,22 @@ div[data-for='unitPrice']{
     /*padding-bottom: 49px;*/
     display: flex;
     flex-wrap: wrap;
+    height: calc(100vh - 58px);
 }
 .chat-sidebar{
-    width: 270px;
+    width: 216px;
     background-color: var(--color-light);
     padding: 12px 19px;
+    display: flex;
+    flex-direction: column;
 }
 .chat-sidebar .my-chat, .chat-sidebar ul{
     list-style: none;
     padding-left: 5px;
     padding-right: 5px;
+}
+.chat-sidebar ul{
+    flex: 1;
 }
 .chat-sidebar .my-chat, .chat-sidebar ul .chat-user{
     color: var(--color-gray);
@@ -2104,8 +2157,13 @@ div[data-for='unitPrice']{
     background-color: var(--color-red);
     border-radius: 50%;
 }
+.chat-sidebar .chat-setting{
+    color: var(--color-gray-dark);
+    text-decoration: none;
+}
 .chat-content{
     flex: 1;
+    background-color: white;
 }
 .chat-content-wrapper{
     position: relative;
@@ -2119,12 +2177,23 @@ div[data-for='unitPrice']{
 }
 .chat-messages{
     padding: 23px 51px;
-    max-height: calc(100vh - 300px);
+    height: calc(100vh - 250px);
     overflow-x: hidden;
     overflow-y: scroll;
 }
+.chat-messages .chat-date{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.chat-messages .chat-date span{
+    border: 1px solid #4a4a4a;
+    border-radius: 50rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
 .chat-message {
     display: flex;
+    margin-bottom: 15px;
 }
 .chat-message-user{
     width: 45px;
@@ -2154,15 +2223,15 @@ div[data-for='unitPrice']{
     font-size: 15px;
     color: var(--color-primary);
 }
-.chat-message:not(:first-child) .chat-message-content *{
-    font-size: 15px;
-    color: var(--color-primary);
+.chat-message-content p.chat-time{
+    color: black;
+    font-weight: bold;
 }
 .chat-message-content strong{
     font-weight: 800;
 }
 .chat-message-content .welcome-message{
-    margin-left: 51px;
+    margin-left: 27px;
     padding-left: 6px;
     max-width: 556px;
     font-size: 15px;
@@ -2178,7 +2247,7 @@ div[data-for='unitPrice']{
     margin-bottom: 21px;
 }
 .chat-message-content .project-detail{
-    margin-left: 51px;
+    margin-left: 27px;
     padding-left: 3px;
     font-size: 15px;
     color: var(--color-primary);
@@ -2221,10 +2290,10 @@ div[data-for='unitPrice']{
     margin-bottom: 0;
 }
 .chat-input-box{
-    position: absolute;
+    position: fixed;
     min-height: 161px;
     max-width: calc(100% - 40px);
-    width: 100%;
+    width: calc(100vw - 330px);
     bottom: 10px;
     right: 20px;
 }
@@ -2234,6 +2303,9 @@ div[data-for='unitPrice']{
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;
+}
+.chat-input-box .btn-attachment:hover, .chat-input-box .btn-send:hover{
+    filter: brightness(0.2);
 }
 .chat-input-box .btn-attachment{
     background-image: url("../img/icon-attach.svg");
@@ -3303,6 +3375,12 @@ h5.modal-title{
 @media (max-width: 670px) {
     .chat-sidebar {
         width: 100%;
+    }
+    .chat-input-box {
+        width: 100%;
+    }
+    .chat-messages {
+        max-height: calc(100vh - 305px);
     }
 }
 

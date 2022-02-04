@@ -1,3 +1,16 @@
+<script>
+    $(document).ready(function () {
+        $('.account-menu').on({
+            'mouseover': function () {
+                $('#sidebar').removeClass('active');
+            },
+            'mouseout': function () {
+                $('#sidebar').addClass('active');
+            }
+        });
+    });
+</script>
+
 <header class="site-header">
     <div class="container-fluid">
         <nav class="navbar navbar-expand-sm navbar-light">
@@ -35,9 +48,55 @@
                             </a>
                         </li>
                     @endif
-                    <li class="nav-item dropdown account-menu">
+                    <li class="nav-item account-menu">
                         <a class="nav-link" href="#"><img src="{{ getAuthAvatar() }}" class="icon-account object-cover-center" alt="" /></a>
-                        <div class="dropdown-menu" aria-labelledby="userDropdownMenu" style="left: {{ isAdmin() ? '-150px' : (isCompany() || isAgent() ? '-101px' : '-114px') }}">
+                        <nav id="sidebar" class="active">
+                            <ul class="sidebar-menu">
+                                @if(isCompany())
+                                    <li class="item">
+                                        <a href="{{ route('company.setting') }}">ユーザー設定</a>
+                                    </li>
+                                @elseif(isAgent())
+                                    <li class="item">
+                                        <a href="{{ route('agent.setting') }}">ユーザー設定</a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="{{ route('agent.profile.setting') }}">プロフィール設定</a>
+                                    </li>
+                                @elseif(isEngineer())
+                                    <li class="item">
+                                        <a href="{{ route('engineer.setting') }}">ユーザー設定</a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="{{ route('engineer.profile.setting') }}">プロフィール設定</a>
+                                    </li>
+                                @endif
+                                <li class="item">
+                                    <a href="{{ route('projects.list') }}">掲載一覧ページ</a>
+                                </li>
+                                <li class="item">
+                                    <a href="#">気になるリスト</a>
+                                </li>
+                                <li class="item">
+                                    <a href="#">友達招待</a>
+                                </li>
+                                <li class="item">
+                                    <a href="{{ route('logout') }}">ログアウト</a>
+                                </li>
+                            </ul>
+                            <ul class="bottom-menu">
+                                <li class="item">
+                                    <a href="#">チュートリアル</a>
+                                </li>
+                                <li class="item">
+                                    <a href="{{ route('terms') }}">利用規約</a>
+                                </li>
+                                <li class="item">
+                                    <a href="{{ route('policy') }}">個人情報の取り扱いについて</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        {{-- <div class="dropdown-menu" aria-labelledby="userDropdownMenu" style="left: {{ isAdmin() ? '-150px' : (isCompany() || isAgent() ? '-101px' : '-114px') }}">
                             @if (isAdmin()) 
                                 <a class="dropdown-item" href="{{ route('admin.password') }}">パスワードを変更する</a>
                             @endif
@@ -54,7 +113,7 @@
                                 <a class="dropdown-item" href="{{ route('projects.list') }}">掲載一覧ページ</a>
                             @endif
                             <a class="dropdown-item" href="{{ route('logout') }}">ログアウト</a>
-                        </div>
+                        </div> --}}
                     </li>
                 </ul>
             </div>

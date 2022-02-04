@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,6 +42,26 @@ class Channel extends Model
 
     protected $fillable = [
         'project_id',
-        'user_id',
+        'user_f',
+        'user_s',
     ];
+
+    public function messages() {
+        return $this->hasMany(Message::class, 'id', 'channel_id');
+    }
+
+    public function project() {
+        return $this->belongsTo(Project::class, 'project_id', 'id');
+    }
+
+    public function opponent() {
+        $user_id = Auth::user()->id;
+        if($this->user_f == $user_id) {
+            return $this->belongsTo(User::class, 'user_s', 'id');
+        }
+        elseif($this->user_s == $user_id) {
+            return $this->belongsTo(User::class, 'user_f', 'id');
+        }
+        else return null;
+    }
 }

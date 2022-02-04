@@ -74,7 +74,8 @@ $(document).ready(function () {
     var parsleyInstance = form.parsley();
     $('input.timepicker').timepicker();
     $('.datepicker').datepicker({
-        format: 'yyyy/mm/dd'
+        format: 'yyyy/mm/dd',
+        language: 'ja',
     });
     $('span.icon-calendar').click(function () {
         $('.datepicker').focus();
@@ -118,7 +119,7 @@ $(document).ready(function () {
         if (parsleyInstance.validate() && validOthers) {
             $('[data-for="unitPrice"]').text($('#unitPriceMin').val().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ～ ' + $('#unitPriceMax').val().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' / 月');
             $('[data-for="startEndTime"]').text($('#startTime').val() + '  ～  ' + $('#endTime').val());
-            $('[data-for="averageUptimeStartEnd"]').text($('#averageUptimeStart').val() + '  ～  ' + $('#averageUptimeEnd').val());
+            $('[data-for="averageUptimeStartEnd"]').text($('#averageUptimeStart').val() + 'h  ～  ' + $('#averageUptimeEnd').val() + 'h');
             $('[data-for="openStartDate"]').text($('#openStartDate').val());
             $('[data-for="week"]').text('週' + weeks[$('input[name=week]:checked').val()]);
             $('[data-for="onlineInterview"]').text(onlineInterviews[$('input[name=onlineInterview]:checked').val()]);

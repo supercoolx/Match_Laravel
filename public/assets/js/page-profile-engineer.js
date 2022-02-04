@@ -345,7 +345,8 @@ function getNumber(_str){
 }
 $(document).ready(function () {
     $('.datepicker').datepicker({
-        format: 'yyyy/mm/dd'
+        format: 'yyyy/mm/dd',
+        language: 'ja',
     });
     $('span.icon-calendar').click(function () {
         $('.datepicker').focus();

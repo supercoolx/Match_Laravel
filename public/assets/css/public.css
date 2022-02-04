@@ -687,7 +687,7 @@ input[type=checkbox], input[type=radio]{
     padding: 5px 5px;
     width: 100%;
     z-index: 9999;
-    position: relative;
+    position: fixed;
 }
 
 .site-wrapper .site-header .navbar {
@@ -823,6 +823,7 @@ input[type=checkbox], input[type=radio]{
 .content-section {
     min-height: calc(100vh - 184px);
     background-color: #f7f6f3;
+    padding-top: 58px;
 }
 
 /* Footer section */
@@ -3346,10 +3347,9 @@ h5.modal-title{
     cursor: pointer;
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 1340px) {
     .user-contact{
-        position: initial !important;
-        margin-left: 0;
+        display: none !important;
     }
 }
 

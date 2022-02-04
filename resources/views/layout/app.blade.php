@@ -60,6 +60,7 @@
 <script src="{{ static_asset('assets/lib/popper.min.js') }}"></script>
 <script src="{{ static_asset('assets/lib/bootstrap.min.js') }}"></script>
 <script src="{{ static_asset('assets/lib/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ static_asset('assets/lib/bootstrap-datepicker.ja.min.js') }}"></script>
 <script src="{{ static_asset('assets/lib/bootstrap-toggle.min.js') }}"></script>
 <script src="{{ static_asset('assets/lib/moment-with-locales.js') }}"></script>
 <script src="{{ static_asset('assets/lib/daterangepicker.min.js') }}"></script>

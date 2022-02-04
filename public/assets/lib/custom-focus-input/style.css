@@ -1,7 +1,7 @@
 #focus{
-    border:3px solid #e8e7e4;
-    box-shadow:0 0 10px 0 #e8e7e4;
+    box-shadow:0 0 10px 0 #a3a3a3;
     position:absolute;
+    z-index: 1;
     transition:
         width .2s ease, 
         height .2s ease, 

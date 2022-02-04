@@ -15,6 +15,13 @@
                     </li>
                 @endforeach
             </ul>
+            <ul class="bottom-menu">
+                <li class="chat-user">
+                    <a href="{{ route('chat.setting') }}">
+                        <span>メール通知設定について</span>
+                    </a>
+                </li>
+            </ul>
         </div>
         <div class="chat-content">
             <div class="chat-content-wrapper">

@@ -57,10 +57,10 @@ Route::post('/user/unfollow/{id}', [UserController::class, 'unfollow'])->name('u
 Route::get('/projects', [ProjectController::class, 'list'])->name('projects.list');
 Route::get('/projects/{id}', [ProjectController::class, 'detail'])->name('projects.detail');
 Route::group(['middleware' => ['login']], function () {
-    Route::get('/users', [UserController::class, 'list'])->name('users.list');
+    Route::get('/users', [UserController::class, 'list'])->name('user.list');
+    Route::get('/users/follow', [UserController::class, 'user_follow'])->name('user.follow.list');
+    Route::get('/users/follower', [UserController::class, 'user_follower'])->name('user.follower.list');
     Route::get('/addresses', [ProjectController::class, 'addressesTree'])->name('addresses');
-    Route::get('/chat/setting', [ChatController::class, 'setting'])->name('chat.setting');
-    Route::post('/chat/setting', [ChatController::class, 'update_setting'])->name('chat.setting.update');
 });
 
 Route::group(['middleware' => ['company']], function() {

@@ -25,7 +25,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link {{ Request::routeIs('user.*') ? 'active' : '' }}" href="{{ route('user.list') }}">
                             <img src="{{ static_asset('assets/img/contact.png') }}" class="icon-list" alt="list icon" />
                         </a>
                     </li>
@@ -43,7 +43,7 @@
                     </li>
                     @if (!isAdmin())
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('chat.index') }}">
+                            <a class="nav-link {{ Request::routeIs('chat.*') ? 'active' : '' }}" href="{{ route('chat.index') }}">
                                 <img src="{{ static_asset('assets/img/chat.png') }}" class="icon-list" alt="list icon" />
                             </a>
                         </li>

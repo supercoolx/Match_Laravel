@@ -134,7 +134,7 @@
     <script>
         function setListTypeTab(url) {
             @if(Auth::check())
-                window.location.href = "{{ route('users.list') }}";
+                window.location.href = "{{ route('user.list') }}";
             @else 
                 $('#loginModal').modal();
             @endif

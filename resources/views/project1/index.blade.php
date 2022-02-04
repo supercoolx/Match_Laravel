@@ -122,7 +122,7 @@
                 <div class="row section-header">
                     <div class="section-tab">
                         <div class="section-tab-item active" onclick="setListTypeTab('{{ route('projects.list') }}')">求人・案件一覧</div>
-                        <div class="section-tab-item" onclick="setListTypeTab('{{ route('users.list') }}')">掲載プロフィール一覧</div>
+                        <div class="section-tab-item" onclick="setListTypeTab('{{ route('user.list') }}')">掲載プロフィール一覧</div>
                     </div>
                     <div class="section-tab">
                         <div class="section-tab-item {{ $search['for'] == config("constants.tab_for.agent") ? 'active': '' }}" onclick="setUserTypeTab('{{ config("constants.tab_for.agent") }}')">エージェント</div>

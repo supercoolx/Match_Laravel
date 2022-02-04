@@ -32,10 +32,9 @@ class ChatController extends Controller
         $this->readMessages($channelId);
         $user_id = Auth::user()->id;
         $channel = Channel::findOrFail($channelId);
-        $this->readMessages($channelId);
         $opponent = $channel->opponent();
         $project = Project::find($channel->project_id);
-        $messages = Message::where('from', $user_id)->orWhere('to', $user_id)->get();
+        $messages = Message::where([['channel_id', '=', $channelId], ['from', '=', $user_id]])->orWhere([['channel_id', '=', $channelId], ['to', '=', $user_id]])->get();
         $channels = Channel::where('user_f', $user_id)->orWhere('user_s', $user_id)->get();
         return view("chat.index", compact('channel', 'channels', 'opponent', 'project', 'messages'));
     }

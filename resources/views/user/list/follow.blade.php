@@ -11,8 +11,8 @@
         <div class="content-list content-profile-list">
             <div class="row section-header">
                 <div class="section-tab">
-                    <div class="section-tab-item" onclick="setListTypeTab('{{ route('projects.list') }}')">求人・案件一覧</div>
-                    <div class="section-tab-item active" onclick="setListTypeTab('{{ route('user.list') }}')">掲載プロフィール一覧</div>
+                    <div class="section-tab-item {{ $search['follow'] ? 'active' : '' }}" onclick="setListTypeTab('{{ route('user.follow.list') }}')">フォロー</div>
+                    <div class="section-tab-item {{ $search['follow'] ? '' : 'active' }}" onclick="setListTypeTab('{{ route('user.follower.list') }}')">フォロワー</div>
                 </div>
                 <div class="section-tab">                    
                     <div class="section-tab-item {{ $search['for'] == config("constants.tab_for.engineer") ? 'active': '' }}" onclick="setUserTypeTab('{{ config("constants.tab_for.engineer") }}')">応募者</div>
@@ -54,7 +54,7 @@
             window.location.href = url;
         }
         function setUserTypeTab(userType) {
-            window.location.href = '{{ route('user.list') }}?for=' + userType;
+            window.location.href = '{{ Request::url() }}?for=' + userType;
         }
         $(document).ready(function() {
             $(document).on('click', '.follow', function () {

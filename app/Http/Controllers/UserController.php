@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InviteMailManager;
 use App\Models\ContractType;
 use Auth;
 use App\Models\User;
 use App\Models\Follow;
 use App\Models\Industry;
+use App\Models\Invite;
 use App\Models\JobType;
 use App\Models\profile\Profile;
 use App\Models\Project;
@@ -15,6 +17,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Mail;
+use Str;
 
 class UserController extends Controller
 {
@@ -100,7 +104,32 @@ class UserController extends Controller
 
     public function invite(Request $request) {
         if($request->isMethod('post')) {
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email|unique:users,email|unique:invite,email'
+            ],[
+                'email.required' => 'メールアドレスを入力してください',
+                'email.email' => '有効なメールアドレスを入力してください。',
+                'email.unique' => 'メールは既に使用中です。',
+            ]);
+            
+            do {
+                $token = Str::random(20);
+            } while(Invite::firstWhere('token', $token));
 
+            $invite = new Invite;
+            $invite->user_id = Auth::user()->id;
+            $invite->email = $request->email;
+            $invite->token = $token;
+            $invite->save();
+
+            $array['from'] = env('MAIL_FROM_ADDRESS');
+            $array['subject'] = Auth::user()->name . 'さんからゴゴレルの招待が届いています';
+            $array['link'] = route('invite.accept', ['token' => $token]);
+            $array['username'] = Auth::user()->name;
+            $array['useremail'] = Auth::user()->email;
+            Mail::to($request->email)->queue(new InviteMailManager($array));
+
+            return view('invite.success');
         }
         else if($request->isMethod('get'))
             return view('invite.index');

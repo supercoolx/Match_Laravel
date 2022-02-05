@@ -59,6 +59,7 @@ Route::get('/projects/{id}', [ProjectController::class, 'detail'])->name('projec
 
 Route::group(['middleware' => ['login']], function () {
     Route::get('/invite', [UserController::class, 'invite'])->name('invite');
+    Route::get('/invited/{token}', [UserController::class, 'invited'])->name('invite.accept');
     Route::post('/invite', [UserController::class, 'invite'])->name('invite.send');
 
     Route::get('/users', [UserController::class, 'list'])->name('user.list');

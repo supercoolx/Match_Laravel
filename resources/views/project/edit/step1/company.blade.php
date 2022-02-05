@@ -156,10 +156,11 @@
             <div>
                 <input type="number" class="form-control{{ $errors->has('averageUptimeStart') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->uptime_min : old('averageUptimeStart') }}" id="averageUptimeStart" name="averageUptimeStart" placeholder="下限時間を入力" required>
             </div>
-            <span>&nbsp;～&nbsp;</span>
+            <span>h&nbsp;~&nbsp;</span>
             <div>
                 <input type="number" class="form-control{{ $errors->has('averageUptimeEnd') ? ' is-invalid' : '' }}" value="{{ isset($project) ? $project->uptime_max : old('averageUptimeEnd') }}" id="averageUptimeEnd" name="averageUptimeEnd" placeholder="上限時間を入力" required>
             </div>
+            <span>&nbsp;h</span>
         </div>
     </div>
     <div class="form-group">

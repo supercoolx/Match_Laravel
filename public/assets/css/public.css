@@ -931,6 +931,12 @@ div.side-image{
     background-position: center;
 }
 
+.content-center{
+    justify-content: center;
+    margin-top: 240px;
+    margin-bottom: 260px;
+}
+
 .content-member-input {
     width: 100%;
     max-width: 627px;
@@ -1398,7 +1404,7 @@ img.img-success-background{
 .unite-price-range #unitPriceMin{
     margin-right: 9px;
 }
-.unite-price-range div:first-child + span{
+.unite-price-range div:first-child + span, .start-end-time div:first-child + span{
     margin-right: 10px;
     font-size: 18px;
     margin-top: 10px;
@@ -1406,8 +1412,9 @@ img.img-success-background{
 .unite-price-range #unitPriceMax{
     margin-right: 12px;
 }
-.unite-price-range span:last-child{
+.unite-price-range span:last-child, .start-end-time span:last-child{
     margin-top: 10px;
+    font-size: 18px;
 }
 .content-case-entry textarea{
     min-height: 163px;

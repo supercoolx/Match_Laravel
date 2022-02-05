@@ -56,10 +56,15 @@ Route::post('/user/follow/{id}', [UserController::class, 'follow'])->name('user.
 Route::post('/user/unfollow/{id}', [UserController::class, 'unfollow'])->name('user.unfollow');
 Route::get('/projects', [ProjectController::class, 'list'])->name('projects.list');
 Route::get('/projects/{id}', [ProjectController::class, 'detail'])->name('projects.detail');
+
 Route::group(['middleware' => ['login']], function () {
+    Route::get('/invite', [UserController::class, 'invite'])->name('invite');
+    Route::post('/invite', [UserController::class, 'invite'])->name('invite.send');
+
     Route::get('/users', [UserController::class, 'list'])->name('user.list');
     Route::get('/users/follow', [UserController::class, 'user_follow'])->name('user.follow.list');
     Route::get('/users/follower', [UserController::class, 'user_follower'])->name('user.follower.list');
+
     Route::get('/addresses', [ProjectController::class, 'addressesTree'])->name('addresses');
 });
 

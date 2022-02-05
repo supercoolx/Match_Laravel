@@ -98,6 +98,14 @@ class UserController extends Controller
         return back()->with('step', 3);
     }
 
+    public function invite(Request $request) {
+        if($request->isMethod('post')) {
+
+        }
+        else if($request->isMethod('get'))
+            return view('invite.index');
+    }
+
     public function list(Request $request)
     {
         $search = $request->all();

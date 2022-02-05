@@ -1,7 +1,7 @@
 <div class="content-sidebar">
     <form method="get" action="" id="filter-form">
         <input type="hidden" name="for" value="{{ $search['for'] }}">
-        <div class="sidebar-wrapper shadow">
+        <div class="sidebar-wrapper">
             <div class="sidebar-item">
                 <div class="sidebar-item-header">
                     フリーワード

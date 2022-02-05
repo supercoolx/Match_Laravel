@@ -13,7 +13,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-6 side-image" style="background-image: url(public/assets/img/invite/step1.png)">
+            <div class="col-md-6 side-image" style="background-image: url(/public/assets/img/invite/step1.png)">
 
             </div>
         </div>

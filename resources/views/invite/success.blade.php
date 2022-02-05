@@ -9,7 +9,7 @@
                     <a href="{{ route('home') }}" class="btn btn-circle-black my-xl-5 w-25">ダッシュボード</a>
                 </div>
             </div>
-            <div class="col-md-6 side-image" style="background-image: url(public/assets/img/invite/step2.png)">
+            <div class="col-md-6 side-image" style="background-image: url(/public/assets/img/invite/step2.png)">
 
             </div>
         </div>

@@ -47,19 +47,19 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('/admin/login', [LoginController::class, 'admin_login'])->name('admin.login');
 
-Route::get('/company/register', [CompanyController::class, 'register'])->name('company.register');
-Route::get('/agent/register', [AgentController::class, 'register'])->name('agent.register');
-Route::get('/engineer/register', [EngineerController::class, 'register'])->name('engineer.register');
+Route::match(['get', 'post'], '/company/register', [CompanyController::class, 'register'])->name('company.register');
+Route::match(['get', 'post'], '/agent/register', [AgentController::class, 'register'])->name('agent.register');
+Route::match(['get', 'post'], '/engineer/register', [EngineerController::class, 'register'])->name('engineer.register');
 
 Route::get('/user/{id}', [UserController::class, 'detail'])->name('user.detail');
 Route::post('/user/follow/{id}', [UserController::class, 'follow'])->name('user.follow');
 Route::post('/user/unfollow/{id}', [UserController::class, 'unfollow'])->name('user.unfollow');
 Route::get('/projects', [ProjectController::class, 'list'])->name('projects.list');
 Route::get('/projects/{id}', [ProjectController::class, 'detail'])->name('projects.detail');
+Route::get('/invited/{token}', [UserController::class, 'invited'])->name('invite.accept');
 
 Route::group(['middleware' => ['login']], function () {
     Route::get('/invite', [UserController::class, 'invite'])->name('invite');
-    Route::get('/invited/{token}', [UserController::class, 'invited'])->name('invite.accept');
     Route::post('/invite', [UserController::class, 'invite'])->name('invite.send');
 
     Route::get('/users', [UserController::class, 'list'])->name('user.list');

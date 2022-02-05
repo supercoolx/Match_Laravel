@@ -14,7 +14,9 @@ class CompanyController extends Controller
 {
     public function register(Request $request) {
         if(!session('step') && Auth::check()) return redirect()->route('home');
-        return view("auth.company.register");
+        if($request->has('token') && $request->has('email'))
+            return view("auth.company.register", ['invite_token' => $request->token, 'invite_email' => $request->email]);
+        else return view("auth.company.register");
     }
 
     public function dashboard(Request $request) {

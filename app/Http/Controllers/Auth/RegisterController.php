@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Models\Invite;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -54,6 +55,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'nameKana' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
+            'email' => 'required|email',
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -106,6 +108,14 @@ class RegisterController extends Controller
 
         $this->validator($request->all())->validate();
         $user = $this->create($request->all());
+
+        if ($request->has('invite_token')) {
+            $invite = Invite::where('token', $request->invite_token)->where('email', $request->email)->first();
+            if($invite) {
+                $invite->accepted = 1;
+                $invite->save();
+            }
+        }
 
         $this->guard()->login($user);
 

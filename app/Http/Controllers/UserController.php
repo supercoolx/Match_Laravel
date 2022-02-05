@@ -105,12 +105,14 @@ class UserController extends Controller
     public function invite(Request $request) {
         if($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
-                'email' => 'required|email|unique:users,email|unique:invite,email'
+                'email' => 'required|email|unique:users,email'
             ],[
                 'email.required' => 'メールアドレスを入力してください',
                 'email.email' => '有効なメールアドレスを入力してください。',
                 'email.unique' => 'メールは既に使用中です。',
             ]);
+
+            $validator->validate();
             
             do {
                 $token = Str::random(20);
@@ -133,6 +135,11 @@ class UserController extends Controller
         }
         else if($request->isMethod('get'))
             return view('invite.index');
+    }
+
+    public function invited(Request $request, $token) {
+        $invite = Invite::where('token', $token)->firstOrFail();
+        return view('invite.entry', compact('invite'));
     }
 
     public function list(Request $request)

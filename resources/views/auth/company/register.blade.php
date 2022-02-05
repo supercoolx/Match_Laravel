@@ -25,6 +25,9 @@
                             <div class="step-content{{ (session('step') && session('step') === 1) || !session('step') ? ' active': '' }}" data-step="1">
                                 <form method="POST" role="form" action="{{ route('register') }}" enctype="multipart/form-data" id="form">
                                     @csrf
+                                    @isset($invite_token)
+                                        <input type="hidden" name="invite_token" value="{{ $invite_token }}">
+                                    @endisset
                                     <input type="hidden" name="userType" value="{{ config("constants.user_type.company") }}">
                                     <input type="hidden" name="avatarPath" id="avatarPath" value="{{ old('avatarPath') }}">
                                     <div class="d-flex justify-content-center avatar-picker">
@@ -60,7 +63,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="email" class="col-form-label">メールアドレス</label>
-                                        <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" id="email" name="email" placeholder="メールアドレスを入力" required>
+                                        @if(isset($invite_email))
+                                            <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ $invite_email }}" id="email" name="email" placeholder="メールアドレスを入力" required readonly>
+                                        @else
+                                            <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" id="email" name="email" placeholder="メールアドレスを入力" required>
+                                        @endif
                                         @if ($errors->has('email'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('email') }}</strong>

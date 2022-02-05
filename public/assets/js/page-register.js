@@ -58,6 +58,7 @@ $(document).ready(function () {
     stepContent1.find('.btn-next').click(function (e) {
         e.preventDefault();
         if (parsleyInstance.validate()) {
+            $('.preview-value[data-for="email"]').text($('#email').val());
             setStep(2);
             // if (checkAvatarFile(inputAvatar.attr('id')) || checkAvatarPath()) {
             // } else {

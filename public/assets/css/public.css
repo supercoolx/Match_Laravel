@@ -315,6 +315,15 @@ textarea{
     color: var(--color-red);
 }
 
+.btn-square-grey{
+    text-decoration: none;
+    background-color: #e8e7e4;
+    border: solid 1px #e8e7e4;
+    padding: 5px;
+    width: 200px;
+    color: black;
+}
+
 input[type="date"], input.datepicker{
     cursor: pointer;
 }

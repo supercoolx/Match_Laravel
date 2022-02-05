@@ -30,7 +30,9 @@ class EngineerController extends Controller
 {
     public function register(Request $request) {
         if(!session('step') && Auth::check()) return redirect()->route('home');
-        return view("auth.engineer.register");
+        if($request->has('token') && $request->has('email'))
+            return view("auth.engineer.register", ['invite_token' => $request->token, 'invite_email' => $request->email]);
+        else return view("auth.engineer.register");
     }
 
     public function setting(Request $request) {

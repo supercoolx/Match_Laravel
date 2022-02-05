@@ -22,7 +22,9 @@ class AgentController extends Controller
 {
     public function register(Request $request) {
         if(!session('step') && Auth::check()) return redirect()->route('home');
-        return view("auth.agent.register");
+        if($request->has('token') && $request->has('email'))
+            return view("auth.agent.register", ['invite_token' => $request->token, 'invite_email' => $request->email]);
+        else return view("auth.agent.register");
     }
 
     public function dashboard(Request $request) {

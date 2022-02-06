@@ -53,17 +53,16 @@ class ForgotPasswordController extends Controller
                 $user->verification_code = $token;
                 $user->save();
 
-                $array['view'] = 'emails.verification';
                 $array['from'] = env('MAIL_FROM_ADDRESS');
-                $array['subject'] = 'Password Reset';
-                $array['content'] = 'Verification Code is '.$user->verification_code;
+                $array['subject'] = 'パスワードリセット';
+                $array['link'] = route('password.reset', ['token' => $user->verification_code]);
 
-                // Mail::to($user->email)->queue(new SecondEmailVerifyMailManager($array));
+                Mail::to($user->email)->queue(new SecondEmailVerifyMailManager($array));
 
-                return back()->withInput(array('success' => 'Please click link in your email.'));
+                return back()->withInput(array('success' => 'メール内のリンクをクリックしてください。'));
             }
             else {
-                flash('No account exists with this email')->error();
+                flash('このメールにはアカウントはありません。')->error();
                 return back();
             }
         }

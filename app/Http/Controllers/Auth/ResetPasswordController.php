@@ -42,12 +42,8 @@ class ResetPasswordController extends Controller
 
 
     public function showResetForm(Request $request, $token) {
-        $user = User::firstWhere('email', $request->email);
-        if ($user) {
-            if($user->verification_code == $token) 
-                return view('auth.passwords.reset', ['token' => $token, 'email' => $request->email]);
-        }
-        else abort(404);
+        $user = User::where('verification_code', $token)->firstOrFail();
+        return view('auth.passwords.reset', ['token' => $token, 'email' => $user->email]);
     }
 
     public function reset(Request $request) {
@@ -58,17 +54,13 @@ class ResetPasswordController extends Controller
             'password' => 'required|min:6|confirmed'
         ]);
 
-        $user = User::firstWhere('email', $request->email);
-        if ($user) {
-            if ($user->verification_code == $request->token) {
-                $user->password = Hash::make($request->password);
-                $user->verification_code = "";
-                $user->save();
-                if($user->user_type == 'admin') return redirect()->route('admin.login');
-                else return redirect()->route('login');
-            }
-        }
-        else abort(404);
+        $user = User::where([['email', $request->email], ['verification_code', $request->token]])->firstOrFail();
+        
+        $user->password = Hash::make($request->password);
+        $user->verification_code = "";
+        $user->save();
+        if($user->user_type == 'admin') return redirect()->route('admin.login');
+        else return redirect()->route('login');
     }
 
     /**

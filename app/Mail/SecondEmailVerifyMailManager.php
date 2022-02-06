@@ -33,6 +33,9 @@ class SecondEmailVerifyMailManager extends Mailable
     {
         return $this->view('emails.verification')
                     ->from($this->array['from'], env('MAIL_FROM_NAME'))
-                    ->subject($this->array['subject']);
+                    ->subject($this->array['subject'])
+                    ->with([
+                        'link' => $this->array['link']
+                    ]);
     }
 }

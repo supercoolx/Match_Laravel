@@ -175,7 +175,7 @@ class ProjectController extends Controller
     public function status(Request $request) {
         $user_id = Auth::user()->id;
         $project = Project::where([['user_id', $user_id], ['id', $request->id]])->firstOrFail();
-        $project->status = $request->status == 'true' ? 1 : 0;
+        $project->status = $request->status;
         $project->save();
     }
 

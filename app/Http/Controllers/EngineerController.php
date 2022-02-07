@@ -20,6 +20,7 @@ use App\Models\profile\ProfilePortfolio;
 use App\Models\profile\ProfileQualification;
 use App\Models\profile\ProfileWriting;
 use App\Http\Controllers\Controller;
+use App\Models\FavouriteProject;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -42,13 +43,18 @@ class EngineerController extends Controller
     }
 
     public function dashboard(Request $request) {
-        $engineer = Auth::user()->id;
-        $channel_ids = Message::where('from', $engineer)->pluck('channel_id')->toArray();
-        $project_ids = Channel::whereIn('id', $channel_ids)->pluck('project_id')->toArray();
-        $projects = Project::whereIn('id', $project_ids);
+        $isFavour = $request->has('favourite');
         $tabs_for = $request->for ?? 'agent';
+        if($tabs_for == config('constants.tab_for.company'))
+            $projects = Project::where('user_type', config('constants.user_type.company'));
+        else
+            $projects = Project::where('user_type', config('constants.user_type.agent'));
+        if($isFavour) {
+            $project_ids = FavouriteProject::where('user_id', Auth::user()->id)->pluck('project_id')->toArray();
+            $projects = $projects->whereIn('id', $project_ids);
+        }
         $cnt = $projects->count();
         $projects = $projects->paginate(7);
-        return view("dashboard.engineer", compact('projects', 'tabs_for', 'cnt'));
+        return view("dashboard.engineer", compact('projects', 'tabs_for', 'isFavour', 'cnt'));
     }
 }

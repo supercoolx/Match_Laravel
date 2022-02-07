@@ -90,8 +90,8 @@
                 <div class="modal-body">
                     <h5 class="mt-5 text-center">募集終了でよろしいですか?</h5>
                     <p class="text-center">※こちらの案件は公開されなくなります</p>
-                    <button class="btn btn-outline-primary w-100 text-center">契約成立</a>
-                    <button class="btn btn-outline-dark w-100 mt-3 text-center">契約不成立</button>
+                    <button class="btn btn-outline-primary w-100 text-center project-close" data-dismiss="modal">契約成立</a>
+                    <button class="btn btn-outline-dark w-100 mt-3 text-center project-open" data-dismiss="modal">契約不成立</button>
                 </div>
             </div>
         </div>
@@ -100,6 +100,8 @@
 
 @section('script')
     <script>
+        var projectId;
+        var toggleEl;
         function openDeleteProjectModal(id, title) {
             $('#delete-project-title').text(title);
             $('#delete-project-id').val(id);
@@ -127,14 +129,34 @@
         $(document).ready(function () {
             $('div.toggle').click(function () {
                 $('#statusProjectModal').modal('show');
-                // $.ajax({
-                //     url: '{{ route("company.project.status") }}',
-                //     type: 'post',
-                //     data: {
-                //         id: $('input.status', this).val(),
-                //         status: $(this).hasClass('off')
-                //     }
-                // });
+                toggleEl = $('input.status', this);
+                projectId = toggleEl.val();
+            });
+            $('.project-open').click(function () {
+                $.ajax({
+                    url: '{{ route("company.project.status") }}',
+                    type: 'post',
+                    data: {
+                        id: projectId,
+                        status: 1
+                    },
+                    success: function() {
+                        toggleEl.prop('checked', true).change();
+                    }
+                });
+            });
+            $('.project-close').click(function () {
+                $.ajax({
+                    url: '{{ route("company.project.status") }}',
+                    type: 'post',
+                    data: {
+                        id: projectId,
+                        status: 0
+                    },
+                    success: function () {
+                        toggleEl.prop('checked', false).change();
+                    }
+                });
             });
         });
     </script>

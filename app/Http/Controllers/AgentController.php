@@ -52,19 +52,13 @@ class AgentController extends Controller
 
     public function projectDetail(Request $request, $id) {
         $user_id = Auth::user()->id;
-        $project = Project::where([['user_id', $user_id], ['id', $id]])->first();
-        if (!$project) {
-            abort(404);
-        }
+        $project = Project::where([['user_id', $user_id], ['id', $id]])->firstOrFail();
         return view("project.detail.agent", compact('project'));
     }
 
     public function editProject(Request $request, $id) {
         $user_id = Auth::user()->id;
-        $project = Project::where([['user_id', $user_id], ['id', $id]])->first();
-        if (!$project) {
-            abort(404);
-        }
+        $project = Project::where([['user_id', $user_id], ['id', $id]])->firstOrFail();
 
         $jobTypes = JobType::all();
         $industries = Industry::all();

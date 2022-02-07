@@ -25,19 +25,11 @@
                                 </div>
                                 <h2 data-for="caseName" class="pt-2">{{ isset($project) ? $project->name : old('caseName') }}</h2>
                             </div>
-                            <div class="input-preview">
+                            <div class="input-preview mt-1">
                                 <div class="preview-label">
                                     <label>
                                         <div data-for="unitPrice">¥ {{ isset($project) ? number_comma($project->price_min) : number_comma(old('unitPriceMin')) }} ~ {{ isset($project) ? number_comma($project->price_max) : number_comma(old('unitPriceMax')) }}/ 月</div>
                                     </label>
-                                </div>
-                                <div class="preview-value" data-for="content">
-                                    {{ $project->content }}
-                                </div>
-                            </div>
-                            <div class="input-preview">
-                                <div class="preview-label">
-                                    <label>契約形態</label>
                                 </div>
                                 <div class="preview-value" data-for="contractType">
                                     @foreach ($project->contractTypes as $item)

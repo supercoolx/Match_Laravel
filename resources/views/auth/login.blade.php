@@ -44,7 +44,7 @@
             <div class="d-flex justify-content-center">
                 <div class="register-links">
                     <p class="text-center">会員登録をされていない方</p>
-                    <a href="{{ route('company.register') }}" class="text-decoration-none">
+                    <a href="{{ route('engineer.register') }}" class="text-decoration-none">
                         <div class="btn-square-grey-lg text-center mb-3">
                             お仕事を探している方
                         </div>
@@ -54,7 +54,7 @@
                             お仕事を紹介したい方
                         </div>
                     </a>
-                    <a href="{{ route('engineer.register') }}" class="text-decoration-none">
+                    <a href="{{ route('company.register') }}" class="text-decoration-none">
                         <div class="btn-square-grey-lg text-center mb-3">
                             採用担当者の方
                         </div>

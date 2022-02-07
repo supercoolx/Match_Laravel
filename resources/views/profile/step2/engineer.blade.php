@@ -1,16 +1,16 @@
 <div class="applicant-profile-preview">
     @php 
-        $follow_by = array_column($profile->user->follow_by->toArray(), 'id');
+        $follow_by = $profile ? array_column($profile->user->follow_by->toArray(), 'id') : [];
     @endphp
     <div class="container">
         <div class="profile-header row">
             <div class="user-follow col-md-4">
-                <img src="{{ $profile->user->avatar ? upload_asset($profile->user->avatar) : static_asset('assets/img/avatar/default.png') }}" alt="" class="avatar-img">
-                <p class="registrant-name-kana">{{ $profile->user->name_kana }}</p>
+                <img src="{{ isset($profile) && $profile->user->avatar ? upload_asset($profile->user->avatar) : static_asset('assets/img/avatar/default.png') }}" alt="" class="avatar-img">
+                <p class="registrant-name-kana">{{ isset($profile) ? $profile->user->name_kana : Auth::user()->name_kana }}</p>
                 @if(in_array(Auth::user()->id, $follow_by))
-                    <button class="btn btn-circle unfollow" data-id="{{ $profile->user_id }}">フォロー中</button>
+                    <button class="btn btn-circle unfollow" data-id="{{ $profile ? $profile->user_id : Auth::user()->id }}">フォロー中</button>
                 @else
-                    <button class="btn btn-circle-o follow" data-id="{{ $profile->user_id }}">フォロー</button>
+                    <button class="btn btn-circle-o follow" data-id="{{ $profile ? $profile->user_id : Auth::user()->id }}">フォロー</button>
                 @endif
             </div>
             <div class="col-md-4 text-left">

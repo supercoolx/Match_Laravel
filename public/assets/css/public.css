@@ -3161,6 +3161,7 @@ div.preview-value p{
     margin-right: 10px;
 }
 .content-profile-list .profile-list-item .registrant-name-kana{
+    flex: 2;
     margin-right: 20px;
 }
 .content-profile-list .profile-list-item .job-type{

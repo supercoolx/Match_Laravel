@@ -8,9 +8,13 @@
                 <div class="image-upload-preview d-flex flex-column align-items-center">
                     <img src="{{ $project->user->avatar ? upload_asset($project->user->avatar) : static_asset('assets/img/account.png') }}" class="object-cover-center" alt="{{ $project->user->name }}">
                     <span>{{ $project->user->name }}</span>
-                    <a href="{{ getChatLink($project) }}" class="btn btn-theme btn-chat d-flex justify-content-center align-items-center">チャットで話を聞く</a>
-                    <a href="tel:{{ $project->user->phone }}" class="btn btn-theme btn-call d-flex justify-content-center align-items-center">電話で話を聞く</a>
-                    <a href="#" class="btn btn-theme btn-fix d-flex justify-content-center align-items-center">気になるリストに追加</a>
+                    <a href="{{ getChatLink($project) }}" class="btn btn-theme btn-chat d-flex justify-content-center align-items-center">チャットで話を聞</a>
+                    <a href="tel:{{ $project->user->phone }}" class="btn btn-theme btn-call d-flex justify-content-center align-items-center">電話で話を聞</a>
+                    @if($isFavour)
+                        <a href="javascript: void(0)" class="btn btn-theme btn-fixed d-flex justify-content-center align-items-center">気になるリストから削除</a>
+                    @else
+                        <a href="javascript: void(0)" class="btn btn-theme btn-fix d-flex justify-content-center align-items-center">気になるリストに追加</a>
+                    @endif
                 </div>
             </div>
             <div class="container">
@@ -137,4 +141,38 @@
 @endsection
 
 @section('script')
+    <script>
+        $(document).on('click', '.btn-fix', function () {
+            let btn = $(this);
+            $.ajax({
+                url: "{{ route('project.favourite.add') }}",
+                type: 'post',
+                data: {
+                    id: {{$project->id}},
+                    add: 1
+                },
+                success: function () {
+                    btn.removeClass('btn-fix');
+                    btn.addClass('btn-fixed');
+                    btn.text('気になるリストから削除');
+                }
+            });
+        });
+        $(document).on('click', '.btn-fixed', function () {
+            let btn = $(this);
+            $.ajax({
+                url: "{{ route('project.favourite.add') }}",
+                type: 'post',
+                data: {
+                    id: {{$project->id}},
+                    add: 0
+                },
+                success: function () {
+                    btn.text('気になるリストに追加');
+                    btn.removeClass('btn-fixed');
+                    btn.addClass('btn-fix');
+                }
+            });
+        });
+    </script>
 @endsection

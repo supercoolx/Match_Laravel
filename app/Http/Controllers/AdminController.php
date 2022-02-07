@@ -44,7 +44,7 @@ class AdminController extends Controller
         if($search) $members = $members->where('name', 'LIKE', "%$search%")->orWhere('email', 'LIKE', "%$search%");
 
         $cnt = $members->count();
-        $members = $members->paginate(10);
+        $members = $members->get();
         
         return view("admin.members", compact('members', 'tab_for', 'cnt'));
     }

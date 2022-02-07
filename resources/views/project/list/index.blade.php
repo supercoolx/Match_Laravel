@@ -25,9 +25,9 @@
                         @endif
                     @endforeach
                 </div>
-                <div class="row justify-content-center">
+                {{-- <div class="row justify-content-center">
                     {{ $projects->links() }}
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
@@ -91,8 +91,8 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-theme btn-small btn-dark" onclick="applyAddressFilter()">この条件で検索する</button>
-                    <button type="button" class="btn btn-theme btn-small btn-blue" onclick="resetAddressFilter()">条件をクリア</button>
+                    <button type="button" class="btn btn-circle-black w-25" onclick="applyAddressFilter()">この条件で検索する</button>
+                    <button type="button" class="btn btn-circle w-25" onclick="resetAddressFilter()">条件をクリア</button>
                 </div>
             </div>
         </div>
@@ -122,8 +122,8 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-theme btn-small btn-dark" onclick="applyIndustryFilter()">この条件で検索する</button>
-                    <button type="button" class="btn btn-theme btn-small btn-blue" onclick="resetIndustryFilter()">条件をクリア</button>
+                    <button type="button" class="btn btn-circle-black w-25" onclick="applyIndustryFilter()">この条件で検索する</button>
+                    <button type="button" class="btn btn-circle w-25" onclick="resetIndustryFilter()">条件をクリア</button>
                 </div>
             </div>
         </div>

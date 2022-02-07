@@ -21,7 +21,7 @@ class CompanyController extends Controller
 
     public function dashboard(Request $request) {
         $user_id = Auth::user()->id;
-        $projects = Project::where('user_id', $user_id)->paginate(5);
+        $projects = Project::where('user_id', $user_id)->get();
         return view("dashboard.company", compact('projects'));
     }
 

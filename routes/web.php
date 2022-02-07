@@ -66,6 +66,7 @@ Route::group(['middleware' => ['login']], function () {
     Route::get('/users/follow', [UserController::class, 'user_follow'])->name('user.follow.list');
     Route::get('/users/follower', [UserController::class, 'user_follower'])->name('user.follower.list');
 
+    Route::post('/project/favourite', [ProjectController::class, 'addToFavourite'])->name('project.favourite.add');
     Route::get('/addresses', [ProjectController::class, 'addressesTree'])->name('addresses');
 });
 

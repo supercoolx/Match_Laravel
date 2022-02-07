@@ -5,7 +5,7 @@
         <span class="job-day">週 {{ $project->weeks->name }}</span>
     </div>
     <h2>{{ $project->name }}</h2>
-    <h3>{{ $project->price_min }} ～ {{ $project->price_max }} / 月</h3>
+    <h3>{{ number_comma($project->price_min) }} ~ {{ number_comma($project->price_max) }} / 月</h3>
     <div class="divider"></div>
     <p>{{ $project->content }}</p>
     <div class="publisher">

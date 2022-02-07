@@ -36,9 +36,9 @@
                     @endforeach
                 @endif
             </div>
-            <div class="justify-content-center">
-                
-            </div>
+            {{-- <div class="row justify-content-center">
+                {{ $projects->links() }}
+            </div> --}}
         </div>
     </div>
 </section>

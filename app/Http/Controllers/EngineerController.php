@@ -54,7 +54,7 @@ class EngineerController extends Controller
             $projects = $projects->whereIn('id', $project_ids);
         }
         $cnt = $projects->count();
-        $projects = $projects->paginate(7);
+        $projects = $projects->get();
         return view("dashboard.engineer", compact('projects', 'tabs_for', 'isFavour', 'cnt'));
     }
 }

@@ -1300,7 +1300,7 @@ img.img-success-background{
 
 .publisher{
     align-items: center;
-    margin-top: 25px;
+    margin-top: 15px;
 }
 .publisher img{
     width: 30px;
@@ -1409,6 +1409,25 @@ img.img-success-background{
     background-size: contain;
     width: 27px;
     height: 21px;
+}
+
+.user-contact .btn-fixed{
+    padding-left: 0px;
+}
+
+.user-contact .btn-fixed:before{
+    content: "";
+    width: 27px;
+    height: 21px;
+    background-image: url("../img/fix-light.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-x: 2px;
+    background-position-y: -1px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
 }
 
 .content-case-entry{
@@ -1652,20 +1671,24 @@ div[data-for='unitPrice']{
 .content-section.has-sidebar .list-container{
     display: flex;
     flex-wrap: wrap;
+    background-color: white;
+    min-height: calc(100vh - 242px);
 }
 /* Sidebar */
 .has-sidebar .content-sidebar{
     width: 300px;
-    /* height: 100vh;
-    overflow-y: scroll; */
+    position: fixed;
+    background-color: #f7f6f3;
+    height: calc(100vh - 58px);
+    overflow-y: scroll;
 }
 .has-sidebar .content-list{
     flex: 1;
     min-width: 330px;
     padding-left: 50px;
     padding-right: 50px;
-    background-color: white;
     margin-bottom: 20px;
+    margin-left: 300px;
 }
 .content-sidebar .sidebar-wrapper{
     padding-bottom: 24px;
@@ -1946,6 +1969,7 @@ div[data-for='unitPrice']{
     display: flex;
     flex-direction: column;
     cursor: pointer;
+    text-align: center;
     color: var(--color-gray);
 }
 .section-tab-item.active{
@@ -1958,7 +1982,7 @@ div[data-for='unitPrice']{
 .section-tab-item.active:after{
     content: " ";
     display: block;
-    width: 100%;
+    width: 170px;
     height: 2px;
     background: var(--color-blue);
     margin-top: 4px;

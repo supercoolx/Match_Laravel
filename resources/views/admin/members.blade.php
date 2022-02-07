@@ -37,9 +37,9 @@
                                 @endforeach
                             </form>
                         </div>
-                        <div class="row d-flex justify-content-center">
+                        {{-- <div class="row d-flex justify-content-center">
                             {{ $members->links() }}
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

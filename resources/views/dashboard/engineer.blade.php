@@ -18,9 +18,9 @@
                         <div class="section-items-count">該当案件数{{ count($projects) }}件中 {{ $cnt }}件表示</div>
                     </div>
                     <div class="content-list">
-                        <div class="row justify-content-center">
+                        {{-- <div class="row justify-content-center">
                             {{ $projects->links() }}
-                        </div>
+                        </div> --}}
                         <div class="justify-content-center">
                             @if($tabs_for == config("constants.tab_for.agent"))
                                 @foreach($projects as $project)
@@ -63,9 +63,9 @@
                                 @endforeach
                             @endif
                         </div>
-                        <div class="row justify-content-center">
+                        {{-- <div class="row justify-content-center">
                             {{ $projects->links() }}
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

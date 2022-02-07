@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\ContractType;
+use App\Models\FavouriteProject;
 use App\Models\Industry;
 use App\Models\JobType;
 use App\Models\Project;
@@ -179,6 +180,20 @@ class ProjectController extends Controller
         $project->save();
     }
 
+    public function addToFavourite(Request $request) {
+        $isAdd = $request->add ?? 1;
+        $id = $request->id;
+        if($isAdd) {
+            $favourite = new FavouriteProject;
+            $favourite->user_id = Auth::user()->id;
+            $favourite->project_id = $id;
+            $favourite->save();
+        }
+        else {
+            FavouriteProject::where('user_id', Auth::user()->id)->where('project_id', $id)->delete();
+        }
+    }
+
     protected function getChildrenAddresses($parentId) {
         $addresses = Address::where('parent_id', $parentId)->get();
         if (!$addresses) {
@@ -248,7 +263,7 @@ class ProjectController extends Controller
         }
 
         $cnt = $projects->count();
-        $projects = $projects->paginate(7);
+        $projects = $projects->get();
 
         $addresses = $this->getChildrenAddresses(0);
         return view("project.list.index",
@@ -267,12 +282,14 @@ class ProjectController extends Controller
 
     public function detail(Request $request, $id) {
         $project = Project::findOrFail($id);
+        $project_ids = FavouriteProject::where('user_id', Auth::user()->id)->pluck('project_id')->toArray();
+        $isFavour = in_array($project->id, $project_ids);
         
         if($project->user_type == config('constants.user_type.company')) {
-            return view('project.detail.company', compact('project'));
+            return view('project.detail.company', compact('project', 'isFavour'));
         }
         else if($project->user_type == config('constants.user_type.agent')) {
-            return view('project.detail.agent', compact('project'));
+            return view('project.detail.agent', compact('project', 'isFavour'));
         }
     }
 }

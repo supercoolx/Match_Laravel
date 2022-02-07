@@ -6,16 +6,16 @@
             <div class="gray-bar"></div>
             <div class="dashboard" style="background-color: #ffffff">
                 <div class="container">
-                    <div class="row section-header">
-                        <div class="col-md-12 text-center">
+                    <div class="section-header">
+                        <div class="text-center">
                             <h1>管理している求人・案件一覧</h1>
                             <div class="section-header-divider black"></div>
                             <p>該当案件数{{ count($projects) }}件中 {{ count($projects) }}件を表示</p>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
+                    <div class="justify-content-center">
                         @foreach($projects as $project)
-                            <div class="col-md-12 project-item">
+                            <div class="project-item">
                                 <div class="job-type-industry">
                                     <span class="btn job-type">{{ $project->jobType->name }}</span>
                                     <span class="btn job-industry">{{ $project->industries->name }}</span>
@@ -26,7 +26,7 @@
                                 <div class="divider"></div>
                                 <p>{{ $project->content }}</p>
                                 <div class="publisher">
-                                    <img src="{{ upload_asset($project->user->avatar) ?? static_asset('assets/img/avatar/default.png') }}" class="object-cover-center" alt="">
+                                    <img src="{{ $project->user->avatar ? upload_asset($project->user->avatar) : static_asset('assets/img/avatar/default.png') }}" class="object-cover-center" alt="">
                                     <span>{{ $project->user->name }}</span>
                                     <a href="{{ route('agent.project.detail', ['id' => $project->id]) }}" class="btn btn-circle btn-blue-light float-right">詳細</a>
                                 </div>

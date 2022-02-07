@@ -6,16 +6,16 @@
             <div class="gray-bar"></div>
             <div class="dashboard" style="background-color: #ffffff;">
                 <div class="container">
-                    <div class="row section-header">
-                        <div class="col-md-12 text-center">
+                    <div class="section-header">
+                        <div class="text-center">
                             <h5>管理している求人・案件一覧</h5>
                             <div class="section-header-divider black"></div>
                             <p>該当案件数{{ count($projects) }}件中 {{ count($projects) }}件を表示</p>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
+                    <div class="justify-content-center">
                         @foreach($projects as $project)
-                            <div class="col-md-12 project-item">
+                            <div class="project-item">
                                 <img src="{{ $project->image ? upload_asset($project->image) : static_asset('assets/img/project-thumb.jpg') }}" alt="" class="project-thumb object-cover-center">
                                 <div class="job-type-industry">
                                     <span class="btn job-type">{{ $project->jobType->name }}</span>

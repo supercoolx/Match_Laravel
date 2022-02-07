@@ -18,7 +18,7 @@
                         <div class="section-items-count">該当案件数{{ count($projects) }}件中 {{ $cnt }}件表示</div>
                     </div>
                     <div class="content-list">
-                        <div class="justify-content-center">
+                        <div class="row justify-content-center">
                             {{ $projects->links() }}
                         </div>
                         <div class="justify-content-center">
@@ -35,7 +35,7 @@
                                         <div class="divider"></div>
                                         <p>{{ $project->content }}</p>
                                         <div class="publisher">
-                                            <img src="{{ upload_asset($project->user->avatar) ?? static_asset('assets/img/avatar/default.png') }}" class="object-cover-center" alt="">
+                                            <img src="{{ $project->user->avatar ? upload_asset($project->user->avatar) : static_asset('assets/img/avatar/default.png') }}" class="object-cover-center" alt="">
                                             <span>{{ $project->user->name }}</span>
                                             <a href="{{ route('projects.detail', ['id' => $project->id]) }}" class="btn btn-circle btn-blue-light float-right">詳細</a>
                                         </div>
@@ -63,7 +63,7 @@
                                 @endforeach
                             @endif
                         </div>
-                        <div class="justify-content-center">
+                        <div class="row justify-content-center">
                             {{ $projects->links() }}
                         </div>
                     </div>

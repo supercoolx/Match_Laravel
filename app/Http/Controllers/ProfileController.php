@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\User;
+use App\Models\User;
 use App\Models\ContractType;
 use App\Models\Industry;
 use App\Models\JobType;
@@ -21,6 +21,7 @@ use App\Models\profile\ProfileWriting;
 use App\Models\profile\ProfileSkill;
 use App\Http\Controllers\Controller;
 use App\Models\Dress;
+use App\Models\Invite;
 use App\Models\RemoteWork;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -33,23 +34,42 @@ class ProfileController extends Controller
     public function setting(Request $request) {
         $step = $request->query('step', 2);
         $user_id = Auth::user()->id;
+
         $profile = Profile::where('user_id', $user_id)->first();
-        if($profile) {
-            
-        }
-        else {
-            $step = 1;
-        }
+        if(!$profile) $step = 1;
+
+        if(isAgent()) $review = $this->getReview($user_id);
+
         $jobTypes = JobType::all();
         $weeks = Week::all();
         $contractTypes = ContractType::all();
         $remote_works = RemoteWork::all();
         $dresses = Dress::all();
+
         if(isAgent())
-            return view("profile.agent", compact('profile', 'step', 'jobTypes', 'weeks', 'contractTypes', 'remote_works', 'dresses'));
+            return view("profile.agent", compact('profile', 'step', 'jobTypes', 'weeks', 'contractTypes', 'remote_works', 'dresses', 'review'));
         elseif(isEngineer())
             return view("profile.engineer", compact('profile', 'step', 'jobTypes', 'weeks', 'contractTypes', 'remote_works', 'dresses'));
     }
+
+    protected function getReview($user_id) {
+        $user = User::find($user_id);
+        $projects = Project::where('user_id', $user_id);
+        $review['projects'] = $projects->count();
+        $review['projects_view'] = $projects->sum('views');
+        $review['projects_end'] = 0;
+        $review['follow_cnt'] = $user->follow->count();
+        $review['followed_cnt'] = $user->follow_by->count();
+        $review['invites'] = Invite::where([['user_id', $user_id], ['accepted', 1]])->count();
+
+        $review['lvl_projects'] = floor($review['projects'] / );
+        $review['lvl_projects_view'] = floor($review['projects_view'] / );
+        $review['lvl_projects_end'] = floor($review['projects_end'] / );
+        $review['lvl_follow_cnt'] = floor($review['follow_cnt'] / );
+        $review['lvl_followed_cnt'] = floor($review['followed_cnt'] / );
+        $review['lvl_invites'] = floor($review['invites'] / );
+        return $review;
+    } 
 
     public function update(Request $request) {
         $user_id = Auth::user()->id;

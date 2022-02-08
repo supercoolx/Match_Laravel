@@ -70,6 +70,10 @@
                                     <li class="item">
                                         <a href="{{ route('engineer.profile.setting') }}">プロフィール設定</a>
                                     </li>
+                                @elseif(isAdmin())
+                                    <li class="item">
+                                        <a href="{{ route('admin.password') }}">パスワード</a>
+                                    </li>
                                 @endif
                                 <li class="item">
                                     <a href="{{ route('projects.list') }}">掲載一覧ページ</a>

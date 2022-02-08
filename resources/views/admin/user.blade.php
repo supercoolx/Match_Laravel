@@ -52,11 +52,11 @@
                             <div class="preview-label">
                                 <label>パスワード</label>
                             </div>
-                            <div class="preview-value">password</div>
+                            <div class="preview-value">**********</div>
                         </div>
                         <div class="registrant-deletion-buttons text-center d-none">
-                            <button class="btn btn-dark btn-small btn-no">いいえ</button>
-                            <button class="btn btn-theme btn-small btn-yes">はい</button>
+                            <button class="btn btn-circle-black btn-no">いいえ</button>
+                            <button class="btn btn-circle btn-yes">はい</button>
                         </div>
                     </div>
                 </div>

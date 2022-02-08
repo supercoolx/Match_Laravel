@@ -121,7 +121,6 @@ Route::group(['middleware' => ['chat']], function() {
 Route::group(['middleware' => ['admin']], function() {
     Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/members/{tab_for}', [AdminController::class, 'members'])->name('admin.members');
-    Route::get('/admin/projects', [AdminController::class, 'projects'])->name('admin.projects');
     Route::get('/admin/{usertype}/{id}', [AdminController::class, 'user'])->name('admin.user');
     Route::get('/admin/password', function () { return view('admin.password'); })->name('admin.password');
 

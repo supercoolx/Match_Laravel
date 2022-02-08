@@ -27,10 +27,6 @@ class AdminController extends Controller
         else return redirect()->back()->withErrors(['正しく入力してください。']);
     }
 
-    public function projects(Request $request) {
-        return view("admin.projects");
-    }
-
     public function members(Request $request, $tab_for) {
         $search = $request->query('search', '');
         $members = [];

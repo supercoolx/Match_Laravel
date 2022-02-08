@@ -44,19 +44,13 @@ class CompanyController extends Controller
 
     public function projectDetail(Request $request, $id) {
         $user_id = Auth::user()->id;
-        $project = Project::where([['user_id', $user_id], ['id', $id]])->first();
-        if (!$project) {
-            abort(404);
-        }
+        $project = Project::where([['user_id', $user_id], ['id', $id]])->firstOrFail();
         return view("project.detail.company", compact('project'));
     }
 
     public function editProject(Request $request, $id) {
         $company = Auth::user();
-        $project = Project::where([['user_id', $company->id], ['id', $id]])->first();
-        if (!$project) {
-            abort(404);
-        }
+        $project = Project::where([['user_id', $company->id], ['id', $id]])->firstOrFail();
         $jobTypes = JobType::all();
         $industries = Industry::all();
         $weeks = Week::all();

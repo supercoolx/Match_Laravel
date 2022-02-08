@@ -3,7 +3,7 @@
         <div class="input-group">
             <div class="input-group-prepend">
                 <div class="input-group-text">
-                    <span class="icon-search"></span>
+                    <span class="icon-search mr-0"></span>
                 </div>
             </div>
             <input type="text" class="form-control" name="search" placeholder="検索">

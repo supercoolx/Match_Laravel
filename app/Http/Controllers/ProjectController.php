@@ -282,6 +282,7 @@ class ProjectController extends Controller
 
     public function detail(Request $request, $id) {
         $project = Project::findOrFail($id);
+        $project->increment('views');
         $project_ids = FavouriteProject::where('user_id', Auth::user()->id)->pluck('project_id')->toArray();
         $isFavour = in_array($project->id, $project_ids);
         

@@ -87,7 +87,7 @@ class User extends Authenticatable
         parent::boot();
 
         static::addGlobalScope('deleted', function (Builder $builder) {
-            $builder->where('deleted', 0)->where('user_type', '<>', config('constants.user_type.admin'));
+            $builder->where('deleted', 0);
         });
 
         // static::addGlobalScope('isAdmin', function (Builder $builder) {

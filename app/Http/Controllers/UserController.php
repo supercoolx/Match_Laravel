@@ -7,11 +7,13 @@ use App\Models\ContractType;
 use Auth;
 use App\Models\User;
 use App\Models\Follow;
+use App\Models\History;
 use App\Models\Industry;
 use App\Models\Invite;
 use App\Models\JobType;
 use App\Models\profile\Profile;
 use App\Models\Project;
+use App\Models\Review;
 use App\Models\Week;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -63,7 +65,7 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $user = User::find($request->id);
+        $user = Auth::user();
         if($request->file()) {
             $avatarFile = $request->file('avatar');
             $fileName = $avatarFile->hashName();
@@ -85,6 +87,8 @@ class UserController extends Controller
         if($user->email != null){
             $user->save();
         }
+
+        History::create(['user_id' => $user->id, 'type_id' => 26]);
 
         return $this->updated($request, $user);
     }
@@ -124,7 +128,8 @@ class UserController extends Controller
             $invite->token = $token;
             $invite->save();
 
-            $array['from'] = env('MAIL_FROM_ADDRESS');
+            History::create(['user_id' => Auth::user()->id, 'type_id' => 15]);
+
             $array['subject'] = Auth::user()->name . 'さんからゴゴレルの招待が届いています';
             $array['link'] = route('invite.accept', ['token' => $token]);
             $array['username'] = Auth::user()->name;
@@ -142,9 +147,7 @@ class UserController extends Controller
         return view('invite.entry', compact('invite'));
     }
 
-    public function list(Request $request)
-    {
-        $search = $request->all();
+    protected function search_result($search) {
         $search['for'] = $search['for'] ?? config("constants.tab_for.engineer");
         $search['jobType'] = $search['jobType'] ?? [];
         $search['contractType'] = $search['contractType'] ?? [];
@@ -153,11 +156,12 @@ class UserController extends Controller
         $search['addresses'] = $search['addresses'] ?? [];
         $search['s'] = $search['s'] ?? '';
         $search['minPrice'] = $search['minPrice'] ?? null;
-
-        $jobTypes = JobType::all();
-        $industries = Industry::all();
-        $weeks = Week::all();
-        $contractTypes = ContractType::all();
+        $search['project'] = $search['project'] ?? null;
+        $search['project_viewed'] = $search['project_viewed'] ?? null;
+        $search['contract'] = $search['contract'] ?? null;
+        $search['following'] = $search['following'] ?? null;
+        $search['follower'] = $search['follower'] ?? null;
+        $search['referral'] = $search['referral'] ?? null;
 
         $matchThese = [];
         if ($search['for'] == config("constants.tab_for.agent")) {
@@ -167,48 +171,72 @@ class UserController extends Controller
         } elseif ($search['for'] == config("constants.tab_for.engineer")) {
             $matchThese[] = ['user_type', config("constants.user_type.engineer")];
         }
-        
-        
+
         $users = User::where($matchThese);
-        // if ($search['jobType']) {
-        //     $users = $users->whereIn('job_type', $search['jobType']);
-        // }
-        // if ($search['contractType']) {
-        //     $users = $users->whereIn('contract_type', $search['contractType']);
-        // }
-        // if ($search['week']) {
-        //     $users = $users->whereIn('week', $search['week']);
-        // }
+        
+        if ($search['jobType']) {
+            $users = $users->whereHas('profile.jobs', function ($query) use ($search) {
+                return $query->whereIn((new JobType)->getTable().'.id', $search['jobType']);
+            });
+        }
+        if ($search['contractType']) {
+            $users = $users->whereHas('profile.contractTypes', function ($query) use ($search) {
+                $query->whereIn((new ContractType)->getTable().'.id', $search['contractType']);
+            });
+        }
+        if ($search['week']) {
+            $users = $users->whereHas('profile', function ($query) use ($search) {
+                $query->where((new Profile)->getTable().'.week', $search['week']);
+            });
+        }
         // if ($search['industries']) {
         //     $users = $users->whereIn('industry', $search['industries']);
         // }
         // if ($search['addresses']) {
         //     $users = $users->whereIn('work_location', $search['addresses']);
         // }
-        // if ($search['minPrice']) {
-        //     $users = $users->where(function($query) use ($search) {
-        //         $query->where('price_min', '>=', $search['minPrice'])
-        //             ->orWhere('price_max', '>=', $search['minPrice']);
-        //     });
-        // }
+        if ($search['minPrice']) {
+            $users = $users->whereHas('profile', function($query) use ($search) {
+                $query->where((new Profile)->getTable().'.salary', '>=', $search['minPrice']);
+            });
+        }
         if ($search['s']) {
             $users = $users->where('name', 'LIKE', '%'.$search['s'].'%')->orWhere('name_kana', 'LIKE', '%'.$search['s'].'%');
         }
 
+        return ['users' => $users, 'search' => $search];
+    }
+
+    public function list(Request $request)
+    {
+        $result = $this->search_result($request->all());
+        extract($result);
+
+        $jobTypes = JobType::all();
+        $industries = Industry::all();
+        $weeks = Week::all();
+        $contractTypes = ContractType::all();
+
         $count = $users->count();
         $users = $users->get();
+
         return view('user.list.index', compact('search', 'users', 'jobTypes', 'industries', 'weeks', 'contractTypes', 'count'));
     }
 
     public function detail(Request $request, $id) {
         $user = User::findOrFail($id);
+        History::create(['user_id' => Auth::check() ? Auth::user()->id : 0, 'type_id' => 14, 'data_id' => $id]);
         if($user->user_type == config('constants.user_type.engineer')) {
             $profile = Profile::where('user_id', $id)->firstOrFail();
             return view('user.detail.engineer', compact('profile'));
         }
         else if($user->user_type == config('constants.user_type.agent')) {
             $profile = Profile::where('user_id', $id)->firstOrFail();
-            return view('user.detail.agent', compact('profile'));
+            $projects = Project::where('user_id', $id);
+
+            $review = $profile->getReview($user->id);
+            
+            return view('user.detail.agent', compact('profile', 'review'));
         }
         else if($user->user_type == config('constants.user_type.company')) {
             $projects = Project::where('user_id', $id)->get();
@@ -258,6 +286,7 @@ class UserController extends Controller
         $follow->follow = $id;
         $follow->follow_by = $user_id;
         $follow->save();
+        History::create(['user_id' => $user_id, 'type_id' => 11, 'data_id' => $id]);
         $result = array('success' => true);
         return response()->json($result);
     }
@@ -300,6 +329,7 @@ class UserController extends Controller
             return response()->json($result);
         }
         $follow->delete();
+        History::create(['user_id' => $user_id, 'type_id' => 12, 'data_id' => $id]);
         $result = array('success' => true);
         return response()->json($result);
 
@@ -307,59 +337,17 @@ class UserController extends Controller
 
     //display list of users who follow me.
     public function user_follow(Request $request) {
-        $search = $request->all();
+        $result = $this->search_result($request->all());
+        extract($result);
         $search['follow'] = 1;
-        $search['for'] = $search['for'] ?? config("constants.tab_for.engineer");
-        $search['jobType'] = $search['jobType'] ?? [];
-        $search['contractType'] = $search['contractType'] ?? [];
-        $search['week'] = $search['week'] ?? [];
-        $search['industries'] = $search['industries'] ?? [];
-        $search['addresses'] = $search['addresses'] ?? [];
-        $search['s'] = $search['s'] ?? '';
-        $search['minPrice'] = $search['minPrice'] ?? null;
 
         $jobTypes = JobType::all();
         $industries = Industry::all();
         $weeks = Week::all();
         $contractTypes = ContractType::all();
 
-        $matchThese = [];
-        if ($search['for'] == config("constants.tab_for.agent")) {
-            $matchThese[] = ['user_type', config("constants.user_type.agent")];
-        } elseif ($search['for'] == config("constants.tab_for.company")) {
-            $matchThese[] = ['user_type', config("constants.user_type.company")];
-        } elseif ($search['for'] == config("constants.tab_for.engineer")) {
-            $matchThese[] = ['user_type', config("constants.user_type.engineer")];
-        }
-
         $user_ids = Follow::where('follow_by', Auth::user()->id)->pluck('follow');
-        $users = User::whereIn('id', $user_ids);
-        
-        $users = $users->where($matchThese);
-        // if ($search['jobType']) {
-        //     $users = $users->whereIn('job_type', $search['jobType']);
-        // }
-        // if ($search['contractType']) {
-        //     $users = $users->whereIn('contract_type', $search['contractType']);
-        // }
-        // if ($search['week']) {
-        //     $users = $users->whereIn('week', $search['week']);
-        // }
-        // if ($search['industries']) {
-        //     $users = $users->whereIn('industry', $search['industries']);
-        // }
-        // if ($search['addresses']) {
-        //     $users = $users->whereIn('work_location', $search['addresses']);
-        // }
-        // if ($search['minPrice']) {
-        //     $users = $users->where(function($query) use ($search) {
-        //         $query->where('price_min', '>=', $search['minPrice'])
-        //             ->orWhere('price_max', '>=', $search['minPrice']);
-        //     });
-        // }
-        if ($search['s']) {
-            $users = $users->where('name', 'LIKE', '%'.$search['s'].'%')->orWhere('name_kana', 'LIKE', '%'.$search['s'].'%');
-        }
+        $users = $users->whereIn('id', $user_ids);
 
         $count = $users->count();
         $users = $users->get();
@@ -368,59 +356,17 @@ class UserController extends Controller
 
     //display list of users whom I follow
     public function user_follower(Request $request) {
-        $search = $request->all();
+        $result = $this->search_result($request->all());
+        extract($result);
         $search['follow'] = 0;
-        $search['for'] = $search['for'] ?? config("constants.tab_for.engineer");
-        $search['jobType'] = $search['jobType'] ?? [];
-        $search['contractType'] = $search['contractType'] ?? [];
-        $search['week'] = $search['week'] ?? [];
-        $search['industries'] = $search['industries'] ?? [];
-        $search['addresses'] = $search['addresses'] ?? [];
-        $search['s'] = $search['s'] ?? '';
-        $search['minPrice'] = $search['minPrice'] ?? null;
 
         $jobTypes = JobType::all();
         $industries = Industry::all();
         $weeks = Week::all();
         $contractTypes = ContractType::all();
 
-        $matchThese = [];
-        if ($search['for'] == config("constants.tab_for.agent")) {
-            $matchThese[] = ['user_type', config("constants.user_type.agent")];
-        } elseif ($search['for'] == config("constants.tab_for.company")) {
-            $matchThese[] = ['user_type', config("constants.user_type.company")];
-        } elseif ($search['for'] == config("constants.tab_for.engineer")) {
-            $matchThese[] = ['user_type', config("constants.user_type.engineer")];
-        }
-
         $user_ids = Follow::where('follow', Auth::user()->id)->pluck('follow_by');
-        $users = User::whereIn('id', $user_ids);
-        
-        $users = $users->where($matchThese);
-        // if ($search['jobType']) {
-        //     $users = $users->whereIn('job_type', $search['jobType']);
-        // }
-        // if ($search['contractType']) {
-        //     $users = $users->whereIn('contract_type', $search['contractType']);
-        // }
-        // if ($search['week']) {
-        //     $users = $users->whereIn('week', $search['week']);
-        // }
-        // if ($search['industries']) {
-        //     $users = $users->whereIn('industry', $search['industries']);
-        // }
-        // if ($search['addresses']) {
-        //     $users = $users->whereIn('work_location', $search['addresses']);
-        // }
-        // if ($search['minPrice']) {
-        //     $users = $users->where(function($query) use ($search) {
-        //         $query->where('price_min', '>=', $search['minPrice'])
-        //             ->orWhere('price_max', '>=', $search['minPrice']);
-        //     });
-        // }
-        if ($search['s']) {
-            $users = $users->where('name', 'LIKE', '%'.$search['s'].'%')->orWhere('name_kana', 'LIKE', '%'.$search['s'].'%');
-        }
+        $users = $users->whereIn('id', $user_ids);
 
         $count = $users->count();
         $users = $users->get();

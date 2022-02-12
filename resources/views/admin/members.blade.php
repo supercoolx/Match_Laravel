@@ -37,9 +37,12 @@
                                 @endforeach
                             </form>
                         </div>
-                        {{-- <div class="row d-flex justify-content-center">
-                            {{ $members->links() }}
-                        </div> --}}
+                        <div class="row d-flex justify-content-center mt-3">
+                            {{-- {{ $members->links() }} --}}
+                            <div class="downloadCSV" style="cursor: pointer">
+                                <i class="fas fa-download">ダウンロード</i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -57,7 +60,7 @@
             $('div.registrant-remove').click(function () {
                 length = $('form .checkcontainer input:checked').length;
                 if (length == 0) alert('ユーザーを選択する必要があります。');
-                else if( confirm('こちらの情報を削除してもよろしいですか？') ) {
+                else if( confirm('こちらの情報を削除してもよろしいですか?') ) {
                     $('#user_form').submit();
                 }
             });
@@ -66,11 +69,16 @@
                 url = $(this).attr('data-member-url');
                 location.href = url;
             });
-        });
-        $('input[name="search"]').keydown(function (e) {
-            if(e.keyCode == 13) {
-                $('#search_form').submit();
-            }
+
+            $('.downloadCSV').click(function () {
+                location.href = "{{ route('admin.exportCSV') }}";
+            });
+
+            $('input[name="search"]').keydown(function (e) {
+                if(e.keyCode == 13) {
+                    $('#search_form').submit();
+                }
+            });
         });
     </script>
 @endsection

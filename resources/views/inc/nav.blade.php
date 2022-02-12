@@ -19,32 +19,35 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('*.dashboard') ? 'active' : '' }}" href="{{ route('home') }}">
-                            <img src="{{ static_asset('assets/img/folder.png') }}" class="icon-list" alt="list icon" />
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::routeIs('user.*') ? 'active' : '' }}" href="{{ route('user.list') }}">
-                            <img src="{{ static_asset('assets/img/contact.png') }}" class="icon-list" alt="list icon" />
-                        </a>
-                    </li>
-                    @if(isAgent())
+                    @if (!isAdmin())
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <img src="{{ static_asset('assets/img/chart.png') }}" class="icon-list" alt="list icon" />
+                            <a class="nav-link {{ Request::routeIs('*.dashboard') ? 'active' : '' }}" href="{{ route('home') }}">
+                                <img src="{{ static_asset('assets/img/folder.png') }}" class="icon-list" alt="list icon" />
                             </a>
                         </li>
-                    @endif
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <img src="{{ static_asset('assets/img/clipboard.png') }}" class="icon-list" alt="list icon" />
-                        </a>
-                    </li>
-                    @if (!isAdmin())
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::routeIs('user.*') ? 'active' : '' }}" href="{{ route('user.follow.list') }}">
+                                <img src="{{ static_asset('assets/img/contact.png') }}" class="icon-list" alt="list icon" />
+                            </a>
+                        </li>
+                        @if(isAgent())
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::routeIs('agent.score') ? 'active' : '' }}" href="{{ route('agent.score') }}">
+                                    <img src="{{ static_asset('assets/img/chart.png') }}" class="icon-list" alt="list icon" />
+                                </a>
+                            </li>
+                        @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <img src="{{ static_asset('assets/img/clipboard.png') }}" class="icon-list" alt="list icon" />
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Request::routeIs('chat.*') ? 'active' : '' }}" href="{{ route('chat.index') }}">
                                 <img src="{{ static_asset('assets/img/chat.png') }}" class="icon-list" alt="list icon" />
+                                @if(Auth::user()->newMessageCount())
+                                    <span class="badge badge-danger position-absolute" style="right: 57px; top: 10px;">{{ Auth::user()->newMessageCount() }}</span>
+                                @endif
                             </a>
                         </li>
                     @endif
@@ -75,15 +78,21 @@
                                         <a href="{{ route('admin.password') }}">パスワード</a>
                                     </li>
                                 @endif
-                                <li class="item">
-                                    <a href="{{ route('projects.list') }}">掲載一覧ページ</a>
-                                </li>
-                                <li class="item">
-                                    <a href="#">気になるリスト</a>
-                                </li>
-                                <li class="item">
-                                    <a href="#">友達招待</a>
-                                </li>
+                                @if(!isAdmin())
+                                    <li class="item">
+                                        <a href="{{ route('projects.list') }}">掲載一覧ページ</a>
+                                    </li>
+                                @endif
+                                @if(isEngineer())
+                                    <li class="item">
+                                        <a href="{{ route('engineer.dashboard') }}?favourite">気になるリスト</a>
+                                    </li>
+                                @endif
+                                @if(isAgent())
+                                    <li class="item">
+                                        <a href="{{ route('invite') }}">友達招待</a>
+                                    </li>
+                                @endif
                                 <li class="item">
                                     <a href="{{ route('logout') }}">ログアウト</a>
                                 </li>

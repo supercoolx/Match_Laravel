@@ -1,4 +1,4 @@
-<div class="content-sidebar">
+<div class="content-sidebar {{ Auth::check() ? '' : 'h-100' }}">
     <form method="get" action="" id="filter-form">
         <input type="hidden" name="for" value="{{ $search['for'] }}">
         <div class="sidebar-wrapper">

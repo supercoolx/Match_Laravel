@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\ContractType;
 use App\Models\FavouriteProject;
+use App\Models\History;
 use App\Models\Industry;
 use App\Models\JobType;
 use App\Models\Project;
@@ -12,6 +13,7 @@ use App\Models\ProjectContract;
 use App\Models\Week;
 use App\Models\User;
 use Auth;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -79,6 +81,9 @@ class ProjectController extends Controller
         if (isset($data['imagePath'])){
             $project->image = $data['imagePath'];
         }
+
+        History::create(['user_id' => Auth::user()->id, 'type_id' => 4, 'data_id' => $project->id]);
+
         return $project;
     }
 
@@ -151,6 +156,8 @@ class ProjectController extends Controller
         $project = $this->updateProject($project, $request->all());
         $project->save();
 
+        History::create(['user_id' => Auth::user()->id, 'type_id' => 5, 'data_id' => $project->id]);
+
         ProjectContract::where('project_id', $project->id)->delete();
         foreach($request->contractType as $value => $status) {
             $project_contract = new ProjectContract;
@@ -170,6 +177,8 @@ class ProjectController extends Controller
         $project->deleted = 1;
         $project->save();
 
+        History::create(['user_id' => $user_id, 'type_id' => 6, 'data_id' => $project->id]);
+
         return view("project.deleted");
     }
 
@@ -178,19 +187,23 @@ class ProjectController extends Controller
         $project = Project::where([['user_id', $user_id], ['id', $request->id]])->firstOrFail();
         $project->status = $request->status;
         $project->save();
+        History::create(['user_id' => $user_id, 'type_id' => $request->status ? 8 : 7, 'data_id' => $project->id]);
     }
 
     public function addToFavourite(Request $request) {
         $isAdd = $request->add ?? 1;
         $id = $request->id;
+        $project = Project::findOrFail($id);
         if($isAdd) {
             $favourite = new FavouriteProject;
             $favourite->user_id = Auth::user()->id;
             $favourite->project_id = $id;
             $favourite->save();
+            History::create(['user_id' => Auth::user()->id, 'type_id' => 24, 'data_id' => $id]);
         }
         else {
             FavouriteProject::where('user_id', Auth::user()->id)->where('project_id', $id)->delete();
+            History::create(['user_id' => Auth::user()->id, 'type_id' => 25, 'data_id' => $id]);
         }
     }
 
@@ -242,7 +255,9 @@ class ProjectController extends Controller
             $projects = $projects->whereIn('job_type', $search['jobType']);
         }
         if ($search['contractType']) {
-            $projects = $projects->whereIn('contract_type', $search['contractType']);
+            $projects = $projects->whereHas('contractTypes', function ($query) use ($search) {
+                $query->whereIn((new ContractType)->getTable().'.id', $search['contractType']);
+            });
         }
         if ($search['week']) {
             $projects = $projects->whereIn('week', $search['week']);
@@ -254,9 +269,7 @@ class ProjectController extends Controller
             $projects = $projects->whereIn('work_location', $search['addresses']);
         }
         if ($search['minPrice']) {
-            $projects = $projects->where(function($query) use ($search) {
-                $query->where('price_min', '>=', $search['minPrice']);
-            });
+            $projects = $projects->where('price_min', '>=', $search['minPrice']);
         }
         if ($search['s']) {
             $projects = $projects->where('name', 'LIKE', '%'.$search['s'].'%');
@@ -285,6 +298,8 @@ class ProjectController extends Controller
         $project->increment('views');
         $project_ids = FavouriteProject::where('user_id', Auth::user()->id)->pluck('project_id')->toArray();
         $isFavour = in_array($project->id, $project_ids);
+
+        History::create(['user_id' => Auth::check() ? Auth::user()->id : 0, 'type_id' => 13, 'data_id' => $id]);
         
         if($project->user_type == config('constants.user_type.company')) {
             return view('project.detail.company', compact('project', 'isFavour'));

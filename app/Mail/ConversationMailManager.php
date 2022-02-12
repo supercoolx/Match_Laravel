@@ -32,13 +32,12 @@ class ConversationMailManager extends Mailable
     public function build()
     {
         return $this->view('emails.conversation')
-                    ->from($this->array['from'], env('MAIL_FROM_NAME'))
+                    ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
                     ->subject($this->array['subject'])
                     ->with([
-                        'content' => $this->array['content'],
+                        'user_from' => $this->array['user_from'],
+                        'user_to' => $this->array['user_to'],
                         'link' => $this->array['link'],
-                        'sender' => $this->array['sender'],
-                        'details' => $this->array['details']
                     ]);
     }
 }

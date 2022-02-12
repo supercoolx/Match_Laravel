@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-    <section class="content-section has-sidebar">
+    <section class="content-section has-sidebar {{ Auth::check() ? '' : 'pt-0' }}">
         <div class="list-container">
             @include('inc.search_bar.project')
             <div class="content-list {{ $search['for'] == config("constants.tab_for.company") ? ' for-engineers' : '' }}">

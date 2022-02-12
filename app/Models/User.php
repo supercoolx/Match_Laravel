@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\profile\Profile;
+use Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -105,5 +106,10 @@ class User extends Authenticatable
 
     public function follow_by() {
         return $this->belongsToMany(User::class, 'user_follow', 'follow', 'follow_by', 'id', 'id');
+    }
+
+    public function newMessageCount() {
+        $unread = Message::where([['to', $this->id], ['read', 0]])->count();
+        return $unread;
     }
 }

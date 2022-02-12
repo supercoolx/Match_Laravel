@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Models\History;
 use App\Models\Invite;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -84,6 +85,7 @@ class RegisterController extends Controller
             if ($data['userType'] == config("constants.user_type.company")){
                 $user->website = $data['website'];
             }
+            History::create(['user_id' => $user->id, 'type_id' => 1]);
             return $user;
         }
         return null;
@@ -114,6 +116,7 @@ class RegisterController extends Controller
             if($invite) {
                 $invite->accepted = 1;
                 $invite->save();
+                History::create(['user_id' => $invite->user_id, 'type_id' => 16, 'data_id' => $user->id]);
             }
         }
 

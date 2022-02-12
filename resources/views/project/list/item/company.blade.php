@@ -3,7 +3,7 @@
     <div class="job-type-industry">
         <span class="btn job-type">{{ $project->jobType->name }}</span>
         <span class="btn job-industry">{{ $project->industries->name }}</span>
-        <span class="job-day">週 {{ $project->weeks->name }}</span>
+        <span class="job-day">週{{ $project->weeks->name }}</span>
     </div>
     <h2>{{ $project->name }}</h2>
     <h3>{{ number_comma($project->price_min) }} ~ {{ number_comma($project->price_max) }} / 月</h3>

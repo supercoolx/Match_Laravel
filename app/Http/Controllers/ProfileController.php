@@ -21,8 +21,11 @@ use App\Models\profile\ProfileWriting;
 use App\Models\profile\ProfileSkill;
 use App\Http\Controllers\Controller;
 use App\Models\Dress;
+use App\Models\Follow;
+use App\Models\History;
 use App\Models\Invite;
 use App\Models\RemoteWork;
+use App\Models\Review;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -38,13 +41,12 @@ class ProfileController extends Controller
         $profile = Profile::where('user_id', $user_id)->first();
         if(!$profile) $step = 1;
 
-        if(isAgent()) $review = $this->getReview($user_id);
-
         $jobTypes = JobType::all();
         $weeks = Week::all();
         $contractTypes = ContractType::all();
         $remote_works = RemoteWork::all();
         $dresses = Dress::all();
+        if(isAgent()) $review = $profile->getReview($user_id);
 
         if(isAgent())
             return view("profile.agent", compact('profile', 'step', 'jobTypes', 'weeks', 'contractTypes', 'remote_works', 'dresses', 'review'));
@@ -52,24 +54,18 @@ class ProfileController extends Controller
             return view("profile.engineer", compact('profile', 'step', 'jobTypes', 'weeks', 'contractTypes', 'remote_works', 'dresses'));
     }
 
-    protected function getReview($user_id) {
-        $user = User::find($user_id);
-        $projects = Project::where('user_id', $user_id);
-        $review['projects'] = $projects->count();
-        $review['projects_view'] = $projects->sum('views');
-        $review['projects_end'] = 0;
-        $review['follow_cnt'] = $user->follow->count();
-        $review['followed_cnt'] = $user->follow_by->count();
-        $review['invites'] = Invite::where([['user_id', $user_id], ['accepted', 1]])->count();
-
-        $review['lvl_projects'] = floor($review['projects'] / );
-        $review['lvl_projects_view'] = floor($review['projects_view'] / );
-        $review['lvl_projects_end'] = floor($review['projects_end'] / );
-        $review['lvl_follow_cnt'] = floor($review['follow_cnt'] / );
-        $review['lvl_followed_cnt'] = floor($review['followed_cnt'] / );
-        $review['lvl_invites'] = floor($review['invites'] / );
-        return $review;
-    } 
+    public function score(Request $request) {
+        $user_id = Auth::user()->id;
+        $profile = Profile::where('user_id', $user_id)->firstOrFail();
+        $review = $profile->getReview($user_id);
+        $projects = Review::where('type', config('constants.review.projects'))->orderBy('id', 'desc')->get();
+        $projects_view = Review::where('type', config('constants.review.projects_view'))->orderBy('id', 'desc')->get();
+        $projects_end = Review::where('type', config('constants.review.projects_end'))->orderBy('id', 'desc')->get();
+        $follow_cnt = Review::where('type', config('constants.review.follow_cnt'))->orderBy('id', 'desc')->get();
+        $followed_cnt = Review::where('type', config('constants.review.followed_cnt'))->orderBy('id', 'desc')->get();
+        $invites = Review::where('type', config('constants.review.invites'))->orderBy('id', 'desc')->get();
+        return view('profile.score', compact('review', 'projects', 'projects_view', 'projects_end', 'follow_cnt', 'followed_cnt', 'invites'));
+    }
 
     public function update(Request $request) {
         $user_id = Auth::user()->id;
@@ -259,6 +255,8 @@ class ProfileController extends Controller
                 $skill->save();
             }
         }
+
+        History::create(['user_id' => $user_id, 'type_id' => 10, 'data_id' => $profile->id]);
 
         if(isAgent())
             return redirect()->route('agent.profile.setting', ['step' => 3]);

@@ -36,7 +36,7 @@
                 </div></p>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-theme btn-chat d-flex justify-content-center align-items-center">チャットで話を聞く</a>
+                <a href="{{ isset($project) ? getChatLink($project) : 'javascript: void(0);' }}" class="btn btn-theme btn-chat d-flex justify-content-center align-items-center">チャットで話を聞く</a>
                 <a href="tel:{{ $profile->user->phone }}" class="btn btn-theme btn-call d-flex justify-content-center align-items-center">電話で話を聞く</a>
             </div>
         </div>

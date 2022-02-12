@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConversationMailManager;
 use App\Models\Channel;
+use App\Models\History;
 use App\Models\Message;
 use App\Models\Project;
 use App\Models\User;
@@ -10,6 +12,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Mail;
 
 class ChatController extends Controller
 {
@@ -23,7 +26,12 @@ class ChatController extends Controller
     //Welcome screen
     public function index(Request $request) {
         $user_id = Auth::user()->id;
-        $channels = Channel::where('user_f', $user_id)->orWhere('user_s', $user_id)->get();
+        $unreads = Message::where([['read', 0], ['to', $user_id]])->select('channel_id', DB::raw('COUNT(channel_id) as unread'))->groupBy('channel_id', 'to');
+        $channels = Channel::where('user_f', $user_id)
+                    ->orWhere('user_s', $user_id)
+                    ->leftJoinSub($unreads, 'messages', function ($join){
+                        $join->on('messages.channel_id', '=', 'channels.id');
+                    })->get();
         return view("chat.index", compact('channels'));
     }
 
@@ -35,17 +43,22 @@ class ChatController extends Controller
         $opponent = $channel->opponent();
         $project = Project::find($channel->project_id);
         $messages = Message::where([['channel_id', '=', $channelId], ['from', '=', $user_id]])->orWhere([['channel_id', '=', $channelId], ['to', '=', $user_id]])->get();
-        $channels = Channel::where('user_f', $user_id)->orWhere('user_s', $user_id)->get();
+        $unreads = Message::where([['read', 0], ['to', $user_id]])->select('channel_id', DB::raw('COUNT(channel_id) as unread'))->groupBy('channel_id', 'to');
+        $channels = Channel::where('user_f', $user_id)
+                    ->orWhere('user_s', $user_id)
+                    ->leftJoinSub($unreads, 'messages', function ($join){
+                        $join->on('messages.channel_id', '=', 'channels.id');
+                    })->get();
         return view("chat.index", compact('channel', 'channels', 'opponent', 'project', 'messages'));
     }
 
     //Incoming from project
     public function link(Request $request, $id) {
         $user = Auth::user();
-        $project = Project::where('id', $id)->firstOrFail();
+        $project = Project::findOrFail($id);
         if ($user->user_type == config("constants.user_type.agent") || $user->user_type == config("constants.user_type.company")) {
             if ($user->id === $project->user_id) {
-                $channel = Channel::where('project_id', $id)->first();
+                $channel = Channel::firstWhere('project_id', $id);
                 if ($channel) {
                     return redirect(route('chat.channel', ['channelId' => $channel->id]));
                 }
@@ -54,17 +67,18 @@ class ChatController extends Controller
                 abort(404);
             }
         } elseif ($user->user_type == config("constants.user_type.engineer")) {
-            $channel = Channel::where([['project_id', $id], ['user_id', $user->id]])->first();
+            $channel = Channel::firstWhere([['project_id', $id], ['user_s', $user->id]]);
             if ($channel) {
                 return redirect(route('chat.channel', ['channelId' => $channel->id]));
             }
             $channel = new Channel([
                 'project_id' => $id,
-                'user_id' => $user->id,
+                'user_f' => $project->user_id,
+                'user_s' => $user->id,
             ]);
             $channel->save();
+            History::create(['user_id' => $user->id, 'type_id' => 18, 'data_id' => $channel->id]);
             return redirect(route('chat.channel', ['channelId' => $channel->id]));
-
         } else {
             abort(404);
         }
@@ -77,7 +91,7 @@ class ChatController extends Controller
 
     public function createMessage(Request $request) {
         $user_id = Auth::user()->id;
-        $channel = Channel::find($request->channel_id);
+        $channel = Channel::findOrFail($request->channel_id);
 
         if($user_id == $channel->user_f) $to = $channel->user_s;
         else if($user_id == $channel->user_s) $to = $channel->user_f;
@@ -91,7 +105,18 @@ class ChatController extends Controller
             'type' => $request->type ?? config("constants.chat.text"),
         ]);
 
+        History::create(['user_id' => $user_id, 'type_id' => 20, 'data_id' => $message->id]);
+
         $message->save();
+
+        $user_to = User::find($to);
+        if($user_to && $user_to->chat_mail) {
+            $array['user_from'] = Auth::user();
+            $array['user_to'] = $user_to;
+            $array['link'] = route('chat.channel', ['channelId' => $request->channel_id]);
+            $array['subject'] = '【ゴゴレル】' . $array['user_from']->name . 'さんからのメッセージ受信';
+            Mail::to($array['user_to'])->queue(new ConversationMailManager($array));
+        }
         
         return response()->json($message);
     }

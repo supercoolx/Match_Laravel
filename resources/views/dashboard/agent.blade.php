@@ -1,6 +1,16 @@
 @extends('layout.app')
 
 @section('content')
+    @if($isWelcome)
+        <div id="particles-js">
+            <div class="position-absolute w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                <h1 class="mb-5">おめでとうございます!</h1>
+                <img src="{{ static_asset("assets/img/reward/friend-6.png") }}" alt="reward">
+                <h3 class="mt-3">ゴゴレルマスター</h3>
+                <button class="btn btn-circle btn-large rounded-pill mt-5">ダッシュボード</button>
+            </div>
+        </div>
+    @endif
     @if (count($projects) > 0)
         <section class="content-section">
             <div class="gray-bar"></div>
@@ -19,7 +29,7 @@
                                 <div class="job-type-industry">
                                     <span class="btn job-type">{{ $project->jobType->name }}</span>
                                     <span class="btn job-industry">{{ $project->industries->name }}</span>
-                                    <span class="job-day">週 {{ $project->weeks->name }}</span>
+                                    <span class="job-day">週{{ $project->weeks->name }}</span>
                                 </div>
                                 <h2 class="mt-4">{{ $project->name }}</h2>
                                 <h3>{{ number_comma($project->price_min) }} ~ {{ number_comma($project->price_max) }} / 月</h3>
@@ -98,6 +108,7 @@
 @endsection
 
 @section('script')
+    <script src="{{ static_asset('assets/lib/particles.min.js') }}"></script>
     <script>
         var projectId;
         var toggleEl;
@@ -157,6 +168,84 @@
                     }
                 });
             });
+
+            $('#particles-js button').click(function () {
+                $('#particles-js').remove();
+            });
+        });
+
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 125,
+                    "density": {
+                        "enable": false,
+                        "value_area": 400
+                    }
+                },
+                "color": {
+                    "value": ["#EA5532", "#F6AD3C", "#FFF33F", "#00A95F", "#00ADA9", "#00AFEC","#4D4398", "#E85298"]
+                },
+                "shape": {
+                    "type": "polygon",
+                    "stroke": {
+                        "width": 0,
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 1,
+                    "random": false,
+                    "anim": {
+                        "enable": true,
+                        "speed": 20,
+                        "opacity_min": 0,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 5.305992965476349,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1.345709068776642,
+                        "size_min": 0.8,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false,
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 10,
+                    "direction": "bottom",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": false,
+                    },
+                    "onclick": {
+                        "enable": false,
+                    },
+                    "resize": true
+                },
+            },
+            "retina_detect": true
         });
     </script>
 @endsection

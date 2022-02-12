@@ -53,7 +53,6 @@ class ForgotPasswordController extends Controller
                 $user->verification_code = $token;
                 $user->save();
 
-                $array['from'] = env('MAIL_FROM_ADDRESS');
                 $array['subject'] = 'パスワードリセット';
                 $array['link'] = route('password.reset', ['token' => $user->verification_code]);
 

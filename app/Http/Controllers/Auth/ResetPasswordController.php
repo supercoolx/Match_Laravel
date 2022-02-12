@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\History;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -59,6 +60,7 @@ class ResetPasswordController extends Controller
         $user->password = Hash::make($request->password);
         $user->verification_code = "";
         $user->save();
+        History::create(['user_id' => $user->id, 'type_id' => 17]);
         if($user->user_type == 'admin') return redirect()->route('admin.login');
         else return redirect()->route('login');
     }

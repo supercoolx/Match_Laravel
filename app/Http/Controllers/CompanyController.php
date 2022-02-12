@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContractType;
+use App\Models\FavouriteProject;
 use App\Models\Industry;
 use App\Models\JobType;
 use App\Models\Project;
@@ -45,7 +46,8 @@ class CompanyController extends Controller
     public function projectDetail(Request $request, $id) {
         $user_id = Auth::user()->id;
         $project = Project::where([['user_id', $user_id], ['id', $id]])->firstOrFail();
-        return view("project.detail.company", compact('project'));
+        $isFavour = FavouriteProject::firstWhere([['user_id', $user_id], ['project_id', $id]]);
+        return view("project.detail.company", compact('project', 'isFavour'));
     }
 
     public function editProject(Request $request, $id) {

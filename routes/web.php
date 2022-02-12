@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+Auth::routes(['register' => false]);
 /*
 // Authentication Routes...
     $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -51,7 +51,6 @@ Route::match(['get', 'post'], '/company/register', [CompanyController::class, 'r
 Route::match(['get', 'post'], '/agent/register', [AgentController::class, 'register'])->name('agent.register');
 Route::match(['get', 'post'], '/engineer/register', [EngineerController::class, 'register'])->name('engineer.register');
 
-Route::get('/user/{id}', [UserController::class, 'detail'])->name('user.detail');
 Route::post('/user/follow/{id}', [UserController::class, 'follow'])->name('user.follow');
 Route::post('/user/unfollow/{id}', [UserController::class, 'unfollow'])->name('user.unfollow');
 Route::get('/projects', [ProjectController::class, 'list'])->name('projects.list');
@@ -59,6 +58,8 @@ Route::get('/projects/{id}', [ProjectController::class, 'detail'])->name('projec
 Route::get('/invited/{token}', [UserController::class, 'invited'])->name('invite.accept');
 
 Route::group(['middleware' => ['login']], function () {
+    Route::get('/user/{id}', [UserController::class, 'detail'])->name('user.detail');
+    
     Route::get('/invite', [UserController::class, 'invite'])->name('invite');
     Route::post('/invite', [UserController::class, 'invite'])->name('invite.send');
 
@@ -88,6 +89,7 @@ Route::group(['middleware' => ['agent']], function() {
     Route::get('/agent/dashboard', [AgentController::class, 'dashboard'])->name('agent.dashboard');
     Route::get('/agent/setting', [AgentController::class, 'setting'])->name('agent.setting');
     Route::get('/agent/profile', [ProfileController::class, 'setting'])->name('agent.profile.setting');
+    Route::get('/agent/score', [ProfileController::class, 'score'])->name('agent.score');
     Route::post('/agent/setting', [UserController::class, 'update'])->name('agent.update');
     Route::post('/agent/profile', [ProfileController::class, 'update'])->name('agent.profile.update');
 
@@ -122,6 +124,7 @@ Route::group(['middleware' => ['admin']], function() {
     Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/members/{tab_for}', [AdminController::class, 'members'])->name('admin.members');
     Route::get('/admin/{usertype}/{id}', [AdminController::class, 'user'])->name('admin.user');
+    Route::get('/admin/downloadCSV', [AdminController::class, 'exportCSV'])->name('admin.exportCSV');
     Route::get('/admin/password', function () { return view('admin.password'); })->name('admin.password');
 
     Route::post('/admin/members/delete', [AdminController::class, 'members_delete'])->name('admin.members.delete');

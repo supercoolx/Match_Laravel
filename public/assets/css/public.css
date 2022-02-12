@@ -710,6 +710,14 @@ input[type=checkbox], input[type=radio]{
 }
 
 /* Header */
+#particles-js{ 
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9)
+}
+
 .site-wrapper .site-header {
     background-color: var(--color-white);
     padding: 5px 5px;
@@ -915,17 +923,18 @@ section.row{
     right: 0;
     bottom: 0;
     z-index: 99;
-    width: 216px;
+    width: 250px;
     height: calc(100vh - 58px);
     display: flex;
-    font-size: 14px;
+    font-size: 17px;
     position: fixed;
     transition: all 0.3s;
     background: #f7f6f3;
     flex-direction: column;
+    padding-bottom: 20px;
 }
 #sidebar.active {
-    margin-right: -216px;
+    margin-right: -250px;
 }
 #sidebar ul{
     margin-top: 5px;
@@ -940,7 +949,7 @@ section.row{
     align-items: center;
     margin-left: -22px;
     margin-right: -24px;
-    padding: 3px 19px 3px 22px;
+    padding: 5px 19px 5px 22px;
     cursor: pointer;
 }
 #sidebar ul .item a{
@@ -1680,7 +1689,7 @@ div[data-for='unitPrice']{
     position: fixed;
     background-color: #f7f6f3;
     height: calc(100vh - 58px);
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .has-sidebar .content-list{
     flex: 1;
@@ -1752,12 +1761,15 @@ div[data-for='unitPrice']{
 .sidebar-list-label{
     display: flex;
     align-items: center;
-    font-size: 15px;
+    font-size: 19px;
     font-weight: 500;
     padding-left: 57px;
     padding-right: 16px;
     padding-bottom: 10px;
     cursor: pointer;
+}
+.sidebar-list-label.grayed{
+    color: #7f7f7f;
 }
 .sidebar-list-label:before{
     content: " ";
@@ -1958,7 +1970,7 @@ div[data-for='unitPrice']{
 }
 .section-tab{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     width: 100%;
     margin-bottom: 11px;
 }
@@ -1971,18 +1983,18 @@ div[data-for='unitPrice']{
     cursor: pointer;
     text-align: center;
     color: var(--color-gray);
+    width: 200px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 .section-tab-item.active{
     color: var(--color-black);
     font-weight: bold;
 }
-.section-tab-item:last-child{
-    margin-right: 0;
-}
 .section-tab-item.active:after{
     content: " ";
     display: block;
-    width: 170px;
+    width: 200px;
     height: 2px;
     background: var(--color-blue);
     margin-top: 4px;
@@ -2143,7 +2155,8 @@ div[data-for='unitPrice']{
     height: 100vh;
 }
 .chat-sidebar{
-    width: 216px;
+    width: 250px;
+    font-size: 17px;
     background-color: var(--color-light);
     padding: 12px 19px;
     display: flex;
@@ -2164,15 +2177,12 @@ div[data-for='unitPrice']{
     margin-top: 5px;
     margin-bottom: 5px;
 }
-.chat-sidebar ul.bottom-menu{
-    font-size: 14px;
-}
 .chat-sidebar ul .chat-user{
     display: flex;
     align-items: center;
     margin-left: -22px;
     margin-right: -24px;
-    padding: 3px 19px 3px 22px;
+    padding: 5px 19px 5px 22px;
     cursor: pointer;
 }
 .chat-sidebar ul .chat-user a{
@@ -2190,8 +2200,8 @@ div[data-for='unitPrice']{
     text-decoration: none;
 }
 .chat-sidebar ul .chat-user .chat-user-avatar{
-    width: 26px;
-    height: 26px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     margin-right: 12px;
 }
@@ -2837,6 +2847,13 @@ div[data-for='unitPrice']{
 }
 .applicant-profile-input #nav-score .review > div{
     width: 100%;
+}
+.applicant-profile-input #nav-score .review .review-list{
+    cursor: pointer;
+}
+.applicant-profile-input #nav-score .review .review-list.active{
+    color: black;
+    font-weight: bold;
 }
 .applicant-profile-input .form-group{
     flex-wrap: wrap;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use App\Http\Controllers\Controller;
+use App\Models\History;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use CoreComponentRepository;
@@ -32,8 +33,8 @@ class LoginController extends Controller
 
     public function login(Request $request) {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'user_type' => ['1', '2', '3']])) {
+            History::create(['user_id' => Auth::user()->id, 'type_id' => 2]);   
             return $this->sendLoginResponse($request);
-
         // OR this one
         // return $this->authenticated($request, auth()->user());
         }
@@ -44,8 +45,8 @@ class LoginController extends Controller
 
     public function admin_login(Request $request) {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'user_type' => '0'])) {
+            History::create(['user_id' => Auth::user()->id, 'type_id' => 2]);
             return $this->sendLoginResponse($request);
-
         // OR this one
         // return $this->authenticated($request, auth()->user());
         }
@@ -115,6 +116,7 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
+        $user_id = Auth::user()->id;
         if (isAdmin())
             $redirect_route = 'admin.login';
         else 
@@ -123,6 +125,8 @@ class LoginController extends Controller
         $this->guard()->logout();
 
         $request->session()->invalidate();
+
+        History::create(['user_id' => $user_id, 'type_id' => 3]);
 
         return $this->loggedOut($request) ?: redirect()->route($redirect_route);
     }

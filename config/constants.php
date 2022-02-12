@@ -19,4 +19,12 @@ return [
         'text' => 1,
         'file' => 2,
     ],
+    'review' => [
+        'projects' => 1,
+        'projects_view' => 2,
+        'projects_end' => 3,
+        'follow_cnt' => 4,
+        'followed_cnt' => 5,
+        'invites' => 6,
+    ],
 ];

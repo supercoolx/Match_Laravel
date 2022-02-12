@@ -7,7 +7,7 @@
             <div class="my-chat"># マイチャット</div>
             <ul id="chat-users">
                 @foreach($channels as $ch)
-                    <li class="chat-user {{ isset($channel) ? ($ch->id == $channel->id ? 'active' : '') : '' }}">
+                    <li class="chat-user {{ isset($channel) ? ($ch->id == $channel->id ? 'active' : '') : '' }} {{ $ch->unread ? 'has-new-message' : '' }}">
                         <a href="{{ route('chat.channel', ['channelId' => $ch->id]) }}">
                             <img src="{{ $ch->opponent->avatar ? upload_asset($ch->opponent->avatar) : static_asset('assets/img/account.png') }}" alt="" class="chat-user-avatar object-cover-center">
                             <span>{{ $ch->opponent->name_kana }}</span>

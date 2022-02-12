@@ -32,7 +32,7 @@ class ContractMailManager extends Mailable
     public function build()
     {
         return $this->view('emails.contract')
-                    ->from($this->array['from'], env('MAIL_FROM_NAME'))
+                    ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
                     ->subject($this->array['subject'])
                     ->with([
                         'recruiter' => $this->array['recruiter'],

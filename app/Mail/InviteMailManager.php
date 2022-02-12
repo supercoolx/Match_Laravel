@@ -32,7 +32,7 @@ class InviteMailManager extends Mailable
     public function build()
     {
         return $this->view('emails.invite')
-                    ->from($this->array['from'], env('MAIL_FROM_NAME'))
+                    ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
                     ->subject($this->array['subject'])
                     ->with([
                         'link' => $this->array['link'],

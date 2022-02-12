@@ -218,13 +218,7 @@ if (!function_exists('getChatLink')) {
             return route('login');
         }
         $user = Auth::user();
-        if ($user->user_type == config("constants.user_type.agent") || $user->user_type == config("constants.user_type.company")) {
-            return route('chat.link', ['id' => $project->id]);
-        }
-        if ($user->user_type == config("constants.user_type.engineer")) {
-            return route('chat.link', ['id' => $project->id]);
-        }
-        return 'javascript: void(0);';
+        return route('chat.link', ['id' => $project->id]);
     }
 }
 

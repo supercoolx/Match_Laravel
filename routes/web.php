@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes(['register' => false]);
+Auth::routes();
 /*
 // Authentication Routes...
     $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
